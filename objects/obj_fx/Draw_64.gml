@@ -1,0 +1,1 @@
+draw_sprite_ext(spr_pixel, 0, -64, -64, viewWidth + 64, viewHeight + 64, 0, c_white, alpha);

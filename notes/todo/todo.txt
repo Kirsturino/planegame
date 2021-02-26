@@ -1,0 +1,29 @@
+Features:
+	
+- Customization (EXTENDED)
+	- Per part basis
+	- Modifies movement values
+	- Different guns
+	
+- Maps/Levels
+	- Make whole structure
+	- How to complete level?
+	
+- Smart camera
+	- Take objects of interest to count when calculating camera position
+		- This includes circles (and lines?)
+
+----------------------------------------------------------------------
+
+Tuning:
+
+
+----------------------------------------------------------------------
+
+Fix:
+
+----------------------------------------------------------------------
+
+Wishlist:
+- Drop shadows to most things
+- Sounds!
