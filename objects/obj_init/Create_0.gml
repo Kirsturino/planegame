@@ -14,5 +14,9 @@ lineThickness = 3;
 globalvar tempSurf;
 tempSurf = -1;
 
+//Load audio
+audio_group_load(ag_music);
+audio_group_load(ag_sfx);
+
 //Room. Go. Next. Unga bunga
 room_goto_next();

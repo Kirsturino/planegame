@@ -5,9 +5,7 @@ var length = 0;
 with (obj_objective_line_point)
 {
 	if (owner == other.number)
-	{
-		length++;
-	}
+		{ length++; }
 }
 
 pointArray = array_create(length, 0);
@@ -16,9 +14,7 @@ pointArrayLength = length;
 with (obj_objective_line_point)
 {
 	if (owner == other.number)
-	{
-		other.pointArray[index-1] = [x, y];
-	}
+		{ other.pointArray[index-1] = [x, y]; }
 }
 
 //Find path boundaries
@@ -27,6 +23,7 @@ var surfRight = pointArray[0][0];
 var surfTop = pointArray[0][1];
 var surfBottom = pointArray[0][1];
 
+//Loop through all points to find boundaries
 for (var i = 0; i < pointArrayLength; ++i)
 {
 	var _x = pointArray[i][0];
@@ -38,6 +35,7 @@ for (var i = 0; i < pointArrayLength; ++i)
 	else if (_y > surfBottom) { surfBottom =  _y; }
 }
 
+//Calculate surface size
 surfMargin = 32;
 surfWidth = surfRight - surfLeft + surfMargin;
 surfHeight = surfBottom - surfTop + surfMargin;
@@ -45,9 +43,8 @@ surfX = surfLeft;
 surfY = surfTop;
 lineSurf = -1;
 
+//Set variables for the coordinates of the triangle
 progressX = pointArray[0][0];
 progressY = pointArray[0][1];
-destroyX = pointArray[length-1][0]
-destroyY = pointArray[length-1][1]
 
 visible = true;

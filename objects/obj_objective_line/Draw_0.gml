@@ -1,3 +1,4 @@
+//Create surface and draw white lines
 if (!surface_exists(lineSurf))
 {
 	lineSurf = surface_create(surfWidth, surfHeight);
@@ -32,38 +33,32 @@ if (!surface_exists(lineSurf))
 	uTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(lineSurf));
 }
 
-var xOffset = -surfX + surfMargin/2;
-var yOffset = -surfY + surfMargin/2;
+var drawX = progressX - surfX + surfMargin/2;
+var drawY = progressY - surfY + surfMargin/2;
 
+//Draw on top of white lines when completing. When destroying, erase from surface
 surface_set_target(lineSurf);
 if (!completed)
 {
-	draw_circle_color(progressX + xOffset, progressY + yOffset, lineThickness*1.1, col_black, col_black, false);
+	draw_circle_color(drawX, drawY, lineThickness*1.1, col_black, col_black, false);
 } else
 {
 	gpu_set_blendmode(bm_subtract);
-	draw_circle_color(destroyX + xOffset, destroyY + yOffset, lineThickness*2, col_white, col_white, false);
+	draw_circle_color(drawX, drawY, lineThickness*2, col_white, col_white, false);
 	gpu_set_blendmode(bm_normal);
 }
 surface_reset_target();
 
+//Draw surface
 shader_set(shd_outline);
 shader_set_uniform_f(uPixelW, uTexelW);
 shader_set_uniform_f(uPixelH, uTexelH);
 draw_surface(lineSurf, surfX, surfY);
 shader_reset();
 
-var xOffset = surfMargin/2;
-var yOffset = surfMargin/2;
+//Draw rotating triangle thing on tracks
+var drawX = progressX + surfMargin/2;
+var drawY = progressY + surfMargin/2;
 
-if (!completed)
-{
-	var drawX = progressX + xOffset;
-	var drawY = progressY + yOffset;
-} else
-{
-	var drawX = destroyX + xOffset;
-	var drawY = destroyY + yOffset;
-}
-drawTriangle(drawX, drawY, lineThickness*6*destroyLerp, rot, col_black, false);
-drawTriangle(drawX, drawY, lineThickness*4*destroyLerp, rot, col_white, false);
+drawTriangle(drawX, drawY, 18*triangleScale, rot, col_black, false);
+drawTriangle(drawX, drawY, 12*triangleScale, rot, col_white, false);

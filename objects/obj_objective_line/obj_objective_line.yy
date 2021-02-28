@@ -8,8 +8,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "par_object_of_interest",
-    "path": "objects/par_object_of_interest/par_object_of_interest.yy",
+    "name": "par_completable",
+    "path": "objects/par_completable/par_completable.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,

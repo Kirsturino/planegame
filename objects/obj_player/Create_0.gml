@@ -6,9 +6,9 @@ rotSpdMax = 4;
 hsp = 0;
 vsp = 0;
 axl = 0.09;
-spdMax = 2.5;
+spdMax = 3;
 reverseSpdModifier = 0.8;
-drag = 0.05;
+drag = 0.02;
 lift = 0.06;
 grv = 0.055;
 curSpdMax = spdMax;
@@ -16,7 +16,7 @@ curAxl = axl;
 spdTransitionSpd = 0.1;
 
 //Turbo
-turboSpdMax = 4;
+turboSpdMax = 5;
 turboAxl = 0.2;
 turbo = false;
 turboCost = 1;
@@ -40,7 +40,7 @@ bulletDmg = 1;
 
 //Controller stuff and inputs
 deadZoneMin = 0.3;
-deadZoneMax = 0.7;
+deadZoneMax = 0.8;
 gamepad_set_axis_deadzone(0, deadZoneMin);
 joyL = 0;
 joyR = 0;
@@ -54,6 +54,7 @@ fallingTurnSpd = 0;
 maxFallingTurnSpd = 2;
 fallingTurnSpdAxl = 0.03;
 inDanger = false;
+dummyReset = false;
 
 //Graphics
 wingSpan = 1;
@@ -69,10 +70,9 @@ squashSpeed = 0.1;
 
 //Sounds
 outOfEnergySound = snd_out_of_energy;
-engineSound = snd_engine_persistent;
+engineSound = audio_play_sound(snd_engine_persistent, 0, true);
 audio_sound_gain(engineSound, 0, 0);
-audio_play_sound(engineSound, 0, true);
-engineSoundVolumeMultiplier = 40;
+engineSoundVolumeMultiplier = 0.03;
 
 turboKickSound = snd_turbo_kick;
 turboSound = snd_turbo;
@@ -134,19 +134,21 @@ function calculateMovement()
 	{
 		var hspFinalLimit = abs(lengthdir_x(curSpdMax, image_angle));
 		var vspFinalLimit = abs(lengthdir_y(curSpdMax, image_angle));
+		var downLimit = vspFinalLimit;
 	} else
 	{
 		var hspFinalLimit = max(abs(lengthdir_x(curSpdMax, image_angle)), curSpdMax/2);
 		var vspFinalLimit = max(abs(lengthdir_y(curSpdMax, image_angle)), curSpdMax/2);
+		var downLimit = turboSpdMax - min(abs(hsp), spdMax);
 	}
 	
 	hsp += (lengthdir_x(-joyL, image_angle) + lengthdir_x(-joyR, image_angle)) * curAxl;
 	vsp += (lengthdir_y(-joyL, image_angle) + lengthdir_y(-joyR, image_angle)) * curAxl + grv;
 	
-	hsp = clamp(hsp, -hspFinalLimit, hspFinalLimit);
-	
+	//Speed limits
 	//Break out going up and down, you can fall faster than normal speedlimit without turbo
-	vsp = clamp(vsp, -vspFinalLimit, turboSpdMax - min(abs(hsp), spdMax));
+	hsp = clamp(hsp, -hspFinalLimit, hspFinalLimit);
+	vsp = clamp(vsp, -vspFinalLimit, downLimit);
 }
 
 function applyMovement()
@@ -279,10 +281,8 @@ function dummy()
 	hsp = 0;
 	vsp = 0;
 	
-	if (!neutral)
-	{
-		toAlive();
-	}
+	if (neutral) { dummyReset = true; }
+	if (!neutral && dummyReset) { toAlive(); }
 }
 
 function toAlive()
@@ -295,6 +295,7 @@ function toAlive()
 function toOutOfEnergy()
 {
 	freeze(100);
+	shakeCamera(100, 20, 20);
 	
 	audio_stop_sound(turboSound);
 	audio_stop_sound(cloudSound);
@@ -333,6 +334,8 @@ function outOfEnergy()
 	
 	calculateMovement();
 	applyMovement();
+	
+	checkForDanger();
 	
 	if (energy == energyMax) { toAlive(); }
 }
@@ -399,7 +402,13 @@ function engineParticles()
 	}
 	
 	//Engine sounds
-	var volume = (abs(joyL) + abs(joyR)) / engineSoundVolumeMultiplier;
+	if (!audio_is_playing(engineSound))
+	{
+		engineSound = audio_play_sound(snd_engine_persistent, 0, true);
+		audio_sound_gain(engineSound, 0, 0);
+	}
+	
+	var volume = (abs(joyL) + abs(joyR)) * engineSoundVolumeMultiplier;
 	audio_sound_gain(engineSound, volume, 100);
 }
 
@@ -437,24 +446,19 @@ function checkForDanger()
 		
 		if (!inDanger)
 		{
+			//FX
 			inDanger = true;
-			shakeCamera(40, 0, 6);
-			
-			var dir = point_direction(0, 0, hsp, vsp);
-			part_type_direction(global.explosiveSmokePart, dir-45, dir+45, 0, 0);
-			part_particles_create(global.ps, x, y, global.explosiveSmokePart, 10);
-			
-			//SFX
+			shakeCamera(40, 0, 20);
 			audio_play_sound(cloudSound, 0, true);
 		}
 	} else if (inDanger)
 	{
 		inDanger = false;
-		shakeCamera(40, 0, 6);
+		shakeCamera(40, 0, 20);
 
 		var dir = point_direction(0, 0, hsp, vsp);
 		part_type_direction(global.explosiveSmokePart, dir-45, dir+45, 0, 0);
-		part_particles_create(global.ps, x, y, global.explosiveSmokePart, 10);
+		part_particles_create(global.ps, x, y, global.explosiveSmokePart, 20);
 		
 		//SFX
 		audio_stop_sound(cloudSound);

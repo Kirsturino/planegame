@@ -1,3 +1,5 @@
+event_inherited();
+
 //Graphics variables
 rot = 0;
 rotSpd = 1;
@@ -32,6 +34,19 @@ function progressAudio()
 	audio_sound_pitch(completionSound, 1 + completion/completionMax);
 }
 
+function completionDecayLogic()
+{
+	if (completionDecayDelay == 0)
+	{
+		completion = approach(completion, 0, completionDecay);
+		audio_stop_sound(completionSound);
+	}
+	else
+	{
+		completionDecayDelay = approach(completionDecayDelay, 0, 1);
+	}
+}
+
 switch (type)
 {
 	case "inside":
@@ -47,15 +62,7 @@ switch (type)
 				progressAudio();
 			} else
 			{
-				if (completionDecayDelay == 0)
-				{
-					completion = approach(completion, 0, completionDecay);
-					audio_stop_sound(completionSound);
-				}
-				else
-				{
-					completionDecayDelay = approach(completionDecayDelay, 0, 1);
-				}
+				completionDecayLogic();
 			}
 		}
 		
@@ -115,15 +122,7 @@ switch (type)
 				progressAudio();
 			} else
 			{
-				if (completionDecayDelay == 0)
-				{
-					completion = approach(completion, 0, completionDecay);
-					audio_stop_sound(completionSound);
-				}
-				else
-				{
-					completionDecayDelay = approach(completionDecayDelay, 0, 1);
-				}
+				completionDecayLogic();
 			}
 		} 
 
@@ -205,15 +204,7 @@ switch (type)
 				freeze(10);
 			} else
 			{
-				if (completionDecayDelay == 0)
-				{
-					completion = approach(completion, 0, completionDecay);
-					audio_stop_sound(completionSound);
-				}
-				else
-				{
-					completionDecayDelay = approach(completionDecayDelay, 0, 1);
-				}
+				completionDecayLogic();
 			}
 		}
 		
@@ -269,5 +260,9 @@ function checkCompletion()
 				
 				i++;
 			}
+			
+			global.objectiveCount--;
+			//Check if this is the last completable, if so, mark level as cleared
+			checkLevelCompletion();
 		}
 }
