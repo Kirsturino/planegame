@@ -48,7 +48,12 @@ function setCameraZoom(amount)
 	obj_camera.zoomTarget = amount;
 }
 
-function flash(amount)
+function addCameraFocus(object_id)
 {
-	obj_fx.alpha = amount;
+	array_push(obj_camera.focusArray, object_id);
+}
+
+function removeCameraFocus(object_id)
+{
+	removeFromArray(obj_camera.focusArray, object_id);
 }

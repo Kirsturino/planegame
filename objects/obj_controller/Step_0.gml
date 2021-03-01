@@ -1,15 +1,25 @@
 //Game state things
 checkForPlayer();
 
-if (gamepad_button_check_pressed(0, gp_face1))
+if (gamepad_button_check_pressed(global.controller, gp_face1))
 {
 	transitionFunction = restartLevel;
 	startRoomTransition();
 }
 
-if (gamepad_button_check_pressed(0, gp_face2))
+if (gamepad_button_check_pressed(global.controller, gp_face2))
 {
 	game_end();
+}
+
+if (gamepad_button_check_pressed(global.controller, gp_face4))
+{
+	room_goto_next();
+}
+
+if (gamepad_button_check_pressed(global.controller, gp_face3))
+{
+	room_goto_previous();
 }
 
 //Level transitions

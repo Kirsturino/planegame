@@ -1,3 +1,5 @@
+event_inherited();
+
 function checkLevelCompletion()
 {
 	if (global.objectiveCount == 0)

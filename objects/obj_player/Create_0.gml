@@ -13,7 +13,7 @@ lift = 0.06;
 grv = 0.055;
 curSpdMax = spdMax;
 curAxl = axl;
-spdTransitionSpd = 0.1;
+spdTransitionSpd = 0.05;
 
 //Turbo
 turboSpdMax = 5;
@@ -163,7 +163,7 @@ function turboLogic()
 	//Turbo
 	if (shouldTurbo && fullSteam && energy > 0)
 	{
-		curSpdMax = approach(curSpdMax, turboSpdMax, spdTransitionSpd);
+		curSpdMax = turboSpdMax;
 		energy = approach(energy, 0, turboCost);
 		energyCooldown = energyCooldownMax;
 	
@@ -414,14 +414,14 @@ function engineParticles()
 
 function getInput()
 {
-	joyL = gamepad_axis_value(0, gp_axislv);
-	joyR = gamepad_axis_value(0, gp_axisrv);
+	joyL = gamepad_axis_value(global.controller, gp_axislv);
+	joyR = gamepad_axis_value(global.controller, gp_axisrv);
 	
 	neutral = abs(joyL) < deadZoneMin && abs(joyR) < deadZoneMin;
 	//Not absolute values, because this needs to be true only when NOT reversing
 	fullSteam = (joyL < -deadZoneMax && joyR < -deadZoneMax);
-	shouldTurbo = gamepad_button_check(0, gp_shoulderrb);
-	shouldShoot = gamepad_button_check(0, gp_shoulderlb);
+	shouldTurbo = gamepad_button_check(global.controller, gp_shoulderrb);
+	shouldShoot = gamepad_button_check(global.controller, gp_shoulderlb);
 }
 
 function resetInput()

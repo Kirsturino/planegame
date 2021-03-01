@@ -6,20 +6,20 @@ topCloudSurf = -1;
 onScreen = true;
 
 frequency = 8;
-radius = 14;
+radius = 16;
 positionVariance = 6;
 radiusVariance = 6;
 surfMargin = 64;
 margin = 20;
 
 topFrequency = 16;
-topRadius = 8;
-topPositionVariance = 14;
-topRadiusVariance = 8;
+topRadius = 6;
+topPositionVariance = 6;
+topRadiusVariance = 4;
 topSurfMargin = 32;
 topMargin = 36;
 
-function createCloudSurface(surf, freq, posVar, rad, radVar, marg, surfMarg, col)
+function createCloudSurface(surf, freq, posVar, rad, radVar, marg, surfMarg, col, fill)
 {
 	var surfWidth = sprite_width+surfMarg;
 	var surfHeight = sprite_height+surfMarg;
@@ -32,7 +32,8 @@ function createCloudSurface(surf, freq, posVar, rad, radVar, marg, surfMarg, col
 	var yLimit = surfHeight - totalMarg;
 	
 	//Fill
-	draw_rectangle_color(totalMarg, totalMarg, surfWidth-totalMarg, surfHeight-totalMarg, col, col, col, col, false);
+	if (fill)
+	{ draw_rectangle_color(totalMarg, totalMarg, surfWidth-totalMarg, surfHeight-totalMarg, col, col, col, col, false); }
 	
 	//Make blobby cloud edges
 	if (totalMarg < xLimit && totalMarg < yLimit)

@@ -18,5 +18,8 @@ tempSurf = -1;
 audio_group_load(ag_music);
 audio_group_load(ag_sfx);
 
+//Init controller
+getController();
+
 //Room. Go. Next. Unga bunga
 room_goto_next();

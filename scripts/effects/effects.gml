@@ -34,3 +34,8 @@ function freeze(amount)
 	var time = current_time + amount;
 	while (current_time < time) {}
 }
+
+function flash(amount)
+{
+	obj_fx.alpha = amount;
+}

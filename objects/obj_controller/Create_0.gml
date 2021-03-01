@@ -14,7 +14,7 @@ function restartLevel()
 	room_restart();
 }
 
-transitionTimerMax = 20;
+transitionTimerMax = 30;
 transitionTimer = 0;
 transitioningOut = false;
 transitioningIn = true;

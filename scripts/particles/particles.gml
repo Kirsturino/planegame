@@ -33,8 +33,8 @@ var p = global.explosiveSmokePart;
 part_type_color1(p, make_color_rgb(255, 253, 240));
 part_type_life(p, 120, 240);
 part_type_shape(p, pt_shape_disk);
-part_type_size(p, 0.1, 0.2, -0.001, 0);
-part_type_speed(p, 1, 1.5, -0.01, 0);
+part_type_size(p, 0.2, 0.3, -0.003, 0);
+part_type_speed(p, 1, 1.5, -0.02, 0);
 part_type_direction(p, 0, 359, 0, 0);
 
 global.turboPart = part_type_create();

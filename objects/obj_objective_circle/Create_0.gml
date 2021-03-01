@@ -19,6 +19,9 @@ surfSize = radiusTo*4;
 surfCenter = surfSize/2;
 circleSurf = -1;
 
+//Tracks when player first enters circle
+playerEnter = false;
+
 //SFX
 completionSoundAsset = snd_circle_progress_inside;
 completionSound = audio_play_sound(completionSoundAsset, 0, true);
@@ -56,6 +59,9 @@ switch (type)
 			var plr = collision_circle(x, y, radius, obj_player, false, false);
 			if (plr != noone)
 			{
+				if (!playerEnter)
+					{ playerEnter = true; }
+					
 				completion = approach(completion, completionMax, 1);
 				completionDecayDelay = completionDecayDelayMax;
 				
@@ -99,7 +105,6 @@ switch (type)
 	
 	case "insideRotation":
 		enterRotation = -1;
-		playerIn = false;
 		
 		objective = function ()
 		{
@@ -107,9 +112,9 @@ switch (type)
 			var plr = collision_circle(x, y, radius, obj_player, false, false);
 			if (plr != noone)
 			{
-				if (!playerIn)
+				if (!playerEnter)
 				{
-					playerIn = true;
+					playerEnter = true;
 					enterRotation = plr.image_angle;
 				}
 				
@@ -194,6 +199,15 @@ switch (type)
 			var blt = collision_circle(x, y, radius, obj_bullet, false, false);
 			if (blt != noone)
 			{
+				if (!playerEnter)
+					{ playerEnter = true; }
+					
+				if (!inFocus)
+				{
+					addCameraFocus(id);
+					inFocus = true;
+				}
+				
 				completion = approach(completion, completionMax, blt.dmg);
 				completionDecayDelay = completionDecayDelayMax;
 				radius *= 1.1;
@@ -242,6 +256,10 @@ function checkCompletion()
 {
 	if (completion == completionMax && !completed)
 		{
+			//Remove the object from the camera's focus list
+			if (type == "shoot")
+				{ removeCameraFocus(id); }
+				
 			completed = true;
 			radiusTo *= 1.5;
 			audio_stop_sound(completionSound);

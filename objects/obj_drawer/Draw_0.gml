@@ -16,7 +16,7 @@ with (obj_danger_zone)
 	if (!surface_exists(cloudSurf))
 		{
 			cloudSurf = surface_create(sprite_width+surfMargin, sprite_height+surfMargin);
-			createCloudSurface(cloudSurf, frequency, positionVariance, radius, radiusVariance, margin, surfMargin, col);
+			createCloudSurface(cloudSurf, frequency, positionVariance, radius, radiusVariance, margin, surfMargin, col, true);
 		}
 }
 
@@ -39,8 +39,8 @@ shader_set_uniform_f(uFrequencyOL, frequencyOL);
 shader_set_uniform_f(uIntensityOL, intensityOL);
 shader_set_uniform_f(uWavePixelW, cloudTexelW);
 shader_set_uniform_f(uWavePixelH, cloudTexelH);
-shader_set_uniform_f(uXOffsetOL, camX/room_width); //This surface moves, so we have to offset texcoord
-shader_set_uniform_f(uYOffsetOL, camY/room_height);
+shader_set_uniform_f(uXOffsetOL, camX/masterWidth); //This surface moves, so we have to offset texcoord for the shader
+shader_set_uniform_f(uYOffsetOL, camY/masterHeight);
 
 draw_surface(masterCloudSurf, camX-viewWidth/2, camY-viewHeight/2);
 shader_reset();
@@ -148,7 +148,7 @@ with (obj_danger_zone)
 	if (!surface_exists(topCloudSurf))
 	{
 		topCloudSurf = surface_create(sprite_width+topSurfMargin, sprite_height+topSurfMargin);
-		createCloudSurface(topCloudSurf, topFrequency, topPositionVariance, topRadius, topRadiusVariance, topMargin, topSurfMargin, col);
+		createCloudSurface(topCloudSurf, topFrequency, topPositionVariance, topRadius, topRadiusVariance, topMargin, topSurfMargin, col, false);
 	}
 }
 

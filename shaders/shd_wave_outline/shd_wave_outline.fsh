@@ -42,6 +42,14 @@ void main()
 	alpha += ceil(texture2D( gm_BaseTexture, Coord - offsetY - offsetX).a);
 	alpha += ceil(texture2D( gm_BaseTexture, Coord - offsetY + offsetX).a);
 	
+	//Utilize outline offset for placing drop shadow
+	offsetX *= 2.5;
+	offsetY *= 2.5;
+	
+	//Drop shadow alpha
+	float shadow = texture2D( gm_BaseTexture, Coord - offsetX - offsetY).a;
+	shadow *= 0.5;
+	
     gl_FragColor = v_vColour * texture2D( gm_BaseTexture, Coord );
-	gl_FragColor.a = alpha;
+	gl_FragColor.a = alpha + shadow;
 }
