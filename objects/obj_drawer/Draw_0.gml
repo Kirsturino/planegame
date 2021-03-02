@@ -167,3 +167,14 @@ with (obj_danger_zone)
 shader_reset();
 
 #endregion
+
+#region Draw bullets and things that should always be on top of everything
+
+//Draw dropshadows for bullets (they don't use surfaces)
+draw_set_alpha(0.5);
+with (obj_bullet)
+	{ draw_circle_color(x + 2, y + 2, 2, col_black, col_black, false); }
+draw_set_alpha(1);
+with (obj_bullet) { event_perform(ev_draw, 0); }
+
+#endregion

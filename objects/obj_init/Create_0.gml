@@ -1,5 +1,6 @@
 draw_set_font(fnt_default);
 
+//Color shorthand
 globalvar col_white;
 col_white = make_color_rgb(255, 253, 240);
 globalvar col_black;
@@ -20,6 +21,11 @@ audio_group_load(ag_sfx);
 
 //Init controller
 getController();
+
+//Init particle systems
+global.ps = part_system_create_layer(layer_get_id("Instances"), true);
+part_system_depth(global.ps, 100);
+global.psTop = part_system_create_layer(layer_get_id("Top"), true);
 
 //Room. Go. Next. Unga bunga
 room_goto_next();

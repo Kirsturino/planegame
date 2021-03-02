@@ -60,5 +60,10 @@ shader_reset();
 var drawX = progressX + surfMargin/2;
 var drawY = progressY + surfMargin/2;
 
+//Draw drop shadow
+draw_set_alpha(0.5);
+drawTriangle(drawX+2, drawY+2, 18*triangleScale, rot, col_black, false);
+draw_set_alpha(1);
+
 drawTriangle(drawX, drawY, 18*triangleScale, rot, col_black, false);
 drawTriangle(drawX, drawY, 12*triangleScale, rot, col_white, false);

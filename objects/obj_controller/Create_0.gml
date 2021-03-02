@@ -40,7 +40,7 @@ function checkMusic()
 			audio_play_sound(global.curMusic, 0, false);
 			
 			var length = array_length(global.musicArray);
-			if (global.musicIndex < length) { global.musicIndex++; }
+			if (global.musicIndex < length - 1) { global.musicIndex++; }
 			else							{ global.musicIndex = 0; }
 		}
 		

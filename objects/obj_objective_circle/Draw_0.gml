@@ -1,4 +1,4 @@
-if (!isInView(self, radius)) {exit;}
+if (!isInView(self, radius)) { exit; }
 
 if (!surface_exists(circleSurf))
 	{

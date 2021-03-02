@@ -4,8 +4,8 @@ completed = false;
 radius = 8;
 
 curProgressSpeed = 0;
-progressSpeed = 3;
-progressAxl = 0.12;
+progressSpeed = 4;
+progressAxl = 0.2;
 progressFrc = 0.05;
 
 progressLerp = 0;
@@ -53,8 +53,7 @@ function completionLogic()
 	}
 	
 	//Actuallly increment completion value based on the triangle's current speed
-	var dist = point_distance(_x, _y, _x2, _y2);
-	progressLerp = approach(progressLerp, 1, curProgressSpeed / dist);
+	progressLerp = approach(progressLerp, 1, curProgressSpeed / pointLength);
 
 	//Move triangle between two points
 	progressX = lerp(_x, _x2, progressLerp);
@@ -83,6 +82,14 @@ function completionLogic()
 			radialParticle(global.linePart, 8, 32, progX, progY);
 			audio_sound_pitch(completionSound, 1);
 			audio_play_sound(completionSound, 0, false);
+		} else
+		{
+			//Calculate length of next segment
+			var _x = pointArray[progressPoint][0];
+			var _y = pointArray[progressPoint][1];
+			var _x2 = pointArray[progressPoint+1][0];
+			var _y2 = pointArray[progressPoint+1][1];
+			pointLength = point_distance(_x, _y, _x2, _y2);
 		}
 	}
 }
@@ -104,14 +111,21 @@ function destroyLogic()
 	progressX = lerp(_x, _x2, progressLerp);
 	progressY = lerp(_y, _y2, progressLerp);
 
-	var dist = point_distance(_x, _y, _x2, _y2);
-	progressLerp = approach(progressLerp, 1, curProgressSpeed / dist);
+	progressLerp = approach(progressLerp, 1, curProgressSpeed / pointLength);
 
 	//If at target point, increment target
 	if (progressLerp == 1 && progressPoint > 1)
 	{
 		progressPoint--;
 		progressLerp = 0;
+		
+		//Calculate length of next segment
+		var _x = pointArray[progressPoint][0];
+		var _y = pointArray[progressPoint][1];
+		var _x2 = pointArray[progressPoint-1][0];
+		var _y2 = pointArray[progressPoint-1][1];
+		
+		pointLength = point_distance(_x, _y, _x2, _y2);
 		
 	} else if (progressPoint == 1 && progressLerp == 1 && !destroy)
 	{

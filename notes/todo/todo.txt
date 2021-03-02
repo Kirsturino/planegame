@@ -5,6 +5,20 @@ Features:
 	- Modifies movement values
 	- Different guns
 
+- Procedural background
+	- Procedural clouds
+		- Many small surfaces or one big one?
+
+- Solid wall obstacle
+	- Stops player and bullets
+	
+- Level modifiers
+	- Time limit
+	- Low gravity
+	- Energy doesn't recharge
+	- Limited turning
+	- Reverse only
+	- Etc.
 ----------------------------------------------------------------------
 
 Tuning:
@@ -13,8 +27,25 @@ Tuning:
 ----------------------------------------------------------------------
 
 Fix:
+- Redo level transitions at some point
 
 ----------------------------------------------------------------------
 
+Polish:
+
+- Extra electricity/something particles when out of energy
+- Color bullets with an accent color (visible against blue, orang is obvious)
+- Some extra flashing and stuff for player
+	- Maybe shader or just manipulate surface color
+	- Turbo
+	- Shooting
+	- Out of energy
+- More popping style particles for when things progress or get done
+	- Energy is full
+	- Shoot circle progress particles
+	
+- More opportunities to use freeze command?
+	
+----------------------------------------------------------------------
+
 Wishlist:
-- Drop shadows to most things

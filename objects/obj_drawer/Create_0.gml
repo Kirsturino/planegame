@@ -1,3 +1,6 @@
+//Set default particle system to be under everything this object draws
+//For some reason we need to call this at the start of every room instead of setting it once, smh
+part_system_depth(global.ps, 100);
 draw_set_circle_precision(32);
 
 playerSurf = surface_create(64, 64);

@@ -4,7 +4,7 @@
     "path": "sprites/spr_bullet_collision_mask/spr_bullet_collision_mask.yy",
   },
   "solid": false,
-  "visible": true,
+  "visible": false,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": null,

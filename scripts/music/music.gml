@@ -8,6 +8,6 @@ global.musicArray =	[	mus_gameplay_01,
 						mus_gameplay_08,
 						mus_gameplay_09];
 
-global.musicIndex = 0;
+global.musicIndex = 8;
 global.curMusic = global.musicArray[global.musicIndex];
 global.musicToggle = false;

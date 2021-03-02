@@ -46,5 +46,6 @@ lineSurf = -1;
 //Set variables for the coordinates of the triangle
 progressX = pointArray[0][0];
 progressY = pointArray[0][1];
+pointLength = point_distance(pointArray[0][0], pointArray[0][1], pointArray[1][0], pointArray[1][1]);
 
 visible = true;
