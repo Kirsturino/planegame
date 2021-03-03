@@ -9,6 +9,8 @@ axl = 0.09;
 spdMax = 3;
 reverseSpdModifier = 0.8;
 drag = 0.02;
+curDrag = drag;
+dragTransitionSpd = 0.001;
 lift = 0.06;
 grv = 0.055;
 curSpdMax = spdMax;
@@ -26,9 +28,12 @@ turboStartCost = 5;
 energyMax = 200;
 energy = energyMax;
 energyCooldown = 0;
-energyCooldownMax = 100;
+energyCooldownMax = 60;
 energyRechargeRate = 6;
 dangerEnergyDrain = 4;
+
+//Shooting
+shootDrag = 0.06;
 
 //Bullets
 bulletDelayMax = 6;
@@ -84,7 +89,7 @@ warningSound = snd_warning;
 //Movement functions
 function calculateRotation()
 {
-	//Angular drag
+	//Angular curDrag
 	rotSpd[0] = approach(rotSpd[0], 0, rotDrag);
 	rotSpd[1] = approach(rotSpd[1], 0, rotDrag);
 	
@@ -127,7 +132,7 @@ function calculateMovement()
 	if (joyR > 0) { joyR *= reverseSpdModifier; }
 	
 	//Drag
-	hsp = approach(hsp, 0, drag * wingSpan * abs(hsp) / curSpdMax);
+	hsp = approach(hsp, 0, curDrag * wingSpan * abs(hsp) / curSpdMax);
 	vsp = approach(vsp, 0, lift * horWingSpan * abs(vsp) / curSpdMax);
 	
 	if (turbo)
@@ -258,6 +263,15 @@ function shootingLogic()
 		setSquash(1+bulletWeight, 1-bulletWeight);
 		//flash(0.05);
 		audio_play_sound(bulletSound, 0, false);
+	}
+	
+	//Increase drag when shooting to avoid player drift, but still allow up/down momentum
+	if (shouldShoot)
+	{
+		curDrag = approach(curDrag, shootDrag, dragTransitionSpd);
+	} else
+	{
+		curDrag = approach(curDrag, drag, dragTransitionSpd);
 	}
 
 	bulletDelay = approach(bulletDelay, 0, 1);
@@ -442,19 +456,19 @@ function checkForDanger()
 		energy = approach(energy, 0, dangerEnergyDrain);
 		
 		//FX
-		shakeCamera(15, 0, 10);
+		shakeCamera(15, 2, 10);
 		
 		if (!inDanger)
 		{
 			//FX
 			inDanger = true;
-			shakeCamera(40, 0, 20);
+			shakeCamera(40, 4, 20);
 			audio_play_sound(cloudSound, 0, true);
 		}
 	} else if (inDanger)
 	{
 		inDanger = false;
-		shakeCamera(40, 0, 20);
+		shakeCamera(40, 4, 20);
 
 		var dir = point_direction(0, 0, hsp, vsp);
 		part_type_direction(global.explosiveSmokePart, dir-45, dir+45, 0, 0);

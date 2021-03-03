@@ -34,6 +34,7 @@
         "\"inside\"",
         "\"insideRotation\"",
         "\"shoot\"",
+        "\"turbo\"",
       ],"multiselect":false,"filters":[
         "GMSprite",
       ],"resourceVersion":"1.0","name":"type","tags":[],"resourceType":"GMObjectProperty",},

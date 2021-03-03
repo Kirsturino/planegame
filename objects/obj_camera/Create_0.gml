@@ -1,23 +1,17 @@
-//Center window
-alarm[0] = 1;
-
-//Setup camera variables
-window_set_size(viewWidth * global.windowScale, viewHeight * global.windowScale);
-
-//Apply camera
-camera_set_view_size(view, viewWidth, viewHeight);
-
-//Limit GUI draw resolution
-display_set_gui_size(viewWidth, viewHeight);
-
-//Enforce pixel perfect camera
-surface_resize(application_surface, viewWidth, viewHeight);
-
 //Camera variables
-xTo = 0;
-yTo = 0;
 curX = 0;
 curY = 0;
+
+//Set camera coordinates to player location
+var _x = obj_player.x - viewWidth/2;
+var _y = obj_player.y - viewHeight/2;
+
+xx = _x;
+xTo = _x;
+yy = _y;
+yTo = _y;
+
+camera_set_view_pos(view, _x, _y);
 
 //Camera shake variables
 shakeDuration = 0;

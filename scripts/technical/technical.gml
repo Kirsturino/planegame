@@ -1,3 +1,6 @@
+//Some flags TBA
+
+
 global.controller = 0;
 global.gp_num = gamepad_get_device_count();
 global.deadzone = 0.3;

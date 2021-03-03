@@ -18,7 +18,10 @@ Features:
 	- Energy doesn't recharge
 	- Limited turning
 	- Reverse only
+	- A homing missile(s?) is chasing you
 	- Etc.
+	
+- IMPLEMENT DELTA TIME
 ----------------------------------------------------------------------
 
 Tuning:
@@ -28,6 +31,11 @@ Tuning:
 
 Fix:
 - Redo level transitions at some point
+- Optimize drawing circles
+	- Maybe precalculate all points for the draw calls when creating
+	- Then just loop through an array to draw all the points
+	- I want to keep the line style for flexibility
+	- Each type will need it's own creation function
 
 ----------------------------------------------------------------------
 

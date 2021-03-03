@@ -27,5 +27,7 @@ global.ps = part_system_create_layer(layer_get_id("Instances"), true);
 part_system_depth(global.ps, 100);
 global.psTop = part_system_create_layer(layer_get_id("Top"), true);
 
-//Room. Go. Next. Unga bunga
-room_goto_next();
+//Init camera
+initCamera();
+
+alarm[0] = 1;

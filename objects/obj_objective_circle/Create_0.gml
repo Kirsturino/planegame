@@ -43,8 +43,7 @@ function completionDecayLogic()
 	{
 		completion = approach(completion, 0, completionDecay);
 		audio_stop_sound(completionSound);
-	}
-	else
+	} else
 	{
 		completionDecayDelay = approach(completionDecayDelay, 0, 1);
 	}
@@ -151,6 +150,7 @@ switch (type)
 					
 					var size = 6;
 					var dir = max(sign(completionMax), 0);
+					
 					var _x = surfCenter + lengthdir_x(rad-size, 360/seg*(i+dir)+rot);
 					var _y = surfCenter + lengthdir_y(rad-size, 360/seg*(i+dir)+rot);
 	
@@ -226,15 +226,61 @@ switch (type)
 		{
 			var i = 0;
 			var dir = 1;
-			repeat(segments)
+			var seg = segments;
+			repeat(seg)
 			{
-				var size = radius/16;
-				var rad = drawRad/2+wave(-radius/10, radius/10, 2, 0, true);
-				var _x = surfCenter + lengthdir_x(rad + (size*dir), 360/segments*i+rot);
-				var _y = surfCenter + lengthdir_y(rad + (size*dir), 360/segments*i+rot);
+				var size = radius/6;
+				var rad = drawRad/2+wave(-radius/16, radius/16, 2, 0, true);
+				var _x = surfCenter + lengthdir_x(rad + (size*dir), 360/seg*i+rot);
+				var _y = surfCenter + lengthdir_y(rad + (size*dir), 360/seg*i+rot);
 	
-				var _x2 = surfCenter + lengthdir_x(rad - (size*dir), 360/segments*(i+1)+rot);
-				var _y2 = surfCenter + lengthdir_y(rad - (size*dir), 360/segments*(i+1)+rot);
+				var _x2 = surfCenter + lengthdir_x(rad - (size*dir), 360/seg*(i+1)+rot);
+				var _y2 = surfCenter + lengthdir_y(rad - (size*dir), 360/seg*(i+1)+rot);
+	
+				draw_line_width_color(_x, _y, _x2, _y2, thiccness, col, col);
+	
+				i++;
+				dir *= -1;
+			}
+			
+			draw_circle_color(surfCenter, surfCenter, drawRad*completion/completionMax, col_black, col_black, false);
+		}
+	break;
+	
+	case "turbo":
+		objective = function()
+		{
+			//Track player
+			var plr = collision_circle(x, y, radius, obj_player, false, false);
+			if (plr != noone && plr.turbo)
+			{
+				if (!playerEnter)
+					{ playerEnter = true; }
+					
+				completion = approach(completion, completionMax, 1);
+				completionDecayDelay = completionDecayDelayMax;
+				
+				progressAudio();
+			} else
+			{
+				completionDecayLogic();
+			}
+		}
+		
+		drawFunction = function()
+		{
+			var i = 0;
+			var dir = 1;
+			var starSegments = 10;
+			repeat(starSegments)
+			{
+				var size = radius/8;
+				var rad = drawRad/2+wave(-radius/14, radius/14, 2, 0, true);
+				var _x = surfCenter + lengthdir_x(rad + (size*dir), 360/starSegments*i+rot);
+				var _y = surfCenter + lengthdir_y(rad + (size*dir), 360/starSegments*i+rot);
+	
+				var _x2 = surfCenter + lengthdir_x(rad - (size*dir), 360/starSegments*(i+1)+rot);
+				var _y2 = surfCenter + lengthdir_y(rad - (size*dir), 360/starSegments*(i+1)+rot);
 	
 				draw_line_width_color(_x, _y, _x2, _y2, thiccness, col, col);
 	

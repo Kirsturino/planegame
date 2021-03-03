@@ -20,8 +20,6 @@ transitioningOut = false;
 transitioningIn = true;
 transitionFunction = nextLevel;
 
-
-
 //Music & SFX
 musicTimerMax = 60;
 musicTimer = musicTimerMax;
