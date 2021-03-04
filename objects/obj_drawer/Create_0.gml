@@ -33,7 +33,7 @@ uTimeOL = shader_get_uniform(shd_wave_outline,"time");
 uFrequencyOL = shader_get_uniform(shd_wave_outline,"frequency");
 uIntensityOL = shader_get_uniform(shd_wave_outline,"intensity");
 frequencyOL = 50.0;
-intensityOL = 450.0; //Lower value = more intense
+intensityOL = 400.0; //Lower value = more intense
 spdOL = 1;
 uWavePixelH = shader_get_uniform(shd_wave_outline, "pixelH");
 uWavePixelW = shader_get_uniform(shd_wave_outline, "pixelW");

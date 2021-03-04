@@ -21,12 +21,11 @@ function wave(from, to, duration, offset, sine) {
 	return from + a4 + waveType * a4;
 }
 
-function isOutsideRoom(objectID) {
-	with (objectID) {	
-		if (x < -sprite_width || x > room_width + sprite_width)			{ return true; }
-		else if (y < -sprite_height || y > room_height + sprite_height) { return true; }
-		else															{ return false; }
-	}
+function isOutsideRoom(x, y, marginX, marginY)
+{
+	if (x < -marginX || x > room_width + marginX)		{ return true; }
+	else if (y < -marginY || y > room_height + marginY) { return true; }
+	else												{ return false; }
 }
 
 function isInView(objectID, margin) {

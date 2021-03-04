@@ -19,6 +19,7 @@ Features:
 	- Limited turning
 	- Reverse only
 	- A homing missile(s?) is chasing you
+	- Only one engine at a time allowed
 	- Etc.
 	
 - IMPLEMENT DELTA TIME

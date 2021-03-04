@@ -318,6 +318,8 @@ function toOutOfEnergy()
 	audio_play_sound(warningSound, 0, true);
 	
 	resetInput();
+	turbo = false;
+	shouldShoot = false;
 	state = outOfEnergy;
 }
 
@@ -325,11 +327,11 @@ function alive()
 {
 	getInput();
 
-	turboLogic();
-	shootingLogic();
-
 	calculateRotation();
 	applyRotation();
+	
+	turboLogic();
+	shootingLogic();
 	
 	calculateMovement();
 	applyMovement();
@@ -357,7 +359,6 @@ function outOfEnergy()
 state = dummy;
 
 //Misc functions
-
 function engineParticles()
 {
 	//Particles

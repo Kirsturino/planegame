@@ -2,6 +2,7 @@ col = col_white;
 
 cloudSurf = -1;
 topCloudSurf = -1;
+tempSurf = -1;
 
 onScreen = true;
 
