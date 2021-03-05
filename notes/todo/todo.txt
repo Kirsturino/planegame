@@ -37,6 +37,7 @@ Fix:
 	- Then just loop through an array to draw all the points
 	- I want to keep the line style for flexibility
 	- Each type will need it's own creation function
+- Solve parallax + zoom problem
 
 ----------------------------------------------------------------------
 

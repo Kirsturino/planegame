@@ -7,9 +7,10 @@ if (!surface_exists(backgroundCloudSurface))
 } else 
 {
 	var camY = camera_get_view_y(view);
+	var camX = camera_get_view_x(view);
 	
-	var drawX = x-width/2;
-	var drawY = y-height/2 - camY*parallaxMultiplier;
+	var drawX = x-width/2 + camX*parallaxMultiplier;
+	var drawY = y-height/2 + camY*parallaxMultiplier;
 	
 	draw_surface(backgroundCloudSurface, drawX, drawY);
 }

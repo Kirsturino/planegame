@@ -3,7 +3,7 @@ state();
 //Persistent effects/things
 if (turbo)
 {
-	setCameraZoom(1.4);
+	setCameraZoom(1.3);
 } else
 {
 	setCameraZoom(1);

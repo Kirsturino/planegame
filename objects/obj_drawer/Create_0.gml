@@ -1,3 +1,6 @@
+//Background variables
+backgroundColor = col_skyblue;
+
 //Set default particle system to be under everything this object draws
 //For some reason we need to call this at the start of every room instead of setting it once, smh
 part_system_depth(global.ps, 100);

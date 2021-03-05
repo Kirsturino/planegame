@@ -12,8 +12,8 @@ width = cloudWidth + irandom(widthVariance);
 height = cloudHeight + irandom(heightVariance);
 relativeSize = (width/cloudWidth + height/cloudHeight) / 2;
 
-//Parallax
-parallaxMultiplier = 0.04 * relativeSize
+//No parallax for now, as these are meant to look like they're really far away
+parallaxMultiplier = 0.5;
 
 //Moving
 dir = 0;

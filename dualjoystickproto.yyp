@@ -37,6 +37,7 @@
     {"id":{"name":"par_object_of_interest","path":"objects/par_object_of_interest/par_object_of_interest.yy",},"order":0,},
     {"id":{"name":"mus_gameplay_01","path":"sounds/mus_gameplay_01/mus_gameplay_01.yy",},"order":0,},
     {"id":{"name":"spr_line","path":"sprites/spr_line/spr_line.yy",},"order":17,},
+    {"id":{"name":"shd_wave_static","path":"shaders/shd_wave_static/shd_wave_static.yy",},"order":3,},
     {"id":{"name":"snd_tick","path":"sounds/snd_tick/snd_tick.yy",},"order":8,},
     {"id":{"name":"technical","path":"scripts/technical/technical.yy",},"order":6,},
     {"id":{"name":"rm_level_17","path":"rooms/rm_level_17/rm_level_17.yy",},"order":21,},

@@ -34,7 +34,7 @@ pushReturn = 4;
 
 //Camera zoom stuff
 zoomMultiplier = 1;
-zoomLerpSpeed = 0.02;
+zoomLerpSpeed = 0.05;
 zoomTarget = 1;
 
 //Camera rotation
@@ -152,8 +152,8 @@ function cameraLogic()
 	var finalY = yAverage / (length+1);
 	
 	//Change offset of camera depending on zoom to keep it centered on player smoothly
-	var xZoomOffset = viewWidth/2 * (1 - zoomMultiplier);
-	var yZoomOffset = viewHeight/2 * (1 - zoomMultiplier);
+	var xZoomOffset = viewWidth/2 * (1 - zoomTarget);
+	var yZoomOffset = viewHeight/2 * (1 - zoomTarget);
 	
 	xx = finalX - viewWidth/2 + xZoomOffset;
 	yy = finalY - viewHeight/2 + yZoomOffset;

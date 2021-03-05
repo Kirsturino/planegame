@@ -1,6 +1,22 @@
 var camX = camera_get_view_x(view);
 var camY = camera_get_view_y(view);
 
+draw_clear(backgroundColor);
+
+#region Background cloud drawing
+
+with (obj_background_cloud) { event_perform(ev_draw, 0); }
+
+#endregion
+
+with (obj_background) { event_perform(ev_draw, 0); }
+
+#region Completables
+
+with (par_completable) { event_perform(ev_draw, 0); }
+
+#endregion
+
 #region Danger zone bottom layer drawing
 
 //Make sure surface hasn't exploded
@@ -46,6 +62,8 @@ draw_surface(masterCloudSurf, camX-viewWidth/2, camY-viewHeight/2);
 shader_reset();
 			
 #endregion
+
+part_system_drawit(global.ps);
 
 #region Player drawing
 
@@ -167,6 +185,8 @@ with (obj_danger_zone)
 shader_reset();
 
 #endregion
+
+part_system_drawit(global.psTop);
 
 #region Draw bullets and things that should always be on top of everything
 
