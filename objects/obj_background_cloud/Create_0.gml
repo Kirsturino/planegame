@@ -1,11 +1,11 @@
 //Cloud variables
-cloudWidth = 128;
-cloudHeight = 64;
-col = col_white;
+cloudWidth = 86;
+cloudHeight = 32;
+col = col_cloudblue;
 
 //Variance
-widthVariance = 300;
-heightVariance = 150;
+widthVariance = 256;
+heightVariance = 128;
 
 //Generate random dimensions
 width = cloudWidth + irandom(widthVariance);
@@ -13,21 +13,16 @@ height = cloudHeight + irandom(heightVariance);
 relativeSize = (width/cloudWidth + height/cloudHeight) / 2;
 
 //No parallax for now, as these are meant to look like they're really far away
-parallaxMultiplier = 0.5;
-
-//Moving
-dir = 0;
-cloudSpeedVariance = 0.1;
-cloudSpeed = 0.2 + random(cloudSpeedVariance) * dir;
+parallaxMultiplier = 0.7;
 
 //Init surface
 backgroundCloudSurface = -1;
 
 //Shape variables
 baseHeight = 8 * relativeSize;
-circleFrequency = 16;
-circleSize = 8 * relativeSize;
-sizeVariance = 24;
+circleFrequency = 4 * relativeSize;
+circleSize = 6 * relativeSize;
+sizeVariance = 6 * relativeSize;
 
 function drawCloud()
 {

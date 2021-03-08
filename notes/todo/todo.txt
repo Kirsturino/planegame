@@ -5,10 +5,6 @@ Features:
 	- Modifies movement values
 	- Different guns
 
-- Procedural background
-	- Procedural clouds
-		- Many small surfaces or one big one?
-
 - Solid wall obstacle
 	- Stops player and bullets
 	
@@ -31,13 +27,13 @@ Tuning:
 ----------------------------------------------------------------------
 
 Fix:
-- Redo level transitions at some point
+- Update level transitions at some point
 - Optimize drawing circles
 	- Maybe precalculate all points for the draw calls when creating
 	- Then just loop through an array to draw all the points
 	- I want to keep the line style for flexibility
 	- Each type will need it's own creation function
-- Solve parallax + zoom problem
+	- Maybe just a static surface and rotate with some offset?
 
 ----------------------------------------------------------------------
 

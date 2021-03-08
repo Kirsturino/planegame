@@ -107,7 +107,7 @@ function calculateRotation()
 		
 		var pd = 270 + wave(-5, 5, 0.3, 0, true) * wiggleBlend;
 		var dd = angle_difference(image_angle, pd);
-		image_angle -= min(abs(dd), fallingTurnSpd) * sign(dd);
+		image_angle -= min(abs(dd), fallingTurnSpd*horWingSpan) * sign(dd);
 
 	} else
 	{

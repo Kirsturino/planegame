@@ -152,11 +152,11 @@ function cameraLogic()
 	var finalY = yAverage / (length+1);
 	
 	//Change offset of camera depending on zoom to keep it centered on player smoothly
-	var xZoomOffset = viewWidth/2 * (1 - zoomTarget);
-	var yZoomOffset = viewHeight/2 * (1 - zoomTarget);
+	var xZoomOffset = viewWidth/2 * frac(zoomTarget);
+	var yZoomOffset = viewHeight/2 * frac(zoomTarget);
 	
-	xx = finalX - viewWidth/2 + xZoomOffset;
-	yy = finalY - viewHeight/2 + yZoomOffset;
+	xx = finalX - viewWidth/2 - xZoomOffset;
+	yy = finalY - viewHeight/2 - yZoomOffset;
 	
 	xx = clamp(xx, 0, room_width - finalWidth);
 	yy = clamp(yy, 0, room_height - finalHeight);
