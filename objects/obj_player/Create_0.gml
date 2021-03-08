@@ -45,7 +45,7 @@ bulletDmg = 1;
 
 //Controller stuff and inputs
 deadZoneMin = 0.3;
-deadZoneMax = 0.8;
+deadZoneMax = 0.7;
 gamepad_set_axis_deadzone(0, deadZoneMin);
 joyL = 0;
 joyR = 0;
@@ -197,7 +197,13 @@ function turboLogic()
 	{
 		curSpdMax = approach(curSpdMax, spdMax, spdTransitionSpd);
 	
-		if (turbo)
+		resetTurbo();
+	}
+}
+
+function resetTurbo()
+{
+	if (turbo)
 		{
 			curAxl = axl;
 			part = global.thrustPart;
@@ -205,7 +211,6 @@ function turboLogic()
 			resetSquashTarget();
 			audio_stop_sound(turboSound);
 		}
-	}
 }
 
 function shootingLogic()
@@ -318,7 +323,7 @@ function toOutOfEnergy()
 	audio_play_sound(warningSound, 0, true);
 	
 	resetInput();
-	turbo = false;
+	resetTurbo();
 	shouldShoot = false;
 	state = outOfEnergy;
 }
@@ -453,8 +458,11 @@ function checkForDanger()
 {
 	if (collision_point(x, y, obj_danger_zone, false, false) != noone)
 	{
-		energyCooldown = energyCooldownMax;
-		energy = approach(energy, 0, dangerEnergyDrain);
+		if (state != outOfEnergy)
+		{
+			energyCooldown = energyCooldownMax;
+			energy = approach(energy, 0, dangerEnergyDrain);
+		}
 		
 		//FX
 		shakeCamera(15, 2, 10);

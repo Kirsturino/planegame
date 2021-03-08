@@ -1,5 +1,7 @@
 //Background variables
 backgroundColor = col_skyblue;
+backgroundColor2 = make_color_rgb(70, 91, 231);
+backgroundColor3 = make_color_rgb(34, 45, 129);
 
 //Set default particle system to be under everything this object draws
 //For some reason we need to call this at the start of every room instead of setting it once, smh

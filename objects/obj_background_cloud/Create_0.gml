@@ -19,10 +19,10 @@ parallaxMultiplier = 0.7;
 backgroundCloudSurface = -1;
 
 //Shape variables
-baseHeight = 8 * relativeSize;
+baseHeight = 4 * relativeSize;
 circleFrequency = 4 * relativeSize;
 circleSize = 6 * relativeSize;
-sizeVariance = 6 * relativeSize;
+sizeVariance = 12;
 
 function drawCloud()
 {
@@ -32,7 +32,7 @@ function drawCloud()
 	draw_ellipse_color(0, height-baseHeight, width, height+baseHeight, col, col, false);
 		
 	//Draw rounded top
-	var margin = (circleSize + sizeVariance) * 2;
+	var margin = (circleSize + sizeVariance * 1.5);
 	for (var i = margin; i < width-margin; i += circleFrequency)
 	{
 		var rad = circleSize + irandom(sizeVariance);

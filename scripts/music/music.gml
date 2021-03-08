@@ -10,4 +10,4 @@ global.musicArray =	[	mus_gameplay_01,
 
 global.musicIndex = 0;
 global.curMusic = global.musicArray[global.musicIndex];
-global.musicToggle = false;
+global.musicToggle = true;
