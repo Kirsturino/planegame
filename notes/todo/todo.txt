@@ -27,32 +27,10 @@ Tuning:
 
 Fix:
 - Update level transitions at some point
-- Optimize drawing circles
-	- Maybe precalculate all points for the draw calls when creating
-	- Then just loop through an array to draw all the points
-	- I want to keep the line style for flexibility
-	- Each type will need it's own creation function
-	- Maybe just a static surface and rotate with some offset?
-	
-- Redo all camera FX code to streamline logic
 
 ----------------------------------------------------------------------
 
 Polish:
-
-- Extra electricity/something particles when out of energy
-- Color bullets with an accent color (visible against blue, orang is obvious)
-- Some extra flashing and stuff for player
-	- Maybe shader or just manipulate surface color
-	- Turbo
-	- Shooting
-	- Out of energy
-- More popping style particles for when things progress or get done
-	- Energy is full
-	- Shoot circle progress particles
-	
-- More opportunities to use freeze command?
-- Controller vibration
 	
 ----------------------------------------------------------------------
 

@@ -22,7 +22,7 @@ function radialParticle(part, seg, rad, x, y)
 		var spawnX = x + lengthdir_x(rad, dir);
 		var spawnY = y + lengthdir_y(rad, dir);
 				
-		part_type_direction(part, dir, dir, -2, 0);
+		part_type_direction(part, dir, dir, -2*delta, 0);
 		part_particles_create(global.ps, spawnX, spawnY, part, 1);
 				
 		i++;

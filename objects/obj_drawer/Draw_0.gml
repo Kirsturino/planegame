@@ -19,6 +19,40 @@ with (par_completable) { event_perform(ev_draw, 0); }
 
 part_system_drawit(global.ps);
 
+#region Rock drawing
+
+with (obj_danger_zone_solid)
+{
+	if (!surface_exists(solidSurf))
+	{
+		solidSurf = surface_create(sprite_width+surfMargin, sprite_height+surfMargin);
+		createSolidSurface(solidSurf, frequency, positionVariance, fillPositionVariance, radius, radiusVariance, margin, surfMargin, col, col2, false);
+		
+		//Solid surf stuff
+		solidTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(solidSurf));
+		solidTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(solidSurf));
+		uPixelW = shader_get_uniform(shd_outline, "pixelW");
+		uPixelH = shader_get_uniform(shd_outline, "pixelH");
+	}
+}
+
+shader_set(shd_outline);
+
+with (obj_danger_zone_solid)
+{
+	if (onScreen)
+		{
+			shader_set_uniform_f(uPixelW, solidTexelW);
+			shader_set_uniform_f(uPixelH, solidTexelH);
+
+			draw_surface(solidSurf, bbox_left - surfMargin/2, bbox_top - surfMargin/2);
+		}
+}
+
+shader_reset();
+
+#endregion
+
 #region Danger zone bottom layer drawing
 
 //Make sure surface hasn't exploded
@@ -77,8 +111,8 @@ if (!surface_exists(playerSurf))
 surface_set_target(playerSurf);
 
 //This is both outline and shape fill color
-if (obj_player.energy / obj_player.energyMax < .3)	{ dangerBlend = approach(dangerBlend, 1, 0.1); }
-else												{ dangerBlend = approach(dangerBlend, 0, 0.1); }
+if (obj_player.energy / obj_player.energyMax < .3 || obj_player.inDanger)	{ dangerBlend = approach(dangerBlend, 1, 0.1); }
+else																		{ dangerBlend = approach(dangerBlend, 0, 0.1); }
 
 var c = merge_color(col_black, col_red, wave(0, 1, 1, 0, true) * dangerBlend);
 

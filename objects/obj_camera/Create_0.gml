@@ -92,8 +92,8 @@ function cameraPush()
 
 function cameraRotation()
 {
-	rot = lerp(rot, rotTo, 0.1*delta);
-	rotTo = approach(rotTo, 0, 1);
+	rot = lerp(rot, rotTo, 0.05*delta);
+	rotTo = approach(rotTo, 0, 0.01);
 }
 
 function cameraZoom()

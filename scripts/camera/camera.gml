@@ -27,8 +27,8 @@ function shakeCamera(panAmount, rotAmount, duration)
 		obj_camera.shakeDuration = duration;
 	}
 	
-	if (rotAmount != 0)
-		{ obj_camera.rotTo = choose(rotAmount, -rotAmount); }
+	if (rotAmount > abs(obj_camera.rot))
+		{ obj_camera.rot = choose(rotAmount, -rotAmount); }
 }
 
 function directionShakeCamera(amount, duration, direction, frequency)
@@ -56,7 +56,7 @@ function pushCamera(amount, direction)
 
 function zoomCamera(amount)
 {
-	obj_camera.zoomMultiplier = 1 - amount;
+	obj_camera.zoomMultiplier -= amount;
 }
 
 function setCameraZoom(amount)

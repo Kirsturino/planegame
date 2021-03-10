@@ -79,6 +79,7 @@ squashSpeed = 0.1;
 
 //Sounds
 outOfEnergySound = snd_out_of_energy;
+energyFullSound = snd_energy_full;
 engineSound = audio_play_sound(snd_engine_persistent, 0, true);
 audio_sound_gain(engineSound, 0, 0);
 engineSoundVolumeMultiplier = 0.03;
@@ -229,10 +230,11 @@ function shootingLogic()
 	if (shouldShoot && bulletDelay == 0 && !turbo && energy > 0)
 	{
 		var offset = engineDistance * wingSpan * 0.75;
+		var forwardOffset = 10;
 		
 		//Left bullet
-		var spawnX = x + lengthdir_x(offset, image_angle-90);
-		var spawnY = y + lengthdir_y(offset, image_angle-90);
+		var spawnX = x + lengthdir_x(offset, image_angle-90) + lengthdir_x(forwardOffset, image_angle);
+		var spawnY = y + lengthdir_y(offset, image_angle-90) + lengthdir_y(forwardOffset, image_angle);
 		var bullet = instance_create_layer(spawnX, spawnY, layer, obj_bullet);
 	
 
@@ -243,13 +245,13 @@ function shootingLogic()
 		bullet.dmg = bulletDmg;
 		
 		//Left particles
-		part_type_direction(global.shootPart,image_angle-20,image_angle+20,0,0);
+		part_type_direction(global.shootPart,image_angle-30,image_angle+30,0,0);
 		part_particles_create(global.ps, spawnX, spawnY, global.shootPart, 5);
 		
 		
 		//Right bullet
-		var spawnX = x + lengthdir_x(offset, image_angle+90);
-		var spawnY = y + lengthdir_y(offset, image_angle+90);
+		var spawnX = x + lengthdir_x(offset, image_angle+90) + lengthdir_x(forwardOffset, image_angle);
+		var spawnY = y + lengthdir_y(offset, image_angle+90) + lengthdir_y(forwardOffset, image_angle);
 		var bullet = instance_create_layer(spawnX, spawnY, layer, obj_bullet);
 	
 		var xSpd = lengthdir_x(bulletSpd, image_angle);
@@ -328,8 +330,12 @@ function toAlive()
 function toOutOfEnergy()
 {
 	freeze(100);
-	shakeCamera(100, 20, 20);
+	shakeCamera(100, 5, 20);
 	setControllerVibration(1, 1);
+	
+	//Random rotational force
+	rotSpd[0] = random_range(-rotSpdMax/4, rotSpdMax/4);
+	rotSpd[1] = random_range(-rotSpdMax/4, rotSpdMax/4);
 	
 	audio_stop_sound(turboSound);
 	audio_stop_sound(cloudSound);
@@ -348,12 +354,12 @@ function alive()
 	getInput();
 
 	calculateRotation();
-	applyRotation();
+	calculateMovement();
 	
 	turboLogic();
 	shootingLogic();
 	
-	calculateMovement();
+	applyRotation();
 	applyMovement();
 
 	engineParticles();
@@ -366,14 +372,26 @@ function alive()
 function outOfEnergy()
 {
 	calculateRotation();
-	applyRotation();
-	
 	calculateMovement();
+	
+	applyRotation();
 	applyMovement();
 	
 	checkForDanger();
 	
-	if (energy == energyMax) { toAlive(); }
+	if (global.updateParticles)
+	{
+		var _x = x + irandom_range(-8, 8);
+		var _y = y + irandom_range(-8, 8);
+		part_particles_create(global.psTop, _x, _y, global.electricityPart, 4);
+	}
+	
+	if (energy == energyMax)
+	{
+		radialParticle(global.linePart, 12, 32, x, y);
+		audio_play_sound(energyFullSound, 0, false);
+		toAlive();
+	}
 }
 
 state = dummy;
@@ -391,13 +409,13 @@ function engineParticles()
 			var partX = x + lengthdir_x(offset, image_angle - 90) + lengthdir_x(-4, image_angle);
 			var partY = y + lengthdir_y(offset, image_angle - 90) + lengthdir_y(-4, image_angle);
 			var partSpd = abs(joyR);
-			part_type_speed(p, partSpd, partSpd*(1+random(1)), -0.001, 0.01);
+			part_type_speed(p, partSpd*delta, partSpd*(1+random(1))*delta, -0.001*delta, 0.01);
 	
 			var dir = image_angle + random_range(-20, 20);
 			var wig = 10;
 			var shift = irandom_range(-1, 1);
 			if (joyR > 0)	{ part_type_direction(p, dir, dir, 0, wig); }
-			else			{ part_type_direction(p, dir + 180, dir + 180, shift, wig); }
+			else			{ part_type_direction(p, dir + 180, dir + 180, shift*delta, wig); }
 		
 			part_particles_create(global.ps, partX, partY, p, 1);
 			part_particles_create(global.ps, partX, partY, global.smokePart, 1);
@@ -408,13 +426,13 @@ function engineParticles()
 			var partX = x + lengthdir_x(offset, image_angle + 90) + lengthdir_x(-4, image_angle);
 			var partY = y + lengthdir_y(offset, image_angle + 90) + lengthdir_y(-4, image_angle);
 			var partSpd = abs(joyL);
-			part_type_speed(p, partSpd, partSpd*(1+random(1)), -0.001, 0.01);
+			part_type_speed(p, partSpd*delta, partSpd*(1+random(1))*delta, -0.001*delta, 0.01);
 	
 			var dir = image_angle + random_range(-20, 20);
 			var wig = 10;
 			var shift = irandom_range(-1, 1);
 			if (joyL > 0)	{ part_type_direction(p, dir, dir, shift, wig); }
-			else			{ part_type_direction(p, dir + 180, dir + 180, shift, wig); }
+			else			{ part_type_direction(p, dir + 180, dir + 180, shift*delta, wig); }
 	
 			part_particles_create(global.ps, partX, partY, p, 1);
 			part_particles_create(global.ps, partX, partY, global.smokePart, 1);
@@ -457,7 +475,7 @@ function getInput()
 	
 	neutral = abs(joyL) < deadZoneMin && abs(joyR) < deadZoneMin;
 	//Not absolute values, because this needs to be true only when NOT reversing
-	fullSteam = (joyL < -deadZoneMax && joyR < -deadZoneMax);
+	fullSteam = (joyL <= -deadZoneMax && joyR <= -deadZoneMax);
 	shouldTurbo = gamepad_button_check(global.controller, gp_shoulderrb);
 	shouldShoot = gamepad_button_check(global.controller, gp_shoulderlb);
 }
@@ -483,20 +501,20 @@ function checkForDanger()
 		}
 		
 		//FX
-		shakeCamera(15, 2, 10);
+		shakeCamera(15, 0, 10);
 		setControllerVibration(0.5, 0.5);
 		
 		if (!inDanger)
 		{
 			//FX
 			inDanger = true;
-			shakeCamera(40, 4, 20);
+			shakeCamera(40, 1, 20);
 			audio_play_sound(cloudSound, 0, true);
 		}
 	} else if (inDanger)
 	{
 		inDanger = false;
-		shakeCamera(40, 4, 20);
+		shakeCamera(40, 1, 20);
 
 		var dir = point_direction(0, 0, hsp, vsp);
 		part_type_direction(global.explosiveSmokePart, dir-45, dir+45, 0, 0);

@@ -193,6 +193,7 @@ switch (type)
 	break;
 	
 	case "shoot":
+		shootHitSound = snd_circle_shoot_hit;
 		objective = function ()
 		{
 			//Track bullets
@@ -216,6 +217,8 @@ switch (type)
 				//SFX
 				progressAudio();
 				freeze(10);
+				if (!audio_is_playing(shootHitSound)) audio_play_sound(shootHitSound, 0, false);
+				
 			} else
 			{
 				completionDecayLogic();
@@ -319,7 +322,7 @@ function checkCompletion()
 				var spawnX = x + lengthdir_x(radiusTo, dir);
 				var spawnY = y + lengthdir_y(radiusTo, dir);
 				
-				part_type_direction(global.linePart, dir, dir, 2*sign(completionMax), 0);
+				part_type_direction(global.linePart, dir, dir, 2*sign(completionMax)*delta, 0);
 				part_particles_create(global.ps, spawnX, spawnY, global.linePart, 1);
 				
 				i++;
