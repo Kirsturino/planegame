@@ -41,7 +41,7 @@ function completionLogic()
 	var progY = progressY+surfMargin/2;
 
 	//If player touches triangle, it accelerates, else it slows down
-	var plr =collision_circle(progX, progY, radius, obj_player, false, false);
+	var plr = collision_circle(progX, progY, radius, obj_player, false, false);
 	if (plr != noone)
 	{
 		//Move triangle depending on player speed
@@ -107,11 +107,10 @@ function destroyLogic()
 
 	//Triangle accelerates to twice of full speed
 	curProgressSpeed = approach(curProgressSpeed, progressSpeed*2, progressAxl);
-
+	progressLerp = approach(progressLerp, 1, curProgressSpeed / pointLength);
+	
 	progressX = lerp(_x, _x2, progressLerp);
 	progressY = lerp(_y, _y2, progressLerp);
-
-	progressLerp = approach(progressLerp, 1, curProgressSpeed / pointLength);
 
 	//If at target point, increment target
 	if (progressLerp == 1 && progressPoint > 1)

@@ -60,6 +60,10 @@ maxFallingTurnSpd = 2;
 fallingTurnSpdAxl = 0.03;
 inDanger = false;
 dummyReset = false;
+vibR = 0;
+vibL = 0;
+vibDecay = 0.05;
+resetControllerVibration();
 
 //Graphics
 wingSpan = 1;
@@ -89,13 +93,17 @@ warningSound = snd_warning;
 //Movement functions
 function calculateRotation()
 {
-	//Angular curDrag
+	//Rotational drag
 	rotSpd[0] = approach(rotSpd[0], 0, rotDrag);
 	rotSpd[1] = approach(rotSpd[1], 0, rotDrag);
 	
 	//Rotation
-	rotSpd[0] = clamp(rotSpd[0] + joyL * rotAxl, -rotSpdMax, rotSpdMax);
-	rotSpd[1] = clamp(rotSpd[1] + joyR * rotAxl, -rotSpdMax, rotSpdMax);
+	rotSpd[0] = clamp(rotSpd[0] + joyL * rotAxl * delta, -rotSpdMax, rotSpdMax);
+	rotSpd[1] = clamp(rotSpd[1] + joyR * rotAxl * delta, -rotSpdMax, rotSpdMax);
+	
+	//FX
+	var vib = (rotSpd[0] - rotSpd[1]) * 0.1;
+	setControllerVibration(min(vib, 0), max(vib, 0));
 	
 	//Angle plane down if neutraling and falling
 	if (neutral && !shouldShoot && vsp > 0)
@@ -105,23 +113,23 @@ function calculateRotation()
 	
 		fallingTurnSpd = approach(fallingTurnSpd, maxFallingTurnSpd, fallingTurnSpdAxl);
 		
-		var pd = 270 + wave(-5, 5, 0.3, 0, true) * wiggleBlend;
+		var pd = 270 + wave(-5, 5, 0.3, 0, true)*wiggleBlend;
 		var dd = angle_difference(image_angle, pd);
-		image_angle -= min(abs(dd), fallingTurnSpd*horWingSpan) * sign(dd);
+		image_angle -= min(abs(dd), fallingTurnSpd*horWingSpan) * sign(dd) * delta;
 
 	} else
 	{
 		fallingTurnSpd = 0;
 	}
-
-	//Wrap rotation
-	if (image_angle > 359)		{ image_angle = 0; }
-	else if (image_angle < 0)	{ image_angle = 359; }
 }
 
 function applyRotation()
 {
-	image_angle += rotSpd[0] - rotSpd[1];	
+	image_angle += (rotSpd[0] - rotSpd[1]) * delta;	
+	
+	//Wrap rotation
+	if (image_angle > 360)		{ image_angle -= 360; }
+	else if (image_angle < 0)	{ image_angle += 360; }
 }
 
 function calculateMovement()
@@ -147,8 +155,8 @@ function calculateMovement()
 		var downLimit = turboSpdMax - min(abs(hsp), spdMax);
 	}
 	
-	hsp += (lengthdir_x(-joyL, image_angle) + lengthdir_x(-joyR, image_angle)) * curAxl;
-	vsp += (lengthdir_y(-joyL, image_angle) + lengthdir_y(-joyR, image_angle)) * curAxl + grv;
+	hsp += (lengthdir_x(-joyL, image_angle) + lengthdir_x(-joyR, image_angle)) * curAxl * delta;
+	vsp += ((lengthdir_y(-joyL, image_angle) + lengthdir_y(-joyR, image_angle)) * curAxl + grv) * delta;
 	
 	//Speed limits
 	//Break out going up and down, you can fall faster than normal speedlimit without turbo
@@ -159,8 +167,8 @@ function calculateMovement()
 function applyMovement()
 {
 	//Apply momentum
-	x += hsp;
-	y += vsp;
+	x += hsp * delta;
+	y += vsp * delta;
 }
 
 function turboLogic()
@@ -171,8 +179,10 @@ function turboLogic()
 		curSpdMax = turboSpdMax;
 		energy = approach(energy, 0, turboCost);
 		energyCooldown = energyCooldownMax;
-	
+		
+		setControllerVibration(0.3, 0.3);
 		shakeCamera(15, 0, 20);
+		
 		if (!turbo)
 		{
 			curAxl = turboAxl;
@@ -259,15 +269,16 @@ function shootingLogic()
 	
 		//Energy stuff
 		bulletDelay = bulletDelayMax;
-		energy = approach(energy, 0, bulletCost);
+		energy = approach_pure(energy, 0, bulletCost);
 		energyCooldown = energyCooldownMax;
 		
 		//FX
 		pushCamera(bulletWeight*150, image_angle+180);
 		directionShakeCamera(bulletWeight*100, 10, image_angle, 0.1);
 		setSquash(1+bulletWeight, 1-bulletWeight);
-		//flash(0.05);
+		flash(0.01);
 		audio_play_sound(bulletSound, 0, false);
+		setControllerVibration(bulletWeight/2, bulletWeight/2);
 	}
 	
 	//Increase drag when shooting to avoid player drift, but still allow up/down momentum
@@ -289,7 +300,10 @@ function energyRecovery()
 		
 	//Energy recovery
 	if (energyCooldown == 0)
-		{ energy = approach(energy, energyMax, energyRechargeRate); }
+		{
+			energy = approach(energy, energyMax, energyRechargeRate);
+			setControllerVibration(0.1, 0.1);
+		}
 }
 
 //States
@@ -315,6 +329,7 @@ function toOutOfEnergy()
 {
 	freeze(100);
 	shakeCamera(100, 20, 20);
+	setControllerVibration(1, 1);
 	
 	audio_stop_sound(turboSound);
 	audio_stop_sound(cloudSound);
@@ -345,7 +360,7 @@ function alive()
 	
 	checkForDanger();
 	
-	if (energy == 0) {toOutOfEnergy();}
+	if (energy == 0) { toOutOfEnergy(); }
 }
 
 function outOfEnergy()
@@ -366,58 +381,61 @@ state = dummy;
 //Misc functions
 function engineParticles()
 {
-	//Particles
-	var p = part;
-	var offset = engineDistance * wingSpan * 0.75;
-	if (abs(joyR) > deadZoneMin)
+	if (global.updateParticles)
 	{
-		var partX = x + lengthdir_x(offset, image_angle - 90) + lengthdir_x(-4, image_angle);
-		var partY = y + lengthdir_y(offset, image_angle - 90) + lengthdir_y(-4, image_angle);
-		var partSpd = abs(joyR);
-		part_type_speed(p, partSpd, partSpd*(1+random(1)), -0.001, 0.01);
-	
-		var dir = image_angle + random_range(-20, 20);
-		var wig = 10;
-		var shift = irandom_range(-1, 1);
-		if (joyR > 0)	{ part_type_direction(p, dir, dir, 0, wig); }
-		else			{ part_type_direction(p, dir + 180, dir + 180, shift, wig); }
-		
-		part_particles_create(global.ps, partX, partY, p, 1);
-		part_particles_create(global.ps, partX, partY, global.smokePart, 1);
-	}
-
-	if (abs(joyL) > deadZoneMin)
-	{
-		var partX = x + lengthdir_x(offset, image_angle + 90) + lengthdir_x(-4, image_angle);
-		var partY = y + lengthdir_y(offset, image_angle + 90) + lengthdir_y(-4, image_angle);
-		var partSpd = abs(joyL);
-		part_type_speed(p, partSpd, partSpd*(1+random(1)), -0.001, 0.01);
-	
-		var dir = image_angle + random_range(-20, 20);
-		var wig = 10;
-		var shift = irandom_range(-1, 1);
-		if (joyL > 0)	{ part_type_direction(p, dir, dir, shift, wig); }
-		else			{ part_type_direction(p, dir + 180, dir + 180, shift, wig); }
-	
-		part_particles_create(global.ps, partX, partY, p, 1);
-		part_particles_create(global.ps, partX, partY, global.smokePart, 1);
-	}
-
-	//Feel the speed
-	if (abs(hsp) + abs(vsp) >= turboSpdMax - 0.5 && abs(angle_difference(image_angle, point_direction(0, 0, hsp, vsp))) < 45)
-	{
-		var dir = image_angle - 180;
-		var offset = 30;
-
-		for (var i = 0; i < 2; ++i)
+		//Particles
+		var p = part;
+		var offset = engineDistance * wingSpan * 0.75;
+		if (abs(joyR) > deadZoneMin)
 		{
-			var partX = lengthdir_x(22, dir + 180) + lengthdir_x(2, dir + sign(offset) * 90);
-			var partY = lengthdir_y(22, dir + 180) + lengthdir_y(2, dir + sign(offset) * 90);
-
-			part_type_direction(global.speedPart,dir + offset,dir + offset,0,0);
-			part_particles_create(global.ps, x + partX, y + partY, global.speedPart, 1);
+			var partX = x + lengthdir_x(offset, image_angle - 90) + lengthdir_x(-4, image_angle);
+			var partY = y + lengthdir_y(offset, image_angle - 90) + lengthdir_y(-4, image_angle);
+			var partSpd = abs(joyR);
+			part_type_speed(p, partSpd, partSpd*(1+random(1)), -0.001, 0.01);
 	
-			offset *= -1;
+			var dir = image_angle + random_range(-20, 20);
+			var wig = 10;
+			var shift = irandom_range(-1, 1);
+			if (joyR > 0)	{ part_type_direction(p, dir, dir, 0, wig); }
+			else			{ part_type_direction(p, dir + 180, dir + 180, shift, wig); }
+		
+			part_particles_create(global.ps, partX, partY, p, 1);
+			part_particles_create(global.ps, partX, partY, global.smokePart, 1);
+		}
+
+		if (abs(joyL) > deadZoneMin)
+		{
+			var partX = x + lengthdir_x(offset, image_angle + 90) + lengthdir_x(-4, image_angle);
+			var partY = y + lengthdir_y(offset, image_angle + 90) + lengthdir_y(-4, image_angle);
+			var partSpd = abs(joyL);
+			part_type_speed(p, partSpd, partSpd*(1+random(1)), -0.001, 0.01);
+	
+			var dir = image_angle + random_range(-20, 20);
+			var wig = 10;
+			var shift = irandom_range(-1, 1);
+			if (joyL > 0)	{ part_type_direction(p, dir, dir, shift, wig); }
+			else			{ part_type_direction(p, dir + 180, dir + 180, shift, wig); }
+	
+			part_particles_create(global.ps, partX, partY, p, 1);
+			part_particles_create(global.ps, partX, partY, global.smokePart, 1);
+		}
+
+		//Feel the speed
+		if (abs(hsp) + abs(vsp) >= turboSpdMax - 0.5 && abs(angle_difference(image_angle, point_direction(0, 0, hsp, vsp))) < 45)
+		{
+			var dir = image_angle - 180;
+			var offset = 30;
+
+			for (var i = 0; i < 2; ++i)
+			{
+				var partX = lengthdir_x(22, dir + 180) + lengthdir_x(2, dir + sign(offset) * 90);
+				var partY = lengthdir_y(22, dir + 180) + lengthdir_y(2, dir + sign(offset) * 90);
+
+				part_type_direction(global.speedPart,dir + offset,dir + offset,0,0);
+				part_particles_create(global.ps, x + partX, y + partY, global.speedPart, 1);
+	
+				offset *= -1;
+			}
 		}
 	}
 	
@@ -466,6 +484,7 @@ function checkForDanger()
 		
 		//FX
 		shakeCamera(15, 2, 10);
+		setControllerVibration(0.5, 0.5);
 		
 		if (!inDanger)
 		{

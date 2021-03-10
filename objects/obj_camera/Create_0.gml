@@ -92,13 +92,13 @@ function cameraPush()
 
 function cameraRotation()
 {
-	rot = lerp(rot, rotTo, 0.1);
+	rot = lerp(rot, rotTo, 0.1*delta);
 	rotTo = approach(rotTo, 0, 1);
 }
 
 function cameraZoom()
 {
-	zoomMultiplier = lerp(zoomMultiplier, zoomTarget, zoomLerpSpeed);
+	zoomMultiplier = lerp(zoomMultiplier, zoomTarget, zoomLerpSpeed*delta);
 }
 
 function checkCameraFocus()
@@ -120,7 +120,7 @@ function checkCameraFocus()
 
 function cameraLogic()
 {
-	var spd = .05;
+	var spd = 0.05;
 	var finalWidth = viewWidth * zoomMultiplier;
 	var finalHeight = viewHeight * zoomMultiplier;
 	var lookAheadMultiplierX = 50;
@@ -188,8 +188,8 @@ function applyCameraPos(spd, width, height)
 	curX = camera_get_view_x(view);
 	curY = camera_get_view_y(view);
 	
-	xTo = lerp(curX, xx + shakeX + pushX + dirShakeX, spd);
-	yTo = lerp(curY, yy + shakeY + pushY + dirShakeY, spd);
+	xTo = lerp(curX, xx + shakeX + pushX + dirShakeX, spd*delta);
+	yTo = lerp(curY, yy + shakeY + pushY + dirShakeY, spd*delta);
 
 	camera_set_view_pos(view, xTo, yTo);
 	camera_set_view_angle(view, rot);

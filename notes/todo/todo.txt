@@ -18,7 +18,6 @@ Features:
 	- Only one engine at a time allowed
 	- Etc.
 	
-- IMPLEMENT DELTA TIME
 ----------------------------------------------------------------------
 
 Tuning:
@@ -34,6 +33,8 @@ Fix:
 	- I want to keep the line style for flexibility
 	- Each type will need it's own creation function
 	- Maybe just a static surface and rotate with some offset?
+	
+- Redo all camera FX code to streamline logic
 
 ----------------------------------------------------------------------
 
@@ -51,6 +52,7 @@ Polish:
 	- Shoot circle progress particles
 	
 - More opportunities to use freeze command?
+- Controller vibration
 	
 ----------------------------------------------------------------------
 

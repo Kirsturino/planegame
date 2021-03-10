@@ -33,9 +33,22 @@ function freeze(amount)
 {
 	var time = current_time + amount;
 	while (current_time < time) {}
+	global.delta = defaultFramesPerSecond / framesPerSecond;
 }
 
 function flash(amount)
 {
 	obj_fx.alpha = amount;
+}
+
+function setControllerVibration(left, right)
+{
+	obj_player.vibL = max(left, obj_player.vibL);
+	obj_player.vibR = max(right, obj_player.vibR);
+}
+
+function resetControllerVibration()
+{
+	obj_player.vibL = 0;
+	obj_player.vibR = 0;
 }

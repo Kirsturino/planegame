@@ -1,6 +1,6 @@
 //Ro ro rotate your owl
-rot += rotSpd*sign(completionMax);
-radius = lerp(radius, radiusTo, 0.1);
+rot += rotSpd*sign(completionMax)*delta;
+radius = lerp(radius, radiusTo, 0.1*delta);
 drawRad = radius - radius*0.2*completion/completionMax;
 
 if (completed)

@@ -119,7 +119,7 @@ switch (type)
 				
 				//Player can UNDO progress if rotating wrong direction
 				var progress = plr.rotSpd[0] - plr.rotSpd[1];
-				completion = clamp(completion + progress, min(0, completionMax), max(0, completionMax));
+				completion = clamp(completion + progress*delta, min(0, completionMax), max(0, completionMax));
 				completionDecayDelay = completionDecayDelayMax;
 				
 				//SFX
@@ -208,7 +208,7 @@ switch (type)
 					inFocus = true;
 				}
 				
-				completion = approach(completion, completionMax, blt.dmg);
+				completion = approach_pure(completion, completionMax, blt.dmg);
 				completionDecayDelay = completionDecayDelayMax;
 				radius *= 1.1;
 				instance_destroy(blt);

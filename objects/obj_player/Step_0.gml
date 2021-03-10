@@ -13,5 +13,10 @@ if (turbo)
 energyRecovery();
 
 //Squash
-xScale = lerp(xScale, xScaleTarget, squashSpeed);
-yScale = lerp(yScale, yScaleTarget, squashSpeed);
+xScale = lerp(xScale, xScaleTarget, squashSpeed * delta);
+yScale = lerp(yScale, yScaleTarget, squashSpeed * delta);
+
+//Controller vibration
+vibL = approach(vibL, 0, vibDecay);
+vibR = approach(vibR, 0, vibDecay);
+gamepad_set_vibration(global.controller, vibL, vibR);

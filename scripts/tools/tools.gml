@@ -1,6 +1,19 @@
 function approach(value, to, amount) {
 	if (value < to)
 	{
+	    value += amount * delta;
+	    if (value > to) return to;
+	} else
+	{
+	    value -= amount * delta;
+	    if (value < to) return to;
+	}
+	return value;
+}
+
+function approach_pure(value, to, amount) {
+	if (value < to)
+	{
 	    value += amount;
 	    if (value > to) return to;
 	} else

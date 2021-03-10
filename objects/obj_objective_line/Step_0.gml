@@ -1,12 +1,10 @@
 state();
 
-
-
 //This is used for rotating the triangle
-rot -= curProgressSpeed*3;
+rot -= curProgressSpeed*3*delta;
 
 //FX
-triangleScale = lerp(triangleScale, triangleScaleTarget, 0.2);
+triangleScale = lerp(triangleScale, triangleScaleTarget, 0.2*delta);
 
 //This is to trigger the sound effect in relation to progress speed
 if (curProgressSpeed > 0 && sfxTimer == 0 && !destroy)
