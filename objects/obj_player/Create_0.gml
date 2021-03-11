@@ -53,6 +53,8 @@ neutral = true;
 fullSteam = false;
 shouldTurbo = false;
 shouldShoot = false;
+blockInput = false;
+blockInputTimer = 0;
 
 //Misc
 fallingTurnSpd = 0;
@@ -89,6 +91,8 @@ turboSound = snd_turbo;
 
 bulletSound = snd_shoot_default;
 cloudSound = snd_cloud_damage;
+cloudEnterExitSound = snd_cloud_enter_exit;
+bonkSound = snd_wall_hit;
 warningSound = snd_warning;
 
 //Movement functions
@@ -194,6 +198,7 @@ function turboLogic()
 			turbo = true;
 			setSquashTarget(0.9, 1.1);
 			setSquash(0.6, 1.4);
+			setCameraZoom(1.3); //Zoom camera out when using boost
 			
 			//Remove all turning when initiating turbo
 			rotSpd[0] = 0;
@@ -221,6 +226,7 @@ function resetTurbo()
 			turbo = false;
 			resetSquashTarget();
 			audio_stop_sound(turboSound);
+			setCameraZoom(1);
 		}
 }
 
@@ -333,10 +339,6 @@ function toOutOfEnergy()
 	shakeCamera(100, 5, 20);
 	setControllerVibration(1, 1);
 	
-	//Random rotational force
-	rotSpd[0] = random_range(-rotSpdMax/4, rotSpdMax/4);
-	rotSpd[1] = random_range(-rotSpdMax/4, rotSpdMax/4);
-	
 	audio_stop_sound(turboSound);
 	audio_stop_sound(cloudSound);
 	audio_sound_gain(engineSound, 0, 100);
@@ -345,7 +347,8 @@ function toOutOfEnergy()
 	
 	resetInput();
 	resetTurbo();
-	shouldShoot = false;
+	resetCameraFocus();
+
 	state = outOfEnergy;
 }
 
@@ -379,12 +382,7 @@ function outOfEnergy()
 	
 	checkForDanger();
 	
-	if (global.updateParticles)
-	{
-		var _x = x + irandom_range(-8, 8);
-		var _y = y + irandom_range(-8, 8);
-		part_particles_create(global.psTop, _x, _y, global.electricityPart, 4);
-	}
+	outOfEnergyParticles();
 	
 	if (energy == energyMax)
 	{
@@ -401,43 +399,28 @@ function engineParticles()
 {
 	if (global.updateParticles)
 	{
-		//Particles
-		var p = part;
-		var offset = engineDistance * wingSpan * 0.75;
 		if (abs(joyR) > deadZoneMin)
-		{
-			var partX = x + lengthdir_x(offset, image_angle - 90) + lengthdir_x(-4, image_angle);
-			var partY = y + lengthdir_y(offset, image_angle - 90) + lengthdir_y(-4, image_angle);
-			var partSpd = abs(joyR);
-			part_type_speed(p, partSpd*delta, partSpd*(1+random(1))*delta, -0.001*delta, 0.01);
-	
-			var dir = image_angle + random_range(-20, 20);
-			var wig = 10;
-			var shift = irandom_range(-1, 1);
-			if (joyR > 0)	{ part_type_direction(p, dir, dir, 0, wig); }
-			else			{ part_type_direction(p, dir + 180, dir + 180, shift*delta, wig); }
-		
-			part_particles_create(global.ps, partX, partY, p, 1);
-			part_particles_create(global.ps, partX, partY, global.smokePart, 1);
-		}
+			{ rightEngineParticles(); }
 
 		if (abs(joyL) > deadZoneMin)
-		{
-			var partX = x + lengthdir_x(offset, image_angle + 90) + lengthdir_x(-4, image_angle);
-			var partY = y + lengthdir_y(offset, image_angle + 90) + lengthdir_y(-4, image_angle);
-			var partSpd = abs(joyL);
-			part_type_speed(p, partSpd*delta, partSpd*(1+random(1))*delta, -0.001*delta, 0.01);
-	
-			var dir = image_angle + random_range(-20, 20);
-			var wig = 10;
-			var shift = irandom_range(-1, 1);
-			if (joyL > 0)	{ part_type_direction(p, dir, dir, shift, wig); }
-			else			{ part_type_direction(p, dir + 180, dir + 180, shift*delta, wig); }
-	
-			part_particles_create(global.ps, partX, partY, p, 1);
-			part_particles_create(global.ps, partX, partY, global.smokePart, 1);
-		}
+			{ leftEngineParticles(); }
 
+		speedParticles();
+	}
+	
+	//Engine sounds
+	if (!audio_is_playing(engineSound))
+	{
+		engineSound = audio_play_sound(snd_engine_persistent, 0, true);
+		audio_sound_gain(engineSound, 0, 0);
+	}
+	
+	var volume = (abs(joyL) + abs(joyR)) * engineSoundVolumeMultiplier;
+	audio_sound_gain(engineSound, volume, 100);
+}
+
+function speedParticles()
+{
 		//Feel the speed
 		if (abs(hsp) + abs(vsp) >= turboSpdMax - 0.5 && abs(angle_difference(image_angle, point_direction(0, 0, hsp, vsp))) < 45)
 		{
@@ -454,30 +437,22 @@ function engineParticles()
 	
 				offset *= -1;
 			}
-		}
-	}
-	
-	//Engine sounds
-	if (!audio_is_playing(engineSound))
-	{
-		engineSound = audio_play_sound(snd_engine_persistent, 0, true);
-		audio_sound_gain(engineSound, 0, 0);
-	}
-	
-	var volume = (abs(joyL) + abs(joyR)) * engineSoundVolumeMultiplier;
-	audio_sound_gain(engineSound, volume, 100);
+		}	
 }
 
 function getInput()
 {
-	joyL = gamepad_axis_value(global.controller, gp_axislv);
-	joyR = gamepad_axis_value(global.controller, gp_axisrv);
+	if (!blockInput)
+	{
+		joyL = gamepad_axis_value(global.controller, gp_axislv);
+		joyR = gamepad_axis_value(global.controller, gp_axisrv);
 	
-	neutral = abs(joyL) < deadZoneMin && abs(joyR) < deadZoneMin;
-	//Not absolute values, because this needs to be true only when NOT reversing
-	fullSteam = (joyL <= -deadZoneMax && joyR <= -deadZoneMax);
-	shouldTurbo = gamepad_button_check(global.controller, gp_shoulderrb);
-	shouldShoot = gamepad_button_check(global.controller, gp_shoulderlb);
+		neutral = abs(joyL) < deadZoneMin && abs(joyR) < deadZoneMin;
+		//Not absolute values, because this needs to be true only when NOT reversing
+		fullSteam = (joyL <= -deadZoneMax && joyR <= -deadZoneMax);
+		shouldTurbo = gamepad_button_check(global.controller, gp_shoulderrb);
+		shouldShoot = gamepad_button_check(global.controller, gp_shoulderlb);
+	}
 }
 
 function resetInput()
@@ -492,25 +467,10 @@ function resetInput()
 
 function checkForDanger()
 {
-	if (collision_point(x, y, obj_danger_zone, false, false) != noone)
+	var danger = collision_point(x+hsp, y+vsp, par_danger, false, false);
+	if (danger != noone)
 	{
-		if (state != outOfEnergy)
-		{
-			energyCooldown = energyCooldownMax;
-			energy = approach(energy, 0, dangerEnergyDrain);
-		}
-		
-		//FX
-		shakeCamera(15, 0, 10);
-		setControllerVibration(0.5, 0.5);
-		
-		if (!inDanger)
-		{
-			//FX
-			inDanger = true;
-			shakeCamera(40, 1, 20);
-			audio_play_sound(cloudSound, 0, true);
-		}
+		danger.hitFunction();
 	} else if (inDanger)
 	{
 		inDanger = false;
@@ -522,6 +482,7 @@ function checkForDanger()
 		
 		//SFX
 		audio_stop_sound(cloudSound);
+		audio_play_sound(cloudEnterExitSound, 0, false);
 	}
 }
 
@@ -547,4 +508,103 @@ function resetSquash()
 {
 	xScale = 1;
 	yScale = 1;
+}
+
+function blockPlayerInput(time)
+{
+	blockInput = true;
+	blockInputTimer = time;
+}
+
+function inputTimer()
+{
+	//Count down time if we have for some reason disabled input
+	blockInputTimer = approach(blockInputTimer, 0, 1);
+	if (blockInputTimer == 0)
+		{ blockInput = false; }
+	else
+	{
+		if (global.updateParticles)
+		{
+			electricityParticles();
+		}
+	}
+}
+
+function controllerVibration()
+{
+	//Controller vibration
+	vibL = approach(vibL, 0, vibDecay);
+	vibR = approach(vibR, 0, vibDecay);
+	gamepad_set_vibration(global.controller, vibL, vibR);
+}
+
+function squash()
+{
+	//Squash
+	xScale = lerp(xScale, xScaleTarget, squashSpeed * delta);
+	yScale = lerp(yScale, yScaleTarget, squashSpeed * delta);
+}
+
+function rightEngineParticles()
+{
+	var p = part;
+	var offset = engineDistance * wingSpan * 0.75;
+
+	var partX = x + lengthdir_x(offset, image_angle - 90) + lengthdir_x(-4, image_angle);
+	var partY = y + lengthdir_y(offset, image_angle - 90) + lengthdir_y(-4, image_angle);
+	var partSpd = abs(joyR);
+	part_type_speed(p, partSpd*delta, partSpd*(1+random(1))*delta, -0.001*delta, 0.01);
+	
+	var dir = image_angle + random_range(-20, 20);
+	var wig = 10;
+	var shift = irandom_range(-1, 1);
+	if (joyR > 0)	{ part_type_direction(p, dir, dir, 0, wig); }
+	else			{ part_type_direction(p, dir + 180, dir + 180, shift*delta, wig); }
+		
+	part_particles_create(global.ps, partX, partY, p, 1);
+	part_particles_create(global.ps, partX, partY, global.smokePart, 1);
+}
+
+function leftEngineParticles()
+{
+	var p = part;
+	var offset = engineDistance * wingSpan * 0.75;
+	
+	var partX = x + lengthdir_x(offset, image_angle + 90) + lengthdir_x(-4, image_angle);
+	var partY = y + lengthdir_y(offset, image_angle + 90) + lengthdir_y(-4, image_angle);
+	var partSpd = abs(joyL);
+	part_type_speed(p, partSpd*delta, partSpd*(1+random(1))*delta, -0.001*delta, 0.01);
+	
+	var dir = image_angle + random_range(-20, 20);
+	var wig = 10;
+	var shift = irandom_range(-1, 1);
+	if (joyL > 0)	{ part_type_direction(p, dir, dir, shift, wig); }
+	else			{ part_type_direction(p, dir + 180, dir + 180, shift*delta, wig); }
+	
+	part_particles_create(global.ps, partX, partY, p, 1);
+	part_particles_create(global.ps, partX, partY, global.smokePart, 1);
+}
+
+function electricityParticles()
+{
+	//Random electricity particle placeholder
+	var _x = x + irandom_range(-8, 8);
+	var _y = y + irandom_range(-8, 8);
+	part_particles_create(global.psTop, _x, _y, global.electricityPart, 4);
+}
+
+function outOfEnergyParticles()
+{
+	if (global.updateParticles)
+	{
+		part_type_color1(global.smokePart, col_black);
+		leftEngineParticles();
+		rightEngineParticles();
+		part_type_color1(global.smokePart, col_white);
+
+		electricityParticles();
+		
+		speedParticles();
+	}
 }

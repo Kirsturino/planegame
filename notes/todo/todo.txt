@@ -4,9 +4,6 @@ Features:
 	- Per part basis
 	- Modifies movement values
 	- Different guns
-
-- Solid wall obstacle
-	- Stops player and bullets
 	
 - Level modifiers
 	- Time limit
@@ -17,6 +14,8 @@ Features:
 	- A homing missile(s?) is chasing you
 	- Only one engine at a time allowed
 	- Etc.
+	
+- Wall levels
 	
 ----------------------------------------------------------------------
 
@@ -31,6 +30,9 @@ Fix:
 ----------------------------------------------------------------------
 
 Polish:
+
+- Some extra screen effects when taking damage like a circle or rectangle closing in
+- Add sun to background! :)
 	
 ----------------------------------------------------------------------
 

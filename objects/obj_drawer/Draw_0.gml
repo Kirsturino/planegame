@@ -172,13 +172,15 @@ with (obj_player)
 	gpu_set_colorwriteenable(true,true,true,true);
 	
 	//Draw our sprite in mask
+	//In this case, it's just a rectangle that reflects the amount of energy the player has
 	var offset = -20;
 	var drawX = drawOffset + lengthdir_x(offset*xScale, image_angle);
 	var drawY = drawOffset + lengthdir_y(offset*xScale, image_angle);
+	other.visualPlayerEnergy = lerp(other.visualPlayerEnergy, energy, 0.1*delta);
 	
 	gpu_set_blendmode_ext(bm_dest_alpha,bm_inv_dest_alpha);
 	gpu_set_alphatestenable(true);
-	draw_sprite_ext(spr_pixel_centered, 0, drawX, drawY, 30*yScale, 18*energy/energyMax*xScale, image_angle-90+wave(-10, 10, 2, 0, true), col_plane, 1);
+	draw_sprite_ext(spr_pixel_centered, 0, drawX, drawY, 30*yScale, 18*other.visualPlayerEnergy/energyMax*xScale, image_angle-90+wave(-10, 10, 2, 0, true), col_plane, 1);
 	gpu_set_alphatestenable(false);
 	gpu_set_blendmode(bm_normal);
 }

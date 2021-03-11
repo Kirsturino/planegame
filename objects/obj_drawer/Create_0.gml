@@ -1,7 +1,7 @@
 //Background variables
 backgroundColor = col_skyblue;
-backgroundColor2 = make_color_rgb(70, 91, 231);
-backgroundColor3 = make_color_rgb(34, 45, 129);
+//backgroundColor2 = make_color_rgb(70, 91, 231);
+//backgroundColor3 = make_color_rgb(34, 45, 129);
 
 //Set default particle system to be under everything this object draws
 //For some reason we need to call this at the start of every room instead of setting it once, smh
@@ -9,6 +9,7 @@ part_system_depth(global.ps, 100);
 draw_set_circle_precision(32);
 
 playerSurf = surface_create(64, 64);
+visualPlayerEnergy = 0;
 //guiSurf = surface_create(viewWidth, viewHeight);
 masterWidth = viewWidth*2;
 masterHeight = viewHeight*2;

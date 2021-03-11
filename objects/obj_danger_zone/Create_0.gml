@@ -55,3 +55,28 @@ function createCloudSurface(surf, freq, posVar, rad, radVar, marg, surfMarg, col
 	surface_copy(surf, 0, 0, tempSurf);
 	surface_free(tempSurf);
 }
+
+function hitFunction()
+{
+	with (obj_player)
+	{
+		if (state != outOfEnergy)
+		{
+			energyCooldown = energyCooldownMax;
+			energy = approach(energy, 0, dangerEnergyDrain);
+		}
+		
+		//FX
+		shakeCamera(15, 0, 10);
+		setControllerVibration(0.5, 0.5);
+		
+		if (!inDanger)
+		{
+			//FX
+			inDanger = true;
+			shakeCamera(40, 1, 20);
+			audio_play_sound(cloudSound, 0, true);
+			audio_play_sound(cloudEnterExitSound, 0, false);
+		}
+	}
+}

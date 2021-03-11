@@ -5,7 +5,7 @@ globalvar delta;
 delta = 0;
 
 //This doesn't really matter what it is, but will affect rate of everything. 
-//Just needs some constant to measure against, I think.
+//Just needs some constant to measure against
 #macro defaultFramesPerSecond 60
 globalvar framesPerSecond;
 framesPerSecond = 144;

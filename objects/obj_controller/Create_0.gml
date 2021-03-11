@@ -4,19 +4,6 @@ instance_create_layer(0, 0, layer, obj_background);
 //Reset level objective
 global.objectiveCount = 0;
 
-//Level transition
-function nextLevel()
-{
-	audio_group_stop_all(ag_sfx);
-	room_goto_next();
-}
-
-function restartLevel()
-{
-	audio_group_stop_all(ag_sfx);
-	room_restart();
-}
-
 transitionTimerMax = 30;
 transitionTimer = 0;
 transitioningOut = false;
@@ -67,7 +54,6 @@ function checkForPlayer()
 		shakeCamera(100, 0, 20);
 		audio_play_sound(snd_shoot_default, 0, false);
 		
-		transitionFunction = restartLevel;
-		startRoomTransition();
+		startRoomTransition(restartLevel);
 	}
 }

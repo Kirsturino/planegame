@@ -3,7 +3,7 @@ event_inherited();
 function checkLevelCompletion()
 {
 	if (global.objectiveCount == 0)
-		{ startRoomTransition(); }
+		{ startRoomTransition(nextLevel); }
 }
 
 //Count up all completables in level

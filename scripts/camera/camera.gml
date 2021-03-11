@@ -73,3 +73,11 @@ function removeCameraFocus(object_id)
 {
 	removeFromArray(obj_camera.focusArray, object_id);
 }
+
+function resetCameraFocus()
+{
+	array_resize(obj_camera.focusArray, 0);
+		
+	//Reset object focus states
+	with (par_object_of_interest) { inFocus = false; }
+}

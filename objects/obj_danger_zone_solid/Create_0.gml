@@ -7,10 +7,10 @@ tempSurf = -1;
 onScreen = true;
 
 frequency = 8;
-radius = 6;
+radius = 7;
 positionVariance = 0;
 fillPositionVariance = 0;
-radiusVariance = 2;
+radiusVariance = 1;
 surfMargin = 32;
 margin = 4;
 
@@ -62,4 +62,43 @@ function createSolidSurface(surf, freq, posVar, fillPosVar, rad, radVar, marg, s
 	
 	surface_copy(surf, 0, 0, tempSurf);
 	surface_free(tempSurf);
+}
+
+function hitFunction()
+{
+	with (obj_player)
+	{
+		if (state != outOfEnergy)
+		{
+			energyCooldown = energyCooldownMax;
+			energy = approach_pure(energy, 0, max((abs(hsp) + abs(vsp))*20, 10));
+		} else
+		{
+			startRoomTransition(restartLevel);
+		}
+		
+		if (!inDanger)
+		{
+			//FX
+			inDanger = true;
+			var dir = point_direction(0, 0, hsp, vsp);
+			directionShakeCamera(30, 60, dir, 0.2);
+			pushCamera(60, dir);
+			audio_play_sound(bonkSound, 0, false);
+			freeze(50);
+			setControllerVibration(0.8, 0.8);
+		}
+		
+		//Bounceback
+		var margin = 16;
+		var bounceFactor = -0.2;
+		if (x+hsp < other.bbox_left + margin || x+hsp > other.bbox_right - margin)
+			{ hsp *= bounceFactor; }
+		else 
+			{ vsp *= bounceFactor; }
+				
+		blockPlayerInput(60);
+		resetInput();
+		resetTurbo();
+	}
 }
