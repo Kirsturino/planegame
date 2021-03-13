@@ -60,7 +60,7 @@ function hitFunction()
 {
 	with (obj_player)
 	{
-		if (state != outOfEnergy)
+		if (!blockInput && state != outOfEnergy)
 		{
 			energyCooldown = energyCooldownMax;
 			energy = approach(energy, 0, dangerEnergyDrain);

@@ -107,7 +107,7 @@ function checkCameraFocus()
 	if (length > 0)
 	{
 		var dist = point_distance(curX + viewWidth/2, curY + viewHeight/2, obj_player.x, obj_player.y);
-		var cutOffPoint = 120;
+		var cutOffPoint = 140;
 		if (dist > cutOffPoint)
 		{
 			array_resize(focusArray, 0);

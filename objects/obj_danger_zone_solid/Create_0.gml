@@ -82,7 +82,7 @@ function hitFunction()
 			//FX
 			inDanger = true;
 			var dir = point_direction(0, 0, hsp, vsp);
-			directionShakeCamera(30, 60, dir, 0.2);
+			directionShakeCamera(30, 40, dir, 0.2);
 			pushCamera(60, dir);
 			audio_play_sound(bonkSound, 0, false);
 			freeze(50);

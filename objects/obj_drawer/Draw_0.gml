@@ -99,6 +99,8 @@ shader_reset();
 			
 #endregion
 
+with (obj_floating_text) { event_perform(ev_draw, 0); }
+
 #region Player drawing
 
 if (!surface_exists(playerSurf))

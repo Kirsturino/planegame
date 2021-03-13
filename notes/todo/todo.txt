@@ -15,7 +15,8 @@ Features:
 	- Only one engine at a time allowed
 	- Etc.
 	
-- Wall levels
+- Wall levels (probably shooting continued?)
+- More babby levels
 	
 ----------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ Tuning:
 
 Fix:
 - Update level transitions at some point
+- Master surface for rock walls?
 
 ----------------------------------------------------------------------
 

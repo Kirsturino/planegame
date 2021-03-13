@@ -58,7 +58,7 @@ blockInputTimer = 0;
 
 //Misc
 fallingTurnSpd = 0;
-maxFallingTurnSpd = 2;
+maxFallingTurnSpd = 4;
 fallingTurnSpdAxl = 0.03;
 inDanger = false;
 dummyReset = false;

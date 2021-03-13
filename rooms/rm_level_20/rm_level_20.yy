@@ -110,8 +110,8 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "Rooms",
-    "path": "folders/Rooms.yy",
+    "name": "Line",
+    "path": "folders/Rooms/Line.yy",
   },
   "resourceVersion": "1.0",
   "name": "rm_level_20",

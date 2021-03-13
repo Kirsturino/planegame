@@ -27,9 +27,9 @@ function initParticles()
 	global.smokePartShort = part_type_create();
 	var p = global.smokePartShort;
 	part_type_color1(p, make_color_rgb(255, 253, 240));
-	part_type_life(p, 30/d, 60/d);
+	part_type_life(p, 20/d, 40/d);
 	part_type_shape(p, pt_shape_disk);
-	part_type_size(p, 0.05, 0.1, -0.001*d, 0);
+	part_type_size(p, 0.05, 0.1, -0.002*d, 0);
 	part_type_speed(p, 0.05*d, 0.1*d, 0, 0);
 	part_type_direction(p, 0, 359, 0, 0);
 
