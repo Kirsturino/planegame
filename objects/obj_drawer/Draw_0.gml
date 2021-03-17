@@ -2,6 +2,7 @@ var camX = camera_get_view_x(view);
 var camY = camera_get_view_y(view);
 
 draw_clear(backgroundColor);
+with (obj_background_sun) { event_perform(ev_draw, 0); }
 
 #region Background cloud drawing
 
@@ -182,7 +183,7 @@ with (obj_player)
 	
 	gpu_set_blendmode_ext(bm_dest_alpha,bm_inv_dest_alpha);
 	gpu_set_alphatestenable(true);
-	draw_sprite_ext(spr_pixel_centered, 0, drawX, drawY, 30*yScale, 18*other.visualPlayerEnergy/energyMax*xScale, image_angle-90+wave(-10, 10, 2, 0, true), col_plane, 1);
+	draw_sprite_ext(spr_player_fuel_meter, 0, drawX, drawY, 30*yScale, 18*other.visualPlayerEnergy/energyMax*xScale, image_angle-90+wave(-10, 10, 2, 0, true), col_plane, 1);
 	gpu_set_alphatestenable(false);
 	gpu_set_blendmode(bm_normal);
 }

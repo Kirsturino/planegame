@@ -22,7 +22,7 @@ turboSpdMax = 5;
 turboAxl = 0.2;
 turbo = false;
 turboCost = 1;
-turboStartCost = 5;
+turboStartCost = 8;
 
 //Energy
 energyMax = 200;
@@ -64,7 +64,8 @@ inDanger = false;
 dummyReset = false;
 vibR = 0;
 vibL = 0;
-vibDecay = 0.05;
+vibDecay = 0.1;
+shouldVib = false;
 resetControllerVibration();
 
 //Graphics
@@ -107,8 +108,8 @@ function calculateRotation()
 	rotSpd[1] = clamp(rotSpd[1] + joyR * rotAxl * delta, -rotSpdMax, rotSpdMax);
 	
 	//FX
-	var vib = (rotSpd[0] - rotSpd[1]) * 0.1;
-	setControllerVibration(min(vib, 0), max(vib, 0));
+	//var vib = (rotSpd[0] - rotSpd[1]) * 0.1;
+	//setControllerVibration(min(vib, 0), max(vib, 0));
 	
 	//Angle plane down if neutraling and falling
 	if (neutral && !shouldShoot && vsp > 0)
@@ -185,6 +186,10 @@ function turboLogic()
 		energy = approach(energy, 0, turboCost);
 		energyCooldown = energyCooldownMax;
 		
+		//Remove all turning when turbo is active
+		rotSpd[0] = 0;
+		rotSpd[1] = 0;
+		
 		setControllerVibration(0.3, 0.3);
 		shakeCamera(15, 0, 20);
 		
@@ -199,10 +204,6 @@ function turboLogic()
 			setSquashTarget(0.9, 1.1);
 			setSquash(0.6, 1.4);
 			setCameraZoom(1.3); //Zoom camera out when using boost
-			
-			//Remove all turning when initiating turbo
-			rotSpd[0] = 0;
-			rotSpd[1] = 0;
 			
 			//SFX
 			audio_stop_sound(turboKickSound);
@@ -536,7 +537,10 @@ function controllerVibration()
 	//Controller vibration
 	vibL = approach(vibL, 0, vibDecay);
 	vibR = approach(vibR, 0, vibDecay);
-	gamepad_set_vibration(global.controller, vibL, vibR);
+	if (shouldVib)
+	{ gamepad_set_vibration(global.controller, vibL, vibR); }
+	
+	if (vibL == 0 && vibR == 0) { shouldVib = false; }
 }
 
 function squash()

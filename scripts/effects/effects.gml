@@ -45,10 +45,12 @@ function setControllerVibration(left, right)
 {
 	obj_player.vibL = max(left, obj_player.vibL);
 	obj_player.vibR = max(right, obj_player.vibR);
+	shouldVib = true;
 }
 
 function resetControllerVibration()
 {
 	obj_player.vibL = 0;
 	obj_player.vibR = 0;
+	shouldVib = false;
 }

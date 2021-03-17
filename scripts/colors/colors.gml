@@ -13,6 +13,8 @@ globalvar col_cloudblue;
 col_cloudblue = make_color_rgb(151, 219, 210);
 globalvar col_orange;
 col_orange = make_color_rgb(248, 153, 58);
+globalvar col_yellow;
+col_yellow = make_color_rgb(244, 192, 71);
 
 globalvar col_plane;
 col_plane = col_white;

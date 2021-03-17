@@ -20,6 +20,8 @@ for (var i = 0; i < cloudAmount; i++;)
 	cloud.cloudSpeed = (0.05 + random(cloud.cloudSpeedVariance)) * cloudDirection;
 }
 
+instance_create_layer(0, 0, layer, obj_background_sun);
+
 //City surface init
 citySurf = -1;
 
