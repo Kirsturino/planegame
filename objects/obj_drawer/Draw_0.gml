@@ -1,5 +1,6 @@
 var camX = camera_get_view_x(view);
 var camY = camera_get_view_y(view);
+var time = (current_time - global.pausedTime) / 1000;
 
 draw_clear(backgroundColor);
 with (obj_background_sun) { event_perform(ev_draw, 0); }
@@ -87,7 +88,7 @@ surface_reset_target();
 
 //Animate bottom cloud layer with wave shader and outline
 shader_set(shd_wave_outline);
-shader_set_uniform_f(uTimeOL, current_time/1000 * spdOL);
+shader_set_uniform_f(uTimeOL, time * spdOL);
 shader_set_uniform_f(uFrequencyOL, frequencyOL);
 shader_set_uniform_f(uIntensityOL, intensityOL);
 shader_set_uniform_f(uWavePixelW, cloudTexelW);

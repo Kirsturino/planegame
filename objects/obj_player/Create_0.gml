@@ -443,7 +443,7 @@ function speedParticles()
 
 function getInput()
 {
-	if (!blockInput)
+	if (!blockInput && !global.paused)
 	{
 		joyL = gamepad_axis_value(global.controller, gp_axislv);
 		joyR = gamepad_axis_value(global.controller, gp_axisrv);

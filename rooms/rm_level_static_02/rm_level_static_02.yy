@@ -123,8 +123,6 @@
   },
   "resourceVersion": "1.0",
   "name": "rm_level_static_02",
-  "tags": [
-    "Tutorial",
-  ],
+  "tags": [],
   "resourceType": "GMRoom",
 }

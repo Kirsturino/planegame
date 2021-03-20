@@ -28,8 +28,8 @@ function wave(from, to, duration, offset, sine) {
 	var a4 = (to - from) * 0.5;
 
 	//Ternary operator stuff
-	var waveType = sine		?	sin((((current_time * 0.001) + duration + offset) / duration) * (pi*2))
-							:	cos((((current_time * 0.001) + duration + offset) / duration) * (pi*2));
+	var waveType = sine		?	sin(((((current_time - global.pausedTime) * 0.001) + duration + offset) / duration) * (pi*2))
+							:	cos(((((current_time - global.pausedTime) * 0.001) + duration + offset) / duration) * (pi*2));
 	
 	return from + a4 + waveType * a4;
 }

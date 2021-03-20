@@ -137,8 +137,6 @@
   },
   "resourceVersion": "1.0",
   "name": "rm_test_01",
-  "tags": [
-    "Tutorial",
-  ],
+  "tags": [],
   "resourceType": "GMRoom",
 }

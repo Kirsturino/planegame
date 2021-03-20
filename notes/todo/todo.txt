@@ -31,7 +31,6 @@ Tuning:
 
 Fix:
 - Update level transitions at some point
-- Master surface for rock walls?
 
 ----------------------------------------------------------------------
 

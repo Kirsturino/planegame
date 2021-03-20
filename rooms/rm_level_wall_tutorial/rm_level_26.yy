@@ -105,6 +105,8 @@
   },
   "resourceVersion": "1.0",
   "name": "rm_level_26",
-  "tags": [],
+  "tags": [
+    "Tutorial",
+  ],
   "resourceType": "GMRoom",
 }

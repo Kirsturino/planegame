@@ -33,12 +33,12 @@
         {"properties":[],"isDnd":false,"objectId":{"name":"obj_danger_zone","path":"objects/obj_danger_zone/obj_danger_zone.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":27.0000019,"scaleY":4.5,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":-176.0,"y":1280.0,"resourceVersion":"1.0","name":"inst_3CA2CA3B","tags":[],"resourceType":"GMRInstance",},
         {"properties":[],"isDnd":false,"objectId":{"name":"obj_danger_zone","path":"objects/obj_danger_zone/obj_danger_zone.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":27.0000019,"scaleY":5.5,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":-176.0,"y":-144.0,"resourceVersion":"1.0","name":"inst_2B024FFA","tags":[],"resourceType":"GMRInstance",},
         {"properties":[
-            {"propertyId":{"name":"completionMax","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"360","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
+            {"propertyId":{"name":"completionMax","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"320","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
             {"propertyId":{"name":"type","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"\"insideRotation\"","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
           ],"isDnd":false,"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":7.0,"scaleY":7.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":240.0,"y":896.0,"resourceVersion":"1.0","name":"inst_73619341","tags":[],"resourceType":"GMRInstance",},
         {"properties":[
             {"propertyId":{"name":"type","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"\"insideRotation\"","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
-            {"propertyId":{"name":"completionMax","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"-360","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
+            {"propertyId":{"name":"completionMax","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"-320","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
           ],"isDnd":false,"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":7.0,"scaleY":7.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":240.0,"y":560.0,"resourceVersion":"1.0","name":"inst_7B3AF89A","tags":[],"resourceType":"GMRInstance",},
         {"properties":[
             {"propertyId":{"name":"type","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"\"insideRotation\"","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
@@ -96,8 +96,6 @@
   },
   "resourceVersion": "1.0",
   "name": "rm_level_06",
-  "tags": [
-    "Tutorial",
-  ],
+  "tags": [],
   "resourceType": "GMRoom",
 }

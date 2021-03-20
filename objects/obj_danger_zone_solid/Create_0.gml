@@ -45,11 +45,12 @@ function createSolidSurface(surf, freq, posVar, fillPosVar, rad, radVar, marg, s
 	}
 	
 	//Make surface inside
+	var insideMarg = 12;
 	if (totalMarg < xLimit && totalMarg < yLimit)
 	{
-		for (var i = totalMarg+16; i <= xLimit-16; i += freq;)
+		for (var i = totalMarg+insideMarg; i <= xLimit-insideMarg; i += freq;)
 		{
-		    for (var j = totalMarg+16; j <= yLimit-16; j += freq;)
+		    for (var j = totalMarg+insideMarg; j <= yLimit-insideMarg; j += freq;)
 			{
 				var _x = i + irandom_range(-fillPosVar, fillPosVar);
 				var _y = j + irandom_range(-fillPosVar, fillPosVar);

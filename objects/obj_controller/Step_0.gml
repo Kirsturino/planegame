@@ -31,6 +31,15 @@ if (keyboard_check_pressed(ord("F")))
 	window_set_fullscreen(!window_get_fullscreen());
 }
 
+if (gamepad_button_check_pressed(global.controller, gp_start) && !transitioningIn && !transitioningOut)
+{
+	with (obj_player) { resetInput(); }
+	global.paused = !global.paused;
+	global.timeScale = !global.paused;
+	part_system_automatic_update(global.ps,		!global.paused);
+	part_system_automatic_update(global.psTop,	!global.paused);
+}
+
 //Level transitions
 if (transitioningOut)
 {

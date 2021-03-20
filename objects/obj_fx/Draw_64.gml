@@ -17,9 +17,16 @@ var blend = 0.5 - obj_player.energy/obj_player.energyMax;
 var borderSize = rectThickness * blend;
 if (obj_player.state == obj_player.outOfEnergy) borderSize = rectThickness;
 border = lerp(border, borderSize, 0.1);
-draw_sprite_ext(spr_pixel_centered, 0, viewWidth/2, viewHeight/2, viewWidth/2-border, viewHeight/2-border, wave(-1, 1, 0.2, 0, true)*blend, c_white, 1);
+
+draw_sprite_ext(spr_pixel_centered, 0, viewWidth/2, viewHeight/2, viewWidth/2-border, viewHeight/2-border, 0, c_white, 1);
+
 gpu_set_blendmode(bm_normal);
 
 surface_reset_target();
 
+shader_set(shd_wave);
+shader_set_uniform_f(uIntensity, intensity);
+shader_set_uniform_f(uTime, (current_time-global.pausedTime)/1000*spd);
+shader_set_uniform_f(uFrequency, frequency);
 draw_surface(dangerSurf, 0, 0);
+shader_reset();

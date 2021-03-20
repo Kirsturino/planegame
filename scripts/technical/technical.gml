@@ -23,6 +23,8 @@ globalvar delta;
 delta = global.actualDelta / global.targetDelta;
 
 global.timeScale = 1;
+global.paused = false;
+global.pausedTime = 0;
 
 global.controller = 0;
 global.gp_num = gamepad_get_device_count();

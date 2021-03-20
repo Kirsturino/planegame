@@ -39,7 +39,7 @@ function initParticles()
 	part_type_life(p, 120/d, 240/d);
 	part_type_shape(p, pt_shape_disk);
 	part_type_size(p, 0.1, 0.3, -0.002*d, 0);
-	part_type_speed(p, 0.5*d, 1.5*d, -0.01*d, 0);
+	part_type_speed(p, 0.7*d, 1.7*d, -0.008*d, 0);
 	part_type_direction(p, 0, 359, 0, 0);
 
 	global.turboPart = part_type_create();

@@ -8,9 +8,12 @@ backgroundColor = col_skyblue;
 part_system_depth(global.ps, 100);
 draw_set_circle_precision(32);
 
+//GUI
+guiSurf = -1;
+
+//Player
 playerSurf = surface_create(64, 64);
 visualPlayerEnergy = 0;
-//guiSurf = surface_create(viewWidth, viewHeight);
 masterWidth = viewWidth*2;
 masterHeight = viewHeight*2;
 masterCloudSurf = surface_create(masterWidth, masterHeight);
@@ -18,13 +21,8 @@ masterCloudSurf = surface_create(masterWidth, masterHeight);
 //Outline shader stuff
 upixelH = shader_get_uniform(shd_outline, "pixelH");
 upixelW = shader_get_uniform(shd_outline, "pixelW");
-
 playerTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(playerSurf));
 playerTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(playerSurf));
-
-//guiTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(guiSurf));
-//guiTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(guiSurf));
-
 dangerBlend = 0;
 
 //Wave shader stuff

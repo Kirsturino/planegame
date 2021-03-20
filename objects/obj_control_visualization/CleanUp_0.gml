@@ -1,1 +1,1 @@
-surface_free(guiSurf);
+surface_free(controlSurf);

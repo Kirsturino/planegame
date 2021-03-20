@@ -99,8 +99,6 @@
   },
   "resourceVersion": "1.0",
   "name": "rm_rot_ins_02",
-  "tags": [
-    "Tutorial",
-  ],
+  "tags": [],
   "resourceType": "GMRoom",
 }

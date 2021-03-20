@@ -100,8 +100,6 @@
   },
   "resourceVersion": "1.0",
   "name": "rm_rot_ins_05_not_included",
-  "tags": [
-    "Tutorial",
-  ],
+  "tags": [],
   "resourceType": "GMRoom",
 }

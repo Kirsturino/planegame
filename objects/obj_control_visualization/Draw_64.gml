@@ -4,16 +4,16 @@ var squash = 8;
 var stickShift = 16;
 var stickWidth = 12;
 
-if (!surface_exists(guiSurf))
+if (!surface_exists(controlSurf))
 {
-	guiSurf = surface_create(viewWidth, viewHeight);
-	guiTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(guiSurf));
-	guiTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(guiSurf));
+	controlSurf = surface_create(viewWidth, viewHeight);
+	controlTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(controlSurf));
+	controlTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(controlSurf));
 	upixelH = shader_get_uniform(shd_outline, "pixelH");
 	upixelW = shader_get_uniform(shd_outline, "pixelW");
 }
 
-surface_set_target(guiSurf);
+surface_set_target(controlSurf);
 draw_clear_alpha(col_black, 0);
 
 var joyL = gamepad_axis_value(0, gp_axislv);
@@ -33,7 +33,7 @@ draw_ellipse_color(viewWidth-margin-buttonSize+2, _y-buttonSize+2+abs(joyR)*squa
 surface_reset_target();
 
 shader_set(shd_outline);
-shader_set_uniform_f(upixelW, guiTexelW);
-shader_set_uniform_f(upixelH, guiTexelH);
-draw_surface(guiSurf, 0, 0);
+shader_set_uniform_f(upixelW, controlTexelW);
+shader_set_uniform_f(upixelH, controlTexelH);
+draw_surface(controlSurf, 0, 0);
 shader_reset();
