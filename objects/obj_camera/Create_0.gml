@@ -5,6 +5,8 @@ curY = 0;
 //Set camera coordinates to player location
 var _x = obj_player.x - viewWidth/2;
 var _y = obj_player.y - viewHeight/2;
+_x = clamp(_x, 0, room_width-viewWidth);
+_y = clamp(_y, 0, room_height-viewHeight);
 
 xx = _x;
 xTo = _x;

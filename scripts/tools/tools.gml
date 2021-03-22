@@ -34,6 +34,16 @@ function wave(from, to, duration, offset, sine) {
 	return from + a4 + waveType * a4;
 }
 
+function wave_pure(from, to, duration, offset, sine) {
+	var a4 = (to - from) * 0.5;
+
+	//Ternary operator stuff
+	var waveType = sine		?	sin(((((current_time) * 0.001) + duration + offset) / duration) * (pi*2))
+							:	cos(((((current_time) * 0.001) + duration + offset) / duration) * (pi*2));
+	
+	return from + a4 + waveType * a4;
+}
+
 function isOutsideRoom(x, y, marginX, marginY)
 {
 	if (x < -marginX || x > room_width + marginX)		{ return true; }

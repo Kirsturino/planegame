@@ -13,7 +13,7 @@ if (global.paused)
 
 	draw_set_halign(fa_center);
 	draw_set_valign(fa_center);
-	draw_text(viewWidth/2, viewHeight/4, "PAUSED");
+	draw_text(viewWidth/2, viewHeight/4 + wave_pure(-8, 8, 4, 0, true), "PAUSED");
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_top);
 

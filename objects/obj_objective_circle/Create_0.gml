@@ -205,6 +205,7 @@ switch (type)
 					
 				if (!inFocus)
 				{
+					resetCameraFocus();
 					addCameraFocus(id);
 					inFocus = true;
 				}

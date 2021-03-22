@@ -6,7 +6,7 @@ if (gamepad_button_check_pressed(global.controller, gp_face1))
 	startRoomTransition(restartLevel);
 }
 
-if (gamepad_button_check_pressed(global.controller, gp_face2))
+if (gamepad_button_check(global.controller, gp_shoulderl) && gamepad_button_check_pressed(global.controller, gp_face2))
 {
 	game_end();
 }

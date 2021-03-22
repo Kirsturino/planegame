@@ -10,7 +10,7 @@ frequency = 8;
 radius = 7;
 positionVariance = 0;
 fillPositionVariance = 0;
-radiusVariance = 1;
+radiusVariance = 0;
 surfMargin = 32;
 margin = 4;
 
@@ -54,7 +54,7 @@ function createSolidSurface(surf, freq, posVar, fillPosVar, rad, radVar, marg, s
 			{
 				var _x = i + irandom_range(-fillPosVar, fillPosVar);
 				var _y = j + irandom_range(-fillPosVar, fillPosVar);
-			    draw_circle_color(_x, _y, max(0, rad + irandom_range(-radVar, radVar))*1.2, col, col, false);
+			    draw_circle_color(_x, _y, rad, col, col, false);
 			}
 		}
 	}
