@@ -48,7 +48,9 @@ function completionLogic()
 	{
 		//Move triangle depending on player speed and rotational speed
 		var speedModifier =		(abs(obj_player.hsp) + abs(obj_player.vsp) + 
-								abs(obj_player.rotSpd[0] - obj_player.rotSpd[1])) * 0.2;
+								abs(obj_player.rotSpd[0] - obj_player.rotSpd[1])) * 0.15;
+		speedModifier = min(speedModifier, 1.5);
+								
 								
 		curProgressSpeed = approach(curProgressSpeed, progressSpeed, progressAxl * speedModifier);
 		

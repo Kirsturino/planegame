@@ -1,19 +1,16 @@
 //Camera variables
-curX = 0;
-curY = 0;
+curX =	0;
+curY =	0;
+xx =	0;
+xTo =	0;
+yy =	0;
+yTo =	0;
+targX = 0;
+targY = 0;
 
-//Set camera coordinates to player location
-var _x = obj_player.x - viewWidth/2;
-var _y = obj_player.y - viewHeight/2;
-_x = clamp(_x, 0, room_width-viewWidth);
-_y = clamp(_y, 0, room_height-viewHeight);
+camera_set_view_pos(view, 0, 0);
 
-xx = _x;
-xTo = _x;
-yy = _y;
-yTo = _y;
-
-camera_set_view_pos(view, _x, _y);
+#region FX
 
 //Camera shake variables
 shakeDuration = 0;
@@ -42,9 +39,6 @@ zoomTarget = 1;
 //Camera rotation
 rot = 0;
 rotTo = 0;
-
-//Array of things the camera should find interesting
-focusArray = [];
 
 function cameraShake()
 {
@@ -103,62 +97,23 @@ function cameraZoom()
 	zoomMultiplier = lerp(zoomMultiplier, zoomTarget, zoomLerpSpeed*delta);
 }
 
-function checkCameraFocus()
-{
-	var length = array_length(focusArray);
-	if (length > 0)
-	{
-		var dist = point_distance(curX + viewWidth/2, curY + viewHeight/2, obj_player.x, obj_player.y);
-		var cutOffPoint = 140;
-		if (dist > cutOffPoint)
-		{
-			array_resize(focusArray, 0);
-		
-			//Reset object focus states
-			with (par_object_of_interest) { inFocus = false; }
-		}
-	}
-}
+#endregion
 
 function cameraLogic()
 {
+	curX = camera_get_view_x(view);
+	curY = camera_get_view_y(view);
+	
 	var spd = 0.05;
 	var finalWidth = viewWidth * zoomMultiplier;
 	var finalHeight = viewHeight * zoomMultiplier;
-	var lookAheadMultiplierX = 50;
-	var lookAheadMultiplierY = 20;
-	var xDir = obj_player.image_angle;
-	var yDir = point_direction(0, 0, obj_player.hsp, obj_player.vsp);
-	
-	//Get player's coordinates with some doctoring added
-	var playerX = obj_player.x + lengthdir_x(abs(obj_player.hsp) * lookAheadMultiplierX, xDir);
-	var playerY = obj_player.y + lengthdir_y(abs(obj_player.vsp) * lookAheadMultiplierY, yDir);
-	
-	//Check if player is too far away from camera center
-	//If player is too far, clear the focus array
-	checkCameraFocus();
-	
-	//Get any objects of interest and add them together
-	var xAverage = playerX;
-	var yAverage = playerY;
-	
-	var length = array_length(focusArray);
-	for (var i = 0; i < length; ++i)
-	{
-	    xAverage += focusArray[i].x;
-		yAverage += focusArray[i].y;
-	}
-	
-	//Calculate the wanted focal point of the camera
-	var finalX = xAverage / (length+1);
-	var finalY = yAverage / (length+1);
 	
 	//Change offset of camera depending on zoom to keep it centered on player smoothly
 	var xZoomOffset = viewWidth/2 * (zoomTarget-1);
 	var yZoomOffset = viewHeight/2 * (zoomTarget-1);
 	
-	xx = finalX - viewWidth/2 - xZoomOffset;
-	yy = finalY - viewHeight/2 - yZoomOffset;
+	xx = targX - viewWidth/2 - xZoomOffset;
+	yy = targY - viewHeight/2 - yZoomOffset;
 	
 	xx = clamp(xx, 0, room_width - finalWidth);
 	yy = clamp(yy, 0, room_height - finalHeight);
@@ -173,9 +128,6 @@ function applyCameraPos(spd, width, height)
 	cameraPush();
 	cameraRotation();
 	cameraZoom();
-	
-	curX = camera_get_view_x(view);
-	curY = camera_get_view_y(view);
 	
 	xTo = lerp(curX, xx + shakeX + pushX + dirShakeX, spd*delta);
 	yTo = lerp(curY, yy + shakeY + pushY + dirShakeY, spd*delta);

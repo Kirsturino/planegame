@@ -88,6 +88,7 @@ function hitFunction()
 			audio_play_sound(bonkSound, 0, false);
 			freeze(50);
 			setControllerVibration(0.8, 0.8);
+			zoomCamera(0.05);
 		}
 		
 		//Bounceback
