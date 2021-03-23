@@ -1,7 +1,6 @@
 event_inherited();
 
 completed = false;
-radius = 8;
 
 curProgressSpeed = 0;
 progressSpeed = 4;
@@ -29,6 +28,9 @@ disappearSound = snd_pop;
 //This is horrible instance creation order jank
 alarm[0] = 1;
 
+
+//This whole logic is really, really bad and should be rewritten at some point
+//But hey, if it works
 function completionLogic()
 {
 	//Get two points we're moving between
@@ -44,30 +46,37 @@ function completionLogic()
 	var plr = collision_circle(progX, progY, radius, obj_player, false, false);
 	if (plr != noone)
 	{
-		//Move triangle depending on player speed
-		var speedModifier = (abs(obj_player.hsp) + abs(obj_player.vsp)) * 0.2;
+		//Move triangle depending on player speed and rotational speed
+		var speedModifier =		(abs(obj_player.hsp) + abs(obj_player.vsp) + 
+								abs(obj_player.rotSpd[0] - obj_player.rotSpd[1])) * 0.2;
+								
 		curProgressSpeed = approach(curProgressSpeed, progressSpeed, progressAxl * speedModifier);
+		
+		setControllerVibration(0.2, 0.2);
+	} else if (progressLerp == 0 && progressPoint == 0)
+	{
+		curProgressSpeed = 0;
 	} else
 	{
-		curProgressSpeed = approach(curProgressSpeed, 0, progressFrc);
+		curProgressSpeed = approach(curProgressSpeed, -progressDecay, progressFrc);
 	}
 	
-	//Actuallly increment completion value based on the triangle's current speed
-	progressLerp = approach(progressLerp, 1, curProgressSpeed / pointLength);
+	//Actually increment completion value based on the triangle's current speed
+	progressLerp = clamp(progressLerp + curProgressSpeed/pointLength*delta, 0, 1);
 
 	//Move triangle between two points
 	progressX = lerp(_x, _x2, progressLerp);
 	progressY = lerp(_y, _y2, progressLerp);
 
 	//This is where we go once we reach the point
-	if (progressLerp == 1 && progressPoint < pointArrayLength)
+	if (progressLerp >= 1 && progressPoint < pointArrayLength && curProgressSpeed > 0)
 	{
 		//Increment next point details
 		progressPoint++;
 		progressLerp = 0;
 		
 		//If at last point, do stuff and change state
-		if (progressPoint == pointArrayLength-1)
+		if (progressPoint == pointArrayLength - 1)
 		{
 			completed = true;
 			curProgressSpeed = 0;
@@ -91,7 +100,20 @@ function completionLogic()
 			var _y2 = pointArray[progressPoint+1][1];
 			pointLength = point_distance(_x, _y, _x2, _y2);
 		}
-	}
+	} else if (progressLerp <= 0 && progressPoint > 0 && curProgressSpeed < 0)
+	{
+		//This is if triangle reaches a point while going backwards
+		//Decrement next point details
+		progressPoint--;
+		progressLerp = 1;
+		
+		//Calculate length of next segment
+		var _x = pointArray[progressPoint+1]	[0];
+		var _y = pointArray[progressPoint+1]	[1];
+		var _x2 = pointArray[progressPoint]		[0];
+		var _y2 = pointArray[progressPoint]		[1];
+		pointLength = point_distance(_x, _y, _x2, _y2);
+	} 
 }
 
 function destroyLogic()

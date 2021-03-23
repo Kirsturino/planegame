@@ -40,7 +40,10 @@ var drawY = progressY - surfY + surfMargin/2;
 surface_set_target(lineSurf);
 if (!completed)
 {
-	draw_circle_color(drawX, drawY, lineThickness*1.1, col_black, col_black, false);
+	if (curProgressSpeed > 0)
+		{ draw_circle_color(drawX, drawY, lineThickness, col_black, col_black, false); }
+	else
+		{ draw_circle_color(drawX, drawY, lineThickness, col_white, col_white, false); }
 } else
 {
 	gpu_set_blendmode(bm_subtract);
@@ -62,8 +65,8 @@ var drawY = progressY + surfMargin/2;
 
 //Draw drop shadow
 draw_set_alpha(0.5);
-drawTriangle(drawX+2, drawY+2, 18*triangleScale, rot, col_black, false);
+drawTriangle(drawX+2, drawY+2, radius*2*triangleScale, rot, col_black, false);
 draw_set_alpha(1);
 
-drawTriangle(drawX, drawY, 18*triangleScale, rot, col_black, false);
-drawTriangle(drawX, drawY, 12*triangleScale, rot, col_white, false);
+drawTriangle(drawX, drawY, radius*2*triangleScale, rot, col_black, false);
+drawTriangle(drawX, drawY, (radius*2-6)*triangleScale, rot, col_white, false);

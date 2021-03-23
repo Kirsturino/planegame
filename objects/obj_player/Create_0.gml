@@ -64,7 +64,7 @@ inDanger = false;
 dummyReset = false;
 vibR = 0;
 vibL = 0;
-vibDecay = 0.1;
+vibDecay = 0.05;
 shouldVib = false;
 resetControllerVibration();
 
