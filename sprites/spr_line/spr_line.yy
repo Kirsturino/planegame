@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"90a8148f-30d1-4720-b0aa-5b7175860bc8","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "Level",
+    "path": "folders/Sprites/Level.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_line",

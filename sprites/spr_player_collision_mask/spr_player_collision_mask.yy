@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"8186e623-dbe2-4c68-9727-feb7d0a7eca0","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "Technical",
+    "path": "folders/Sprites/Technical.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_player_collision_mask",

@@ -230,7 +230,7 @@ switch (type)
 		{
 			var i = 0;
 			var dir = 1;
-			var seg = segments;
+			var seg = segments/2;
 			repeat(seg)
 			{
 				var size = radius/6;
@@ -244,7 +244,6 @@ switch (type)
 				draw_line_width_color(_x, _y, _x2, _y2, thiccness, col, col);
 	
 				i++;
-				dir *= -1;
 			}
 			
 			draw_circle_color(surfCenter, surfCenter, drawRad*completion/completionMax, col_black, col_black, false);

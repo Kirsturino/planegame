@@ -19,7 +19,7 @@ col_yellow = make_color_rgb(244, 192, 71);
 globalvar col_plane;
 col_plane = col_white;
 
-globalvar outlineThiccness;
-outlineThiccness = 3;
+globalvar outlineThickness;
+outlineThickness = 3;
 globalvar lineThickness;
 lineThickness = 3;

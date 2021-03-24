@@ -5,11 +5,11 @@ if (!surface_exists(circleSurf))
 		circleSurf = surface_create(surfSize, surfSize);
 		
 		//Shader
-		upixelH = shader_get_uniform(shd_outline, "pixelH");
-		upixelW = shader_get_uniform(shd_outline, "pixelW");
+		upixelH = shader_get_uniform(shd_outline_drop_shadow, "pixelH");
+		upixelW = shader_get_uniform(shd_outline_drop_shadow, "pixelW");
 
-		circleTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(circleSurf));
-		circleTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(circleSurf));
+		circleTexelW = outlineThickness * texture_get_texel_width(surface_get_texture(circleSurf));
+		circleTexelH = outlineThickness * texture_get_texel_height(surface_get_texture(circleSurf));
 	}
 
 surface_set_target(circleSurf);
@@ -55,7 +55,7 @@ if (!completed)
 
 surface_reset_target();
 
-shader_set(shd_outline);
+shader_set(shd_outline_drop_shadow);
 shader_set_uniform_f(upixelW, circleTexelW);
 shader_set_uniform_f(upixelH, circleTexelH);
 draw_surface(circleSurf, x-surfSize/2, y-surfSize/2);

@@ -19,10 +19,10 @@ masterHeight = viewHeight*2;
 masterCloudSurf = surface_create(masterWidth, masterHeight);
 
 //Outline shader stuff
-upixelH = shader_get_uniform(shd_outline, "pixelH");
-upixelW = shader_get_uniform(shd_outline, "pixelW");
-playerTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(playerSurf));
-playerTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(playerSurf));
+upixelH = shader_get_uniform(shd_outline_drop_shadow, "pixelH");
+upixelW = shader_get_uniform(shd_outline_drop_shadow, "pixelW");
+playerTexelW = outlineThickness * texture_get_texel_width(surface_get_texture(playerSurf));
+playerTexelH = outlineThickness * texture_get_texel_height(surface_get_texture(playerSurf));
 dangerBlend = 0;
 
 //Wave shader stuff
@@ -47,5 +47,5 @@ uXOffsetOL = shader_get_uniform(shd_wave_outline,"xOffset");
 uYOffsetOL = shader_get_uniform(shd_wave_outline,"yOffset");
 
 //Cloud surf stuff
-cloudTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(masterCloudSurf));
-cloudTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(masterCloudSurf));
+cloudTexelW = outlineThickness * texture_get_texel_width(surface_get_texture(masterCloudSurf));
+cloudTexelH = outlineThickness * texture_get_texel_height(surface_get_texture(masterCloudSurf));

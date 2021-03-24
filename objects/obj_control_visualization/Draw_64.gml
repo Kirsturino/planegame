@@ -7,8 +7,8 @@ var stickWidth = 12;
 if (!surface_exists(controlSurf))
 {
 	controlSurf = surface_create(viewWidth, viewHeight);
-	controlTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(controlSurf));
-	controlTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(controlSurf));
+	controlTexelW = outlineThickness * texture_get_texel_width(surface_get_texture(controlSurf));
+	controlTexelH = outlineThickness * texture_get_texel_height(surface_get_texture(controlSurf));
 	upixelH = shader_get_uniform(shd_outline, "pixelH");
 	upixelW = shader_get_uniform(shd_outline, "pixelW");
 }

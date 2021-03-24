@@ -12,15 +12,25 @@ Features:
 	- Limited turning
 	- Reverse only
 	- A homing missile(s?) is chasing you
+	- Stuff falls from the sky
 	- Only one engine at a time allowed
 	- Dark levels
 	- Etc.
 	
-- Wall levels (probably shooting continued?)
 - Variant on line obstacle where you have to ram into it
 	- Rock colored
 	- Direction needs to be correct (?)
 	- Disables engines for a second just like rocks
+	- Which way do you bounce? Do you bounce at all?
+	
+- UI Sounds
+- Menu music
+- Splash screen
+- Menu structure
+- Main menu
+- Level gating
+- Save system
+- Display beaten levels
 	
 ----------------------------------------------------------------------
 

@@ -7,6 +7,7 @@ yy =	0;
 yTo =	0;
 targX = 0;
 targY = 0;
+spd = 0.1;
 
 camera_set_view_pos(view, 0, 0);
 
@@ -103,8 +104,7 @@ function cameraLogic()
 {
 	curX = camera_get_view_x(view);
 	curY = camera_get_view_y(view);
-	
-	var spd = 0.05;
+
 	var finalWidth = viewWidth * zoomMultiplier;
 	var finalHeight = viewHeight * zoomMultiplier;
 	

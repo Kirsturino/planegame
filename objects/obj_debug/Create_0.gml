@@ -1,0 +1,1 @@
+if (CONFIG == BUILD) { instance_destroy(); }

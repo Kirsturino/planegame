@@ -1,5 +1,3 @@
-//Some flags TBA
-
 //Delta time
 globalvar delta;
 delta = 0;
@@ -47,4 +45,42 @@ function getController()
 	}
 
 	gamepad_set_axis_deadzone(global.controller, global.deadzone);
+}
+
+function togglePause()
+{
+	global.paused = !global.paused;
+	global.timeScale = !global.paused;
+	part_system_automatic_update(global.ps,		!global.paused);
+	part_system_automatic_update(global.psTop,	!global.paused);
+}
+
+function saveJSON(fileName, struct)
+{
+	//JSONify data
+	var str = json_stringify(struct);
+	
+	//Delete old file
+	if (file_exists(fileName)) { file_delete(fileName); }
+	
+	var file = file_text_open_write(fileName);
+	file_text_write_string(file, str);
+	file_text_close(file);
+}
+
+function loadJSON(fileName)
+{
+	if (file_exists(fileName))
+	{
+		var file = file_text_open_read(fileName)
+		var str = file_text_read_string(file);
+		var finalValue = json_parse(str);
+		file_text_close(file);	
+		
+		//Returns saved struct
+		return finalValue;
+	} else
+	{
+		show_message("File not found");
+	}
 }

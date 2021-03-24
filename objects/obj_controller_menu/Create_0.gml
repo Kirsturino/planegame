@@ -1,31 +1,36 @@
-targArray = [	
-				[rm_level_00, rm_level_babby_01, rm_level_babby_02, rm_level_babby_03], 
-				[rm_level_01, rm_level_02, rm_level_03, rm_level_04, rm_level_05],
-				[rm_level_21, rm_level_22, rm_level_23, rm_level_24, rm_level_25],
-				[rm_level_06, rm_level_07, rm_level_08, rm_level_09, rm_level_10],
-				[rm_rot_ins_01, rm_rot_ins_02, rm_rot_ins_03, rm_rot_ins_04, rm_level_small_01],
-				[rm_level_10, rm_level_11, rm_level_12, rm_level_13, rm_level_14, rm_level_14_5, rm_level_15],
-				[rm_level_16, rm_level_17, rm_level_18, rm_level_19, rm_level_20, rm_level_small_02],
-				[rm_level_wall_tutorial, rm_level_26, rm_level_27, rm_level_28, rm_level_29, rm_level_30],
-				[rm_pockets_01, rm_pockets_02, rm_pockets_03, rm_pockets_04, rm_pockets_05],
-				[rm_level_static_01, rm_level_static_02, rm_level_static_03, rm_level_static_04, rm_level_static_05, rm_level_static_06]
-			];
+levelSetNames =
+[	
+	"A Humble Beginning",
+	"Learning To Fly",
+	"Boosting Through",
+	"Ro- Ro-, Rotate Your Plane",
+	"Putting Things Together",
+	"Shooting Gallery",
+	"Line It Up",
+	"Solid Obstacles",
+	"Pockets",
+	"Claustrophobia"
+];
 
-arrayX = 0;
-arrayY = 0;
-lengthX = array_length(targArray);
-lengthY = array_length(targArray[arrayX]);
+selectedLevelSet = 0;
+selectedLevel = 0;
+levelSets = array_length(levelArray);
+levels = 0;
 
 //Drawing
 originX = 32;
-originY = 32;
-spaceX = 64;
-spaceY = 42;
+originY = 64;
+spaceX = 42;
+spaceY = 86;
 size = 16;
 levelSurf = -1;
 
+pushX = 0;
+pushY = 0;
+pushAmount = 4;
+
 //Change room size to reflect UI, this is for camera placing purposes
-room_width = lengthX*spaceX;
+room_height = levelSets*spaceY + size;
 
 function levelInput()
 {
@@ -38,5 +43,23 @@ function levelInput()
 
 function moveLevelCamera()
 {
-	obj_camera_menu.targX = originX + arrayX*spaceX;
+	obj_camera_menu.targY = originY + selectedLevelSet*spaceY;
+}
+
+//Get last level player was in when entering room, defaults to first level
+for (var i = 0; i < levelSets; i++)
+{
+	var length = array_length(levelArray[i]);
+	for (var j = 0; j < length; j++)
+	{
+		if (global.lastLevel == levelArray[i][j])
+		{
+			selectedLevelSet = i;
+			selectedLevel = j;
+			levels = length;
+			moveLevelCamera();
+				
+			break;
+		}
+	}
 }

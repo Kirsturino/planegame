@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"e6575244-7f05-45c6-a39b-eaedf43efb7d","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "Technical",
+    "path": "folders/Sprites/Technical.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_danger_collision_mask",

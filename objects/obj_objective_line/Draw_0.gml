@@ -26,11 +26,11 @@ if (!surface_exists(lineSurf))
 	surface_reset_target();
 	
 	//Outline shader stuff
-	uPixelH = shader_get_uniform(shd_outline, "pixelH");
-	uPixelW = shader_get_uniform(shd_outline, "pixelW");
+	uPixelH = shader_get_uniform(shd_outline_drop_shadow, "pixelH");
+	uPixelW = shader_get_uniform(shd_outline_drop_shadow, "pixelW");
 
-	uTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(lineSurf));
-	uTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(lineSurf));
+	uTexelW = outlineThickness * texture_get_texel_width(surface_get_texture(lineSurf));
+	uTexelH = outlineThickness * texture_get_texel_height(surface_get_texture(lineSurf));
 }
 
 var drawX = progressX - surfX + surfMargin/2;
@@ -53,7 +53,7 @@ if (!completed)
 surface_reset_target();
 
 //Draw surface
-shader_set(shd_outline);
+shader_set(shd_outline_drop_shadow);
 shader_set_uniform_f(uPixelW, uTexelW);
 shader_set_uniform_f(uPixelH, uTexelH);
 draw_surface(lineSurf, surfX, surfY);

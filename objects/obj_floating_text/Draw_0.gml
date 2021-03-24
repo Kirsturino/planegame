@@ -6,14 +6,14 @@ if (!surface_exists(textSurf))
 	draw_text_ext(margin, margin, txt, font_get_size(fnt_default), maxWidth);
 	surface_reset_target();
 	
-	textTexelW = global.outlineThiccness * texture_get_texel_width(	surface_get_texture(textSurf));
-	textTexelH = global.outlineThiccness * texture_get_texel_height(surface_get_texture(textSurf));
-	uPixelW = shader_get_uniform(shd_outline, "pixelW");
-	uPixelH = shader_get_uniform(shd_outline, "pixelH");
+	textTexelW = global.outlineThickness * texture_get_texel_width(	surface_get_texture(textSurf));
+	textTexelH = global.outlineThickness * texture_get_texel_height(surface_get_texture(textSurf));
+	uPixelW = shader_get_uniform(shd_outline_drop_shadow, "pixelW");
+	uPixelH = shader_get_uniform(shd_outline_drop_shadow, "pixelH");
 }
 
 
-shader_set(shd_outline);
+shader_set(shd_outline_drop_shadow);
 shader_set_uniform_f(uPixelW, textTexelW);
 shader_set_uniform_f(uPixelH, textTexelH);
 

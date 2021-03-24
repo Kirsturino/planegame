@@ -31,14 +31,14 @@ with (obj_danger_zone_solid)
 		createSolidSurface(solidSurf, frequency, positionVariance, fillPositionVariance, radius, radiusVariance, margin, surfMargin, col, col2, false);
 		
 		//Solid surf stuff
-		solidTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(solidSurf));
-		solidTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(solidSurf));
-		uPixelW = shader_get_uniform(shd_outline, "pixelW");
-		uPixelH = shader_get_uniform(shd_outline, "pixelH");
+		solidTexelW = outlineThickness * texture_get_texel_width(surface_get_texture(solidSurf));
+		solidTexelH = outlineThickness * texture_get_texel_height(surface_get_texture(solidSurf));
+		uPixelW = shader_get_uniform(shd_outline_drop_shadow, "pixelW");
+		uPixelH = shader_get_uniform(shd_outline_drop_shadow, "pixelH");
 	}
 }
 
-shader_set(shd_outline);
+shader_set(shd_outline_drop_shadow);
 
 with (obj_danger_zone_solid)
 {
@@ -61,8 +61,8 @@ shader_reset();
 if (!surface_exists(masterCloudSurf))
 {
 	masterCloudSurf = surface_create(viewWidth*2, viewHeight*2);
-	cloudTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(masterCloudSurf));
-	cloudTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(masterCloudSurf));
+	cloudTexelW = outlineThickness * texture_get_texel_width(surface_get_texture(masterCloudSurf));
+	cloudTexelH = outlineThickness * texture_get_texel_height(surface_get_texture(masterCloudSurf));
 }
 			
 with (obj_danger_zone)
@@ -108,8 +108,8 @@ with (obj_floating_text) { event_perform(ev_draw, 0); }
 if (!surface_exists(playerSurf))
 {
 	playerSurf = surface_create(64, 64);
-	playerTexelW = outlineThiccness * texture_get_texel_width(surface_get_texture(playerSurf));
-	playerTexelH = outlineThiccness * texture_get_texel_height(surface_get_texture(playerSurf));
+	playerTexelW = outlineThickness * texture_get_texel_width(surface_get_texture(playerSurf));
+	playerTexelH = outlineThickness * texture_get_texel_height(surface_get_texture(playerSurf));
 }
 
 surface_set_target(playerSurf);
@@ -191,7 +191,7 @@ with (obj_player)
 
 surface_reset_target();
 
-shader_set(shd_outline);
+shader_set(shd_outline_drop_shadow);
 shader_set_uniform_f(upixelW, playerTexelW);
 shader_set_uniform_f(upixelH, playerTexelH);
 draw_surface(playerSurf, obj_player.x - drawOffset, obj_player.y - drawOffset);

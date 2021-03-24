@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"efad2a9d-ae81-43c2-9bb7-d13a9fd301d6","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "Technical",
+    "path": "folders/Sprites/Technical.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_pixel",
