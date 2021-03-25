@@ -18,16 +18,17 @@ if (global.paused)
 	var anchorY = viewHeight/2;
 	var spriteOffset = 16;
 	var textHeight = font_get_size(fnt_default);
+	var c = col_white;
 	
-	draw_text(anchorX, viewHeight/5 + wave_pure(-8, 8, 4, 0, true), "PAUSED");
+	draw_text_color(anchorX, viewHeight/5 + wave_pure(-8, 8, 4, 0, true), "PAUSED", c, c, c, c, 1);
 	
-	draw_text(anchorX+spriteOffset, anchorY+textHeight, "Level Select");
+	draw_text_color(anchorX+spriteOffset, anchorY+textHeight, "Level Select", c, c, c, c, 1);
 	var offset = string_width("Level Select")/2;
-	draw_sprite(spr_button_face_2, 0, anchorX-spriteOffset-offset, anchorY+textHeight);
+	draw_sprite(spr_button_faces, 1, anchorX-spriteOffset-offset, anchorY+textHeight);
 	
 	offset = string_width("Resume")/2;
-	draw_text(anchorX+spriteOffset, anchorY-textHeight, "Resume");
-	draw_sprite(spr_button_face_1, 0, anchorX-spriteOffset-offset, anchorY-textHeight);
+	draw_text_color(anchorX+spriteOffset, anchorY-textHeight, "Resume", c, c, c, c, 1);
+	draw_sprite(spr_button_faces, 0, anchorX-spriteOffset-offset, anchorY-textHeight);
 	
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_top);

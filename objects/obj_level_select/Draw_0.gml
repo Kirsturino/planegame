@@ -54,8 +54,24 @@ for (var i = 0; i < levelSets; i++)
 	draw_text_color(_x, _y, levelSetNames[i], c, c, c, c, 1);
 }
 
-draw_set_halign(fa_left);
+draw_set_halign(fa_right);
+
+//Draw "back" prompt
+var marginX = 16;
+var marginY = 24;
+var _x = viewWidth - marginX;
+var _y = marginY;
+var c = col_white;
+draw_set_font(fnt_small);
+
+draw_text_color(_x, _y, "Back", c, c, c, c, 1);
+var spriteOffset = string_width("Back");
+_x -= spriteOffset + 20;
+draw_sprite(spr_button_faces, 1, _x, _y);
+
 draw_set_valign(fa_top);
+draw_set_halign(fa_left);
+draw_set_font(fnt_default);
 
 surface_reset_target();
 

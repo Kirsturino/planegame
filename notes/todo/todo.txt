@@ -35,7 +35,8 @@ Features:
 ----------------------------------------------------------------------
 
 Tuning:
-
+- More granular control over engines
+	- Non-linear control curve for joysticks
 
 ----------------------------------------------------------------------
 

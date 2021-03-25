@@ -52,17 +52,22 @@ if (up)
 	selectedLevel = min(selectedLevel, levels - 1);
 }
 
-if (confirm)
-{
-	room_goto(levelArray[selectedLevelSet][selectedLevel]);
-}
-
 if (left || right || up || down)
 {
 	//FX
 	pushX += pushAmount*(right - left + down - up);
 	pushY += pushAmount*(right - left + down - up);
 	moveLevelCamera();
+}
+
+if (confirm)
+{
+	room_goto(levelArray[selectedLevelSet][selectedLevel]);
+}
+
+if (back)
+{
+	room_goto(rm_main_menu);
 }
 
 //FX Things

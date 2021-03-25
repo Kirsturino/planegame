@@ -3,7 +3,8 @@ if (!surface_exists(textSurf))
 	textSurf = surface_create(width+margin*2, height+margin*2);
 	
 	surface_set_target(textSurf);
-	draw_text_ext(margin, margin, txt, font_get_size(fnt_default), maxWidth);
+	var c = col_white;
+	draw_text_ext_color(margin, margin, txt, font_get_size(fnt_default), maxWidth, c, c, c, c, 1);
 	surface_reset_target();
 	
 	textTexelW = global.outlineThickness * texture_get_texel_width(	surface_get_texture(textSurf));

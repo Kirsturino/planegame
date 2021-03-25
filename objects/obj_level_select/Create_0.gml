@@ -39,6 +39,7 @@ function levelInput()
 	down =	gamepad_button_check_pressed(global.controller, gp_padd);
 	up =	gamepad_button_check_pressed(global.controller, gp_padu);		
 	confirm = gamepad_button_check_pressed(global.controller, gp_face1);
+	back = gamepad_button_check_pressed(global.controller, gp_face2);
 }
 
 function moveLevelCamera()
