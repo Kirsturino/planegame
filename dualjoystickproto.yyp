@@ -96,6 +96,7 @@
     {"id":{"name":"rm_level_10","path":"rooms/rm_level_10/rm_level_10.yy",},"order":4,},
     {"id":{"name":"rm_level_19","path":"rooms/rm_level_19/rm_level_19.yy",},"order":3,},
     {"id":{"name":"rm_level_select","path":"rooms/rm_level_select/rm_level_select.yy",},"order":43,},
+    {"id":{"name":"options","path":"scripts/options/options.yy",},"order":9,},
     {"id":{"name":"rm_level_static_02","path":"rooms/rm_level_static_02/rm_level_static_02.yy",},"order":1,},
     {"id":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"order":3,},
     {"id":{"name":"tools","path":"scripts/tools/tools.yy",},"order":0,},

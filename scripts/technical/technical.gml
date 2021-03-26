@@ -5,9 +5,15 @@ delta = 0;
 //This doesn't really matter what it is, but will affect rate of everything. 
 //Just needs some constant to measure against
 #macro defaultFramesPerSecond 60
-globalvar framesPerSecond;
-framesPerSecond = 144;
-game_set_speed(framesPerSecond, gamespeed_fps);
+global.framesPerSecond = 1;
+global.speeds = [30, 60, 144, 240];
+
+function applyFrameRate()
+{
+	game_set_speed(global.speeds[global.framesPerSecond], gamespeed_fps);
+	
+	initParticles();
+}
 
 //Time that a single frame should last by default
 global.targetDelta = 1 / defaultFramesPerSecond;
@@ -81,6 +87,6 @@ function loadJSON(fileName)
 		return finalValue;
 	} else
 	{
-		show_message("File not found");
+		return -1;
 	}
 }

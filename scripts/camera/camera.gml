@@ -1,7 +1,6 @@
 #macro view view_camera[0]
 #macro viewWidth 480
 #macro viewHeight 270
-global.windowScale = 3;
 
 function initCamera()
 {
@@ -16,7 +15,6 @@ function initCamera()
 
 	//Enforce pixel perfect camera
 	surface_resize(application_surface, viewWidth, viewHeight);
-
 }
 
 function shakeCamera(panAmount, rotAmount, duration)

@@ -3,7 +3,7 @@ global.updateParticles = false;
 
 function initParticles()
 {
-	var d = defaultFramesPerSecond / framesPerSecond;
+	var d = defaultFramesPerSecond / global.speeds[global.framesPerSecond];
 	
 	//Thruster particle
 	global.thrustPart = part_type_create();

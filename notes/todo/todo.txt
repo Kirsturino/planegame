@@ -21,16 +21,16 @@ Features:
 	- Rock colored
 	- Direction needs to be correct (?)
 	- Disables engines for a second just like rocks
-	- Which way do you bounce? Do you bounce at all?
+	- Which way do you bounce? Do you bounce at all? Maybe just remove all momentum
 	
 - UI Sounds
 - Menu music
 - Splash screen
-- Menu structure
-- Main menu
 - Level gating
-- Save system
 - Display beaten levels
+- Audio settings implementation
+- Camera FX scale implementation
+- Save file validation
 	
 ----------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ Fix:
 ----------------------------------------------------------------------
 
 Polish:
-
+- Main menu polish
 	
 ----------------------------------------------------------------------
 

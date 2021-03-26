@@ -2,5 +2,8 @@
 window_center();
 window_set_fullscreen(CONFIG == BUILD);
 
+//Load user settings
+loadSettings();
+
 //Room. Go. Next. Unga bunga
 room_goto_next();

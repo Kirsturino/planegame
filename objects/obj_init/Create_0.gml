@@ -14,7 +14,8 @@ part_system_automatic_draw(global.ps, false);
 global.psTop = part_system_create_layer(layer_get_id("Top"), true);
 part_system_automatic_draw(global.psTop, false);
 
-initParticles();
+//Frame rate and particles are tied due to delta time
+applyFrameRate();
 
 //Init camera
 initCamera();

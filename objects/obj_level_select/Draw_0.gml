@@ -19,39 +19,48 @@ draw_clear_alpha(col_black, 0);
 var iteration = 1;
 for (var i = 0; i < levelSets; i++)
 {
-	var length = array_length(levelArray[i]);
-	for (var j = 0; j < length; j++)
+	if (i >= selectedLevelSet - 3 && i <= selectedLevelSet + 3)
 	{
-		var _x = originX + j*spaceX - camX;
-		var _y = originY + i*spaceY - camY;
-		var c = col_white;
-		var sine = wave(0, 4, 2, iteration/4, true);
-		
-		if (i == selectedLevelSet && j == selectedLevel)
+		var length = array_length(levelArray[i]);
+		for (var j = 0; j < length; j++)
 		{
-			_x += pushX;
-			_y += pushY;
-			c = col_black;
+			var _x = originX + j*spaceX - camX;
+			var _y = originY + i*spaceY - camY;
+			var c = col_white;
+			var sine = wave(0, 4, 2, iteration/4, true);
+		
+			if (i == selectedLevelSet && j == selectedLevel)
+			{
+				_x += pushX;
+				_y += pushY;
+				c = col_black;
+			}
+		
+			draw_roundrect_color(_x-size, _y-size+sine, _x+size, _y+size+sine, c, c, false);
+
+			if (i == selectedLevelSet && j == selectedLevel) { c = col_white; }
+			else { c = col_black; }
+		
+			draw_set_halign(fa_center);
+			draw_set_valign(fa_middle);
+			draw_text_color(_x+2, _y+1+sine, iteration, c, c, c, c, 1);
+		
+			iteration++;
 		}
 		
-		draw_roundrect_color(_x-size, _y-size+sine, _x+size, _y+size+sine, c, c, false);
-
-		if (i == selectedLevelSet && j == selectedLevel) { c = col_white; }
-		else { c = col_black; }
-		
-		draw_set_halign(fa_center);
-		draw_set_valign(fa_middle);
-		draw_text_color(_x+2, _y+1+sine, iteration, c, c, c, c, 1);
-		
-		iteration++;
+		draw_set_halign(fa_left);
+		c = col_white;
+		_x = originX - size;
+		_y = originY + i*spaceY - camY - size*2;
+	
+		draw_text_color(_x, _y, levelSetNames[i], c, c, c, c, 1);
+	} else
+	{
+		//Loop without drawing so level numbers will be correct
+		var length = array_length(levelArray[i]);
+		for (var j = 0; j < length; j++)
+			{ iteration++; }
 	}
-	
-	draw_set_halign(fa_left);
-	c = col_white;
-	_x = originX - size;
-	_y = originY + i*spaceY - camY - size*2;
-	
-	draw_text_color(_x, _y, levelSetNames[i], c, c, c, c, 1);
 }
 
 draw_set_halign(fa_right);

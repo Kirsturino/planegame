@@ -33,7 +33,7 @@ function freeze(amount)
 {
 	var time = current_time + amount;
 	while (current_time < time) {}
-	delta = defaultFramesPerSecond / framesPerSecond;
+	delta = defaultFramesPerSecond / global.speeds[global.framesPerSecond];
 }
 
 function flash(amount)
