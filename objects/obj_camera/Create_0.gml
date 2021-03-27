@@ -1,6 +1,7 @@
 //Camera variables
 curX = 0;
 curY = 0;
+spd = 0.05;
 
 //Set camera coordinates to player location
 var _x = obj_player.x - viewWidth/2;
@@ -122,10 +123,9 @@ function checkCameraFocus()
 
 function cameraLogic()
 {
-	var spd = 0.05;
 	var finalWidth = viewWidth * zoomMultiplier;
 	var finalHeight = viewHeight * zoomMultiplier;
-	var lookAheadMultiplierX = 50;
+	var lookAheadMultiplierX = 40;
 	var lookAheadMultiplierY = 20;
 	var xDir = obj_player.image_angle;
 	var yDir = point_direction(0, 0, obj_player.hsp, obj_player.vsp);

@@ -3,17 +3,13 @@ menuInput();
 
 if (down)
 {
-	if (selected == pageLength - 1)
-		{ selected =  -1; }
-		
+	if (selected == pageLength - 1) { selected =  -1; }
 	selected = clamp(selected + 1, 0, pageLength - 1);
 }
 
 if (up) 
 {
-	if (selected == 0)
-		{ selected =  pageLength; }
-		
+	if (selected == 0) { selected =  pageLength; }
 	selected = clamp(selected - 1, 0, pageLength - 1);
 }
 
@@ -26,9 +22,7 @@ if (back && page != pages.main)
 
 	//If we're in options menu, save settings
 	if (page == pages.audio || page == pages.graphics)
-	{
-		saveSettings();
-	}
+		{ saveSettings(); }
 	
 	//This is changePage function without need to confirm
 	page = arg[0];
@@ -37,9 +31,8 @@ if (back && page != pages.main)
 }
 
 //Find the current line the player has selected
+//and execute function specified for the line of the menu
 var line = menuPages[page][selected];
 var func = line[1];
-var arg = line[2];
-	
-//Execute function specified for the line of the menu
+var arg = line[2];	
 func(arg);

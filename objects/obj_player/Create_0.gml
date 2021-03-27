@@ -85,7 +85,7 @@ outOfEnergySound = snd_out_of_energy;
 energyFullSound = snd_energy_full;
 engineSound = audio_play_sound(snd_engine_persistent, 0, true);
 audio_sound_gain(engineSound, 0, 0);
-engineSoundVolumeMultiplier = 0.03;
+engineSoundVolumeMultiplier = 0.03*global.sfxVolume*global.masterVolume;
 
 turboKickSound = snd_turbo_kick;
 turboSound = snd_turbo;
@@ -610,5 +610,19 @@ function outOfEnergyParticles()
 		electricityParticles();
 		
 		speedParticles();
+	}
+}
+
+//Reset level if player is out of bounds
+function checkifOutOfBounds()
+{
+	if (isOutsideRoom(x, y, 32, 32) && !obj_controller.transitioningOut)
+	{
+		audio_group_stop_all(ag_sfx);
+		
+		shakeCamera(100, 0, 20);
+		audio_play_sound(snd_shoot_default, 0, false);
+		
+		startRoomTransition(restartLevel);
 	}
 }

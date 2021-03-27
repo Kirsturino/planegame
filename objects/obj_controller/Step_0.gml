@@ -1,6 +1,3 @@
-//Game state things
-checkForPlayer();
-
 if (gamepad_button_check_pressed(global.controller, gp_face1) && !global.paused)
 {
 	startRoomTransition(restartLevel);

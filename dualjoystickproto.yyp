@@ -45,7 +45,7 @@
     {"id":{"name":"rm_level_02","path":"rooms/rm_level_02/rm_level_02.yy",},"order":1,},
     {"id":{"name":"obj_floating_text","path":"objects/obj_floating_text/obj_floating_text.yy",},"order":5,},
     {"id":{"name":"snd_circle_complete","path":"sounds/snd_circle_complete/snd_circle_complete.yy",},"order":0,},
-    {"id":{"name":"music","path":"scripts/music/music.yy",},"order":5,},
+    {"id":{"name":"sound","path":"scripts/sound/sound.yy",},"order":5,},
     {"id":{"name":"mus_gameplay_09","path":"sounds/mus_gameplay_09/mus_gameplay_09.yy",},"order":9,},
     {"id":{"name":"mus_menu","path":"sounds/mus_menu/mus_menu.yy",},"order":5,},
     {"id":{"name":"snd_circle_shoot_hit","path":"sounds/snd_circle_shoot_hit/snd_circle_shoot_hit.yy",},"order":12,},

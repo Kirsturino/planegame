@@ -23,13 +23,14 @@ Features:
 	- Disables engines for a second just like rocks
 	- Which way do you bounce? Do you bounce at all? Maybe just remove all momentum
 	
+- Basic move mechanics to circles
+	- Just animate between two points with sine wave
+	
 - UI Sounds
 - Menu music
 - Splash screen
 - Level gating
 - Display beaten levels
-- Audio settings implementation
-- Camera FX scale implementation
 - Save file validation
 	
 ----------------------------------------------------------------------
@@ -42,7 +43,11 @@ Tuning:
 
 Fix:
 - Update level transitions at some point
-
+- Make separate persistent music controller
+- Separate level transitions to new objects that get spawned by controller
+- Move global volume arrays to files that get loaded when changing audio settings
+	- Current implementation just leaves global values hanging around
+	
 ----------------------------------------------------------------------
 
 Polish:

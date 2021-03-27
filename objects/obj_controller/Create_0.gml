@@ -12,18 +12,3 @@ transitionTimer = 0;
 transitioningOut = false;
 transitioningIn = true;
 transitionFunction = nextLevel;
-
-//Reset level if player is out of bounds
-function checkForPlayer()
-{
-	var plr = obj_player;
-	if (isOutsideRoom(plr.x, plr.y, 32, 32) && !transitioningOut)
-	{
-		audio_group_stop_all(ag_sfx);
-		
-		shakeCamera(100, 0, 20);
-		audio_play_sound(snd_shoot_default, 0, false);
-		
-		startRoomTransition(restartLevel);
-	}
-}

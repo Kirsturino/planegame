@@ -21,12 +21,12 @@ function shakeCamera(panAmount, rotAmount, duration)
 {
 	if (panAmount > obj_camera.shakeAmount)
 	{
-		obj_camera.shakeAmount = panAmount;
+		obj_camera.shakeAmount = panAmount*global.cameraShakeScale;
 		obj_camera.shakeDuration = duration;
 	}
 	
 	if (rotAmount > abs(obj_camera.rot))
-		{ obj_camera.rot = choose(rotAmount, -rotAmount); }
+		{ obj_camera.rot = choose(rotAmount, -rotAmount)*global.cameraShakeScale; }
 }
 
 function directionShakeCamera(amount, duration, direction, frequency)
@@ -34,7 +34,7 @@ function directionShakeCamera(amount, duration, direction, frequency)
 	if (amount > obj_camera.dirShakeAmount)
 	{
 		obj_camera.dirShakeFrequency = frequency;
-		obj_camera.dirShakeAmount = amount;
+		obj_camera.dirShakeAmount = amount*global.cameraShakeScale;
 		obj_camera.dirShakeDuration = duration;
 		obj_camera.dirShakeDirection = direction;
 	}
@@ -42,14 +42,14 @@ function directionShakeCamera(amount, duration, direction, frequency)
 
 function rotateCamera(amount, rng)
 {
-	if (rng)	{obj_camera.rotTo = choose(amount, -amount);}
-	else		{obj_camera.rotTo = amount;}
+	if (rng)	{ obj_camera.rotTo = choose(amount, -amount)*global.cameraShakeScale; }
+	else		{ obj_camera.rotTo = amount*global.cameraShakeScale; }
 }
  
 function pushCamera(amount, direction)
 {
-	obj_camera.pushX = lengthdir_x(amount, direction);
-	obj_camera.pushY = lengthdir_y(amount, direction);
+	obj_camera.pushX = lengthdir_x(amount, direction)*global.cameraShakeScale;
+	obj_camera.pushY = lengthdir_y(amount, direction)*global.cameraShakeScale;
 }
 
 function zoomCamera(amount)

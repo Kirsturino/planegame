@@ -39,7 +39,7 @@ for (var i = 0; i < pageLength; ++i)
 	
 	//Right column
 	//This is used for mostly settings and stuff
-	originX = 192;
+	originX += 160;
 	_x = originX;
 	var setting = line[2];
 	
@@ -50,7 +50,7 @@ for (var i = 0; i < pageLength; ++i)
 		switch (setting[4])
 		{
 			case display.shift:
-				txt = string(value);
+				txt = string(round(value*10));
 			break;
 			
 			case display.shift_string:

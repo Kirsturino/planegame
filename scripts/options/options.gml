@@ -1,10 +1,10 @@
 //Music
-global.masterVolume = 10;
-global.musicVolume = 10;
-global.sfxVolume = 10;
+global.masterVolume = 1;
+global.musicVolume = 1;
+global.sfxVolume = 1;
 
 //FX
-global.cameraShakeScale = 10;
+global.cameraShakeScale = 1;
 
 //Graphics
 global.windowScale = 3;
@@ -59,5 +59,6 @@ function loadSettings()
 		//Do stuff after values have been loaded
 		initCamera();
 		applyFrameRate();
+		applySoundVolume();
 	}
 }

@@ -1,8 +1,6 @@
 draw_set_font(fnt_default);
 
-//Load audio
-audio_group_load(ag_music);
-audio_group_load(ag_sfx);
+initAudio();
 
 //Init controller
 getController();

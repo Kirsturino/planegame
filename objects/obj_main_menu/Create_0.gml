@@ -65,29 +65,31 @@ function changeDisplayMode(arg)
 {
 	changeValue(arg);
 	
-	if (left || right)
-	{
-		window_set_fullscreen(!global.fullscreen);
-	}
+	if (left || right) { window_set_fullscreen(!global.fullscreen); }
 }
 
 function changeResolution(arg)
 {
 	changeValue(arg);
 	
-	if (left || right)
-	{
-		initCamera();
-	}
+	if (left || right) { initCamera(); }
 }
 
 function changeFrameRate(arg)
 {
 	changeValue(arg);
 	
+	if (left || right) { applyFrameRate(); }
+}
+
+function changeVolume(arg)
+{
+	changeValue(arg);
+	
 	if (left || right)
 	{
-		applyFrameRate();
+		applySoundVolume();
+		audio_play_sound(snd_pop, 0, false); //Placeholder
 	}
 }
 
@@ -95,10 +97,7 @@ function exitSettings(arg)
 {
 	changePage(arg);
 	
-	if (confirm)
-	{
-		saveSettings();
-	}
+	if (confirm) { saveSettings(); }
 }
 
 //PAGES MUST BE IN THE SAME ORDER AS THE MENUPAGES ARRAY
@@ -141,9 +140,9 @@ menuCredits = createMenu
 
 menuAudio = createMenu
 (
-	["Master", changeValue, ["masterVolume", 0, 10, 10, display.shift]],
-	["Music", changeValue,	["musicVolume", 0, 10, 10, display.shift]],
-	["SFX", changeValue,	["sfxVolume", 0, 10, 10, display.shift]],
+	["Master", changeVolume, ["masterVolume", 0, 1, 10, display.shift]],
+	["Music", changeVolume,	["musicVolume", 0, 1, 10, display.shift]],
+	["SFX", changeVolume,	["sfxVolume", 0, 1, 10, display.shift]],
 	["Back", exitSettings, [pages.settings]]
 );
 
@@ -152,7 +151,7 @@ menuGraphics = createMenu
 	["Display", changeDisplayMode, ["fullscreen", 0, 1, 1, display.shift_string, ["Fullscreen", "Window"]]],
 	["Resolution", changeResolution, ["windowScale", 1, 4, 3, display.shift_string, ["480x270", "960x540", "1440x720", "1920x1080"]]],
 	["FPS", changeFrameRate, ["framesPerSecond", 0, 3, 3, display.shift_string, ["30", "60", "144", "240"]]],
-	["Camera FX", changeValue, ["cameraShakeScale", 0, 10, 10, display.shift]],
+	["Camera FX", changeValue, ["cameraShakeScale", 0, 1, 10, display.shift]],
 	["Back", exitSettings, [pages.settings]]
 );
 

@@ -52,14 +52,6 @@ if (up)
 	selectedLevel = min(selectedLevel, levels - 1);
 }
 
-if (left || right || up || down)
-{
-	//FX
-	pushX += pushAmount*(right - left + down - up);
-	pushY += pushAmount*(right - left + down - up);
-	moveLevelCamera();
-}
-
 if (confirm)
 {
 	room_goto(levelArray[selectedLevelSet][selectedLevel]);
@@ -70,10 +62,16 @@ if (back)
 	room_goto(rm_main_menu);
 }
 
+#endregion
+
+if (left || right || up || down)
+{
+	//FX
+	pushX += pushAmount*(right - left + down - up);
+	pushY += pushAmount*(right - left + down - up);
+	moveLevelCamera();
+}
+
 //FX Things
 pushX = lerp(pushX, 0, 0.2*delta);
 pushY = lerp(pushY, 0, 0.2*delta);
-
-#endregion
-
-checkMusic();
