@@ -35,6 +35,3 @@ else if (transitioningIn)
 	if (transitionTimer == transitionTimerMax)
 		{ transitioningIn = false; }
 }
-
-//Music
-checkMusic();

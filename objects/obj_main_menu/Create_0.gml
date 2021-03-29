@@ -1,3 +1,5 @@
+setMusic(music.menu);
+
 //Basic menu functionality
 function createMenu()
 {
@@ -17,13 +19,12 @@ function toLevelSelect()
 	if (confirm) { room_goto(rm_level_select); }
 }
 
-function showCredits()
+function showCredits(arg)
 {
+	changePage(arg);
+	
 	if (confirm)
-	{
-		changePage([pages.credits]);
-		instance_create_layer(0, 0, layer, obj_credits);
-	}
+		{ instance_create_layer(0, 0, layer, obj_credits); }
 }
 
 function changePage(arg)
@@ -33,6 +34,10 @@ function changePage(arg)
 		page = arg[0];
 		pageLength = array_length(menuPages[page]);
 		selected = 0;
+		
+		//FX
+		pushX = 0;
+		audio_play_sound(snd_ui_confirm, 0, false);
 	}
 }
 
@@ -51,9 +56,14 @@ function changeValue(arg)
 		var upperLimit = arg[2];
 		var stepAmount = arg[3];
 	
-		var change = (upperLimit - lowerLimit)/stepAmount;
+		var change = (right - left)*(upperLimit - lowerLimit)/stepAmount;
 		
-		value = clamp(	value + (right - left)*change,
+		if (value + change < lowerLimit || value + change > upperLimit)
+			{ audio_play_sound(snd_ui_rightleft_wrong, 0, false); }
+		else
+			{ audio_play_sound(snd_ui_rightleft, 0, false); }
+		
+		value = clamp(	value + change,
 						lowerLimit,
 						upperLimit);
 		
@@ -87,10 +97,7 @@ function changeVolume(arg)
 	changeValue(arg);
 	
 	if (left || right)
-	{
-		applySoundVolume();
-		audio_play_sound(snd_pop, 0, false); //Placeholder
-	}
+		{ applySoundVolume(); }
 }
 
 function exitSettings(arg)
@@ -122,7 +129,7 @@ menuMain = createMenu
 (
 	["Play", toLevelSelect, [-1]],
 	["Settings", changePage, [pages.settings]],
-	["Credits", showCredits, [-1]],
+	["Credits", showCredits, [pages.credits]],
 	["Quit", quitGame, [-1]]
 );
 
@@ -151,7 +158,7 @@ menuGraphics = createMenu
 	["Display", changeDisplayMode, ["fullscreen", 0, 1, 1, display.shift_string, ["Fullscreen", "Window"]]],
 	["Resolution", changeResolution, ["windowScale", 1, 4, 3, display.shift_string, ["480x270", "960x540", "1440x720", "1920x1080"]]],
 	["FPS", changeFrameRate, ["framesPerSecond", 0, 3, 3, display.shift_string, ["30", "60", "144", "240"]]],
-	["Camera FX", changeValue, ["cameraShakeScale", 0, 1, 10, display.shift]],
+	["Camera FX", changeValue, ["cameraShakeScale", 0, 2, 20, display.shift]],
 	["Back", exitSettings, [pages.settings]]
 );
 
@@ -175,3 +182,6 @@ function menuInput()
 
 //Graphics
 menuSurf = -1;
+pushX = 0;
+maxPushX = 8;
+settingPushX = 0;

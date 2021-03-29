@@ -1,16 +1,17 @@
 //Menu navigation
 menuInput();
 
-if (down)
+if (up || down)
 {
-	if (selected == pageLength - 1) { selected =  -1; }
-	selected = clamp(selected + 1, 0, pageLength - 1);
-}
-
-if (up) 
-{
-	if (selected == 0) { selected =  pageLength; }
-	selected = clamp(selected - 1, 0, pageLength - 1);
+	if (selected == pageLength - 1 && down)	{ selected =  -1; }
+	else if (selected == 0 && up)			{ selected =  pageLength; }
+	
+	var change = down - up;
+	selected = clamp(selected + change, 0, pageLength - 1);
+	
+	//FX
+	pushX = 0;
+	audio_play_sound(snd_ui_updown, 0, false);
 }
 
 if (back && page != pages.main)
@@ -28,6 +29,16 @@ if (back && page != pages.main)
 	page = arg[0];
 	pageLength = array_length(menuPages[page]);
 	selected = 0;
+	
+	//FX
+	pushX = 0;
+	audio_play_sound(snd_ui_back, 0, false);
+}
+
+//FX
+if (left || right)
+{
+	settingPushX = (right - left) * maxPushX/4;
 }
 
 //Find the current line the player has selected
@@ -36,3 +47,7 @@ var line = menuPages[page][selected];
 var func = line[1];
 var arg = line[2];	
 func(arg);
+
+//Graphics
+pushX = lerp(pushX, maxPushX, 0.2*delta);
+settingPushX = lerp(settingPushX, 0, 0.2*delta);

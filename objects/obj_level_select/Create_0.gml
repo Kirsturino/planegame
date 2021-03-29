@@ -1,3 +1,5 @@
+setMusic(music.menu);
+
 levelSetNames =
 [	
 	"A Humble Beginning",

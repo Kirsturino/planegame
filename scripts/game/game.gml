@@ -1,3 +1,5 @@
+#macro SAVE_FILE "save.nyoom"
+
 globalvar levelArray;
 levelArray = [	
 				[rm_level_00, rm_level_babby_01, rm_level_babby_02, rm_level_babby_03], 
@@ -11,6 +13,36 @@ levelArray = [
 				[rm_pockets_01, rm_pockets_02, rm_pockets_03, rm_pockets_04, rm_pockets_05],
 				[rm_level_static_01, rm_level_static_02, rm_level_static_03, rm_level_static_04, rm_level_static_05, rm_level_static_06]
 			];
+
+function saveProgression()
+{
+	var struct = { completedArray : global.levelProgressionArray };
+	saveJSON(SAVE_FILE, struct);
+}
+if (!file_exists(SAVE_FILE))
+{
+	//Copy level array and set all entries to 0 aka false
+	//This flags all levels as not cleared
+	global.levelProgressionArray = [];
+	array_copy(global.levelProgressionArray, 0, levelArray, 0, array_length(levelArray));
+	var levelSetSize = array_length(levelArray);
+	for (var i = 0; i < levelSetSize; i++)
+	{
+		var length = array_length(levelArray[i]);
+		for (var j = 0; j < length; j++)
+		{
+			global.levelProgressionArray[i][j] = 0;
+		}
+	}
+	
+	saveProgression();
+} else
+{
+	//Load save file and copy it over to a global variable for later use
+	var save = loadJSON(SAVE_FILE);
+	global.levelProgressionArray = save.completedArray;
+}
+
 global.lastLevel = rm_level_00;
 global.objectiveCount = 0;
 
@@ -31,4 +63,25 @@ function restartLevel()
 {
 	audio_group_stop_all(ag_sfx);
 	room_restart();
+}
+
+//Misc. things
+//Progression things
+function markLevelAsCleared(room)
+{
+	var levelSetSize = array_length(levelArray);
+	for (var i = 0; i < levelSetSize; i++)
+	{
+		var length = array_length(levelArray[i]);
+		for (var j = 0; j < length; j++)
+		{
+			if (room == levelArray[i][j])
+			{
+				global.levelProgressionArray[i][j] = true;
+				break;
+			}
+		}
+	}
+	
+	saveProgression();
 }

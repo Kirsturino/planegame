@@ -13,15 +13,17 @@ draw_set_valign(fa_middle);
 surface_set_target(menuSurf);
 draw_clear_alpha(col_black, 0);
 
-var originX = 32;
+var originX = 48;
 var originY = viewHeight/2;
 var spaceY = 32;
 var curPage = menuPages[page];
+var indicatorOffsetX = 24;
+var animationX = 4;
 
 for (var i = 0; i < pageLength; ++i)
 {
 	//Left column
-	originX = 32;
+	originX = 48;
 	var _x = originX;
 	var _y = originY + spaceY*i - spaceY*(pageLength - 1)/2;
 	var line = curPage[i];
@@ -31,8 +33,14 @@ for (var i = 0; i < pageLength; ++i)
 	//Indicate current line
 	if (selected == i)
 	{
-		txt = "> " + txt;
+		//txt = "> " + txt;
 		c = col_yellow;
+		
+		//Draw extra animated selector
+		var indicatorX = _x - indicatorOffsetX + wave(-2, 2, 1, 0, true);
+		draw_text_color(indicatorX, _y, ">", c, c, c, c, 1);
+		
+		_x += pushX;
 	}
 	
     draw_text_color(_x, _y, txt, c, c, c, c, 1);
@@ -41,6 +49,8 @@ for (var i = 0; i < pageLength; ++i)
 	//This is used for mostly settings and stuff
 	originX += 160;
 	_x = originX;
+	if (i == selected) { _x += settingPushX; }
+	
 	var setting = line[2];
 	
 	if (variable_global_exists(setting[0]))

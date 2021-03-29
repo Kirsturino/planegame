@@ -17,7 +17,7 @@ if (gamepad_button_check_pressed(global.controller, gp_face3))
 
 if (keyboard_check_pressed(ord("M")))
 {
-	global.musicToggle = !global.musicToggle;
+	obj_music_controller.musicToggle = !obj_music_controller.musicToggle;
 }
 
 if (keyboard_check_pressed(ord("F")))

@@ -26,7 +26,13 @@ for (var i = 0; i < levelSets; i++)
 		{
 			var _x = originX + j*spaceX - camX;
 			var _y = originY + i*spaceY - camY;
-			var c = col_white;
+			
+			//Mark cleared levels
+			if (global.levelProgressionArray[i][j] == true)
+				{ var c = col_yellow; }
+			else
+				{ var c = col_white; }
+				
 			var sine = wave(0, 4, 2, iteration/4, true);
 		
 			if (i == selectedLevelSet && j == selectedLevel)
@@ -38,8 +44,10 @@ for (var i = 0; i < levelSets; i++)
 		
 			draw_roundrect_color(_x-size, _y-size+sine, _x+size, _y+size+sine, c, c, false);
 
-			if (i == selectedLevelSet && j == selectedLevel) { c = col_white; }
-			else { c = col_black; }
+			if (c == col_yellow || (i == selectedLevelSet && j == selectedLevel))
+				{ c = col_white; }
+			else
+				{ c = col_black; }
 		
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_middle);

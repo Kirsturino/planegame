@@ -54,11 +54,14 @@ if (up)
 
 if (confirm)
 {
+	setMusic(music.gameplay);
+	audio_play_sound(snd_ui_confirm, 0, false);
 	room_goto(levelArray[selectedLevelSet][selectedLevel]);
 }
 
 if (back)
 {
+	audio_play_sound(snd_ui_back, 0, false);
 	room_goto(rm_main_menu);
 }
 
@@ -70,6 +73,8 @@ if (left || right || up || down)
 	pushX += pushAmount*(right - left + down - up);
 	pushY += pushAmount*(right - left + down - up);
 	moveLevelCamera();
+	
+	audio_play_sound(snd_ui_updown, 0, false);
 }
 
 //FX Things

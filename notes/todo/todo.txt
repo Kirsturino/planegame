@@ -25,13 +25,10 @@ Features:
 	
 - Basic move mechanics to circles
 	- Just animate between two points with sine wave
-	
-- UI Sounds
-- Menu music
-- Splash screen
+
 - Level gating
-- Display beaten levels
 - Save file validation
+- Save file versioning (?)
 	
 ----------------------------------------------------------------------
 
@@ -43,15 +40,15 @@ Tuning:
 
 Fix:
 - Update level transitions at some point
-- Make separate persistent music controller
-- Separate level transitions to new objects that get spawned by controller
+	- Separate level transitions to new objects that get spawned by controller
+
 - Move global volume arrays to files that get loaded when changing audio settings
 	- Current implementation just leaves global values hanging around
+	- This is not really needed, but would be a nice "peace of mind" -feature
 	
 ----------------------------------------------------------------------
 
 Polish:
-- Main menu polish
 	
 ----------------------------------------------------------------------
 
