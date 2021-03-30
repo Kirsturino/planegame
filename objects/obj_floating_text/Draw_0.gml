@@ -4,7 +4,7 @@ if (!surface_exists(textSurf))
 	
 	surface_set_target(textSurf);
 	var c = col_white;
-	draw_text_ext_color(margin, margin, txt, font_get_size(fnt_default), maxWidth, c, c, c, c, 1);
+	draw_text_ext_color(margin, margin, txt, lineHeight, maxWidth, c, c, c, c, 1);
 	surface_reset_target();
 	
 	textTexelW = global.outlineThickness * texture_get_texel_width(	surface_get_texture(textSurf));

@@ -11,7 +11,8 @@ levelSetNames =
 	"Line It Up",
 	"Solid Obstacles",
 	"Pockets",
-	"Claustrophobia"
+	"Claustrophobia",
+	"Testland"
 ];
 
 selectedLevelSet = 0;

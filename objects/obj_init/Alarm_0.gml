@@ -1,6 +1,8 @@
 //Load user stuff
-loadSettings();
-loadSave();
+var ver = loadSettings();
+
+if (ver != VERSION) { updateSaveToCurrentVersion(); }
+else				{ loadSave(); }
 
 //Center window, because gamemaker doesn't do this automatically for some reason when building???
 window_center();

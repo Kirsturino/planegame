@@ -22,11 +22,11 @@ Features:
 	- Just animate between two points with sine wave
 
 - Save file validation
-- Save file versioning
 	
 ----------------------------------------------------------------------
 
 Tuning:
+
 - More granular control over engines
 	- Non-linear control curve for joysticks
 
@@ -37,10 +37,18 @@ Fix:
 - Move global volume arrays to files that get loaded when changing audio settings
 	- Current implementation just leaves global values hanging around
 	- This is not really needed, but would be a nice "peace of mind" -feature
+- Remove global.levelProgressionArray
+	- Could just be calculated every time player enters level select menu
+	- This is also a "peace of mind" -feature and shouldn't really affect performance
+- global.completedLevels could also just be loaded, saved and then dumped on runtime
+	- Not a necessary optimization at this time
+	
+REMINDER TO SELF! ONLY OPTIMIZE IF NECESSARY!
 	
 ----------------------------------------------------------------------
 
 Polish:
+
 - Bullets hitting shoot circles particles
 - Stuff that happens when unlocking a new level set
 - Update level transitions at some point
@@ -50,7 +58,7 @@ Polish:
 
 Wishlist:
 
-- Customization (EXTENDED)
+- Customization
 	- Per part basis
 	- Modifies movement values
 	- Different guns

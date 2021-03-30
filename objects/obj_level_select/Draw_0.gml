@@ -32,6 +32,10 @@ switch (selectedLevelSet)
 	case 9:
 		frame = 2;
 	break;
+	
+	default:
+		frame = 2;
+	break;
 }
 
 //Offset background based on camera position for parallax

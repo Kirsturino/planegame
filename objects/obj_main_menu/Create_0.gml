@@ -84,7 +84,11 @@ function changeDisplayMode(arg)
 	{
 		window_set_fullscreen(global.fullscreen);
 		
-		if (!global.fullscreen) { centerWindow(); }
+		if (!global.fullscreen)
+		{
+			initCamera();
+			centerWindow();
+		}
 	}
 }
 

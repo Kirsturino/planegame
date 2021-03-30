@@ -103,7 +103,7 @@ function arrayContains(array, value)
 	var length = array_length(array);
 	for (var i = 0; i < length; ++i)
 	{
-		if (array[i] == value) {foundValue = true;}
+		if (array[i] == value) { foundValue = true; break;}
 	}
 	
 	return foundValue;

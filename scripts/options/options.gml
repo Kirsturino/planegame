@@ -28,7 +28,8 @@ function saveSettings()
 		
 		cameraShakeScale :	global.cameraShakeScale,
 		
-		version : VERSION
+		version : VERSION,
+		settingsVersion : SETTINGS_VERSION
 	};
 	
 	saveJSON(SETTINGS_FILE, settings);
@@ -40,8 +41,9 @@ function loadSettings()
 	
 	if (settings != -1)
 	{
-		if (settings.version != VERSION)
+		if (settings.settingsVersion != SETTINGS_VERSION)
 		{
+			//If there are new settings that get saved, just reset to default
 			file_delete(SETTINGS_FILE);
 		} else
 		{
@@ -60,5 +62,12 @@ function loadSettings()
 			applyFrameRate();
 			applySoundVolume();
 		}
+		
+		//Return SAVE version, not settings
+		return settings.version;
+	} else
+	{
+		saveSettings();
+		return VERSION;
 	}
 }
