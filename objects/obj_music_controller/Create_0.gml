@@ -19,14 +19,18 @@ musicArray =
 					
 menuMusicArray = 
 [
+	mus_menu,
 	mus_menu
 ];
 
-masterArray = [musicArray, menuMusicArray];
-curMusicArray = menuMusicArray;
 musicIndex = 0;
+menuMusicIndex = 0;
 curMusic = musicArray[musicIndex];
-musicToggle = false;
+
+masterArray = [musicArray, menuMusicArray];
+indexArray = [musicIndex, menuMusicIndex];
+curMusicArray = music.menu;
+curIndex = menuMusicIndex;
 
 //Music & SFX
 musicTimerMax = 60;
@@ -39,20 +43,14 @@ function checkMusic()
 	
 	if (musicTimer == 0)
 	{
-		if (musicToggle)
+		if (audio_group_is_loaded(ag_music) && !audio_is_playing(curMusic))
 		{
-			if (audio_group_is_loaded(ag_music) && !audio_is_playing(curMusic))
-			{
-				curMusic = curMusicArray[musicIndex];
-				audio_play_sound(curMusic, 0, false);
+			curMusic = masterArray[curMusicArray][curIndex];
+			audio_play_sound(curMusic, 0, false);
 			
-				var length = array_length(curMusicArray);
-				if (musicIndex < length - 1)	{ musicIndex++; }
-				else							{ musicIndex = 0; }
-			}
-		} else
-		{
-			audio_stop_sound(curMusic);
+			var length = array_length(masterArray[curMusicArray]);
+			if (curIndex < length - 1)	{ curIndex++; }
+			else						{ curIndex = 0; }
 		}
 		
 		musicTimer = musicTimerMax;

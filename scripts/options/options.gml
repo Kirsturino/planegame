@@ -8,13 +8,13 @@ global.cameraShakeScale = 1;
 
 //Graphics
 global.windowScale = 3;
-global.fullscreen = CONFIG == BUILD;
+global.fullscreen = true;
 
-#macro SETTINGS_NAME "settings.plane"
+#macro SETTINGS_FILE "settings.plane"
 
 function saveSettings()
 {
-	if (file_exists(SETTINGS_NAME)) file_delete(SETTINGS_NAME);
+	if (file_exists(SETTINGS_FILE)) file_delete(SETTINGS_FILE);
 	
 	var settings =
 	{
@@ -31,34 +31,34 @@ function saveSettings()
 		version : VERSION
 	};
 	
-	saveJSON(SETTINGS_NAME, settings);
+	saveJSON(SETTINGS_FILE, settings);
 }
 
 function loadSettings()
 {
-	var settings = loadJSON(SETTINGS_NAME);
-	
-	if (settings != -1 && settings.version != VERSION)
-	{
-		file_delete(SETTINGS_NAME);
-		settings = -1;
-	}
+	var settings = loadJSON(SETTINGS_FILE);
 	
 	if (settings != -1)
 	{
-		global.masterVolume		= settings.masterVolume;
-		global.musicVolume		= settings.musicVolume;
-		global.sfxVolume		= settings.sfxVolume;
+		if (settings.version != VERSION)
+		{
+			file_delete(SETTINGS_FILE);
+		} else
+		{
+			global.masterVolume		= settings.masterVolume;
+			global.musicVolume		= settings.musicVolume;
+			global.sfxVolume		= settings.sfxVolume;
 										
-		global.windowScale		= settings.windowScale;		
-		global.fullscreen		= settings.fullscreen;
-		global.framesPerSecond  = settings.framesPerSecond;
+			global.windowScale		= settings.windowScale;		
+			global.fullscreen		= settings.fullscreen;
+			global.framesPerSecond  = settings.framesPerSecond;
 											
-		global.cameraShakeScale	= settings.cameraShakeScale;
+			global.cameraShakeScale	= settings.cameraShakeScale;
 		
-		//Do stuff after values have been loaded
-		initCamera();
-		applyFrameRate();
-		applySoundVolume();
+			//Do stuff after values have been loaded
+			initCamera();
+			applyFrameRate();
+			applySoundVolume();
+		}
 	}
 }

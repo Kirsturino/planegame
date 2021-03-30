@@ -64,7 +64,7 @@ function isInView(objectID, margin) {
 
 function debug()
 {
-	show_debug_message("This code is being run.");
+	show_debug_message("This code is being run from " + string(object_index));
 }
 
 function executeFunctionArray(array)
@@ -107,4 +107,19 @@ function arrayContains(array, value)
 	}
 	
 	return foundValue;
+}
+
+function wrap(value, lowerLimit, upperLimit)
+{
+	var val = value;
+	
+	if (val > upperLimit)
+	{
+		val = lowerLimit + (val - upperLimit);
+	} else if (value < lowerLimit)
+	{
+		val = upperLimit - (lowerLimit - val);
+	}
+	
+	return val;
 }

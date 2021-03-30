@@ -19,6 +19,38 @@ selectedLevel = 0;
 levelSets = array_length(levelArray);
 levels = 0;
 
+//Calculate which levels will be available
+
+//Get number of beaten levels
+var beatenLevels = 0;
+var levelSetSize = array_length(levelArray);
+for (var i = 0; i < levelSetSize; i++)
+{
+	var length = array_length(levelArray[i]);
+	for (var j = 0; j < length; j++)
+	{
+		if (global.levelProgressionArray[i][j])
+			{ beatenLevels++; }
+	}
+}
+
+//Check against unlock requirements and see if we have unlocked something new
+var length = array_length(global.unlockRequirementArray);
+for (var i = 0; i < length; i++)
+{
+	if (beatenLevels >= global.unlockRequirementArray[i])
+	{
+		if (i > global.unlockedLevelSets)
+		{
+			global.unlockedLevelSets = i;
+			saveProgression();
+			
+			//More unlock pizazz to come
+			
+		}
+	}
+}
+
 //Drawing
 originX = 32;
 originY = 64;

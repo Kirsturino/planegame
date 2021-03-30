@@ -71,18 +71,32 @@ function changeValue(arg)
 	}
 }
 
+function centerWindow()
+{
+	alarm[0] = 1;
+}
+
 function changeDisplayMode(arg)
 {
 	changeValue(arg);
 	
-	if (left || right) { window_set_fullscreen(!global.fullscreen); }
+	if (left || right)
+	{
+		window_set_fullscreen(global.fullscreen);
+		
+		if (!global.fullscreen) { centerWindow(); }
+	}
 }
 
 function changeResolution(arg)
 {
 	changeValue(arg);
 	
-	if (left || right) { initCamera(); }
+	if (left || right)
+	{
+		initCamera();
+		centerWindow();
+	}
 }
 
 function changeFrameRate(arg)
@@ -155,7 +169,7 @@ menuAudio = createMenu
 
 menuGraphics = createMenu
 (
-	["Display", changeDisplayMode, ["fullscreen", 0, 1, 1, display.shift_string, ["Fullscreen", "Window"]]],
+	["Display", changeDisplayMode, ["fullscreen", 0, 1, 1, display.shift_string, ["Window", "Fullscreen"]]],
 	["Resolution", changeResolution, ["windowScale", 1, 4, 3, display.shift_string, ["480x270", "960x540", "1440x720", "1920x1080"]]],
 	["FPS", changeFrameRate, ["framesPerSecond", 0, 3, 3, display.shift_string, ["30", "60", "144", "240"]]],
 	["Camera FX", changeValue, ["cameraShakeScale", 0, 2, 20, display.shift]],

@@ -18,7 +18,6 @@ var originY = viewHeight/2;
 var spaceY = 32;
 var curPage = menuPages[page];
 var indicatorOffsetX = 24;
-var animationX = 4;
 
 for (var i = 0; i < pageLength; ++i)
 {

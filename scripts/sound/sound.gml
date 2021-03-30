@@ -55,15 +55,22 @@ function setMusic(music_type)
 	with (obj_music_controller)
 	{
 		//If trying to set to same array, do nothing
-		if (!musicToggle || curMusicArray == masterArray[music_type]) { exit; }
+		if (curMusicArray == music_type) { exit; }
 		
 		audio_stop_sound(curMusic);
-		curMusicArray = masterArray[music_type];
-		musicIndex = 0;
-		curMusic = curMusicArray[musicIndex]
+		
+		//Save the index for when we swap back to this music array
+		curIndex = wrap(curIndex + 1, 0, array_length(masterArray[curMusicArray]) - 1);
+		indexArray[curMusicArray] = curIndex;
+		curMusicArray = music_type;
+		
+		curIndex = indexArray[music_type];
+		curMusic = masterArray[curMusicArray][curIndex];
 		audio_play_sound(curMusic, 0, false);
 	}
 }
+
+/*
 
 function enableMusic()
 {
