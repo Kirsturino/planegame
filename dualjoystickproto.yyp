@@ -3,6 +3,7 @@
     {"id":{"name":"rm_level_26","path":"rooms/rm_level_26/rm_level_26.yy",},"order":0,},
     {"id":{"name":"todo","path":"notes/todo/todo.yy",},"order":15,},
     {"id":{"name":"rm_level_21","path":"rooms/rm_level_21/rm_level_21.yy",},"order":0,},
+    {"id":{"name":"obj_transition","path":"objects/obj_transition/obj_transition.yy",},"order":13,},
     {"id":{"name":"rm_level_23","path":"rooms/rm_level_23/rm_level_23.yy",},"order":2,},
     {"id":{"name":"obj_control_visualization","path":"objects/obj_control_visualization/obj_control_visualization.yy",},"order":9,},
     {"id":{"name":"snd_energy_full","path":"sounds/snd_energy_full/snd_energy_full.yy",},"order":13,},

@@ -1,4 +1,5 @@
 setMusic(music.menu);
+startRoomTransition(30, transition.in, viewWidth/2, viewHeight/2);
 
 //Basic menu functionality
 function createMenu()
@@ -14,9 +15,20 @@ function createMenu()
 }
 
 //Menu functions
-function toLevelSelect()
+function playGame()
 {
-	if (confirm) { room_goto(rm_level_select); }
+	if (confirm)
+	{
+		if (array_length(global.completedLevels) == 0)
+		{
+			startRoomTransition(30, transition.out, viewWidth/2, viewHeight/2, rm_level_babby_controls_01);
+		} else
+		{
+			startRoomTransition(30, transition.out, viewWidth/2, viewHeight/2, rm_level_select);
+		}
+		
+		audio_play_sound(snd_ui_confirm, 0, false);
+	}
 }
 
 function showCredits(arg)
@@ -145,7 +157,7 @@ enum display
 //Menu variables
 menuMain = createMenu
 (
-	["Play", toLevelSelect, [-1]],
+	["Play", playGame, [pages.main]],
 	["Settings", changePage, [pages.settings]],
 	["Credits", showCredits, [pages.credits]],
 	["Quit", quitGame, [-1]]

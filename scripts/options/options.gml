@@ -29,7 +29,8 @@ function saveSettings()
 		cameraShakeScale :	global.cameraShakeScale,
 		
 		version : VERSION,
-		settingsVersion : SETTINGS_VERSION
+		settingsVersion : SETTINGS_VERSION,
+		warning : "Please don't manually edit this options file, thanks!"
 	};
 	
 	saveJSON(SETTINGS_FILE, settings);

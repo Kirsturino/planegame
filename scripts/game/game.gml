@@ -29,7 +29,8 @@ function saveProgression()
 	{
 		completedArray : global.levelProgressionArray,
 		unlockedLevelSets : global.unlockedLevelSets,
-		completedLevelsArray : global.completedLevels
+		completedLevelsArray : global.completedLevels,
+		warning : "Please don't manually edit this save file, thanks!"
 	};
 	
 	saveJSON(SAVE_FILE, struct);
@@ -84,48 +85,22 @@ for (var i = 0; i < levelSetSize; i++)
 global.lastLevel = rm_level_babby_controls_01;
 global.objectiveCount = 0;
 
-function startRoomTransition(func)
+global.transitioning = false;
+function startRoomTransition(time, type, x, y, room)
 {
-	obj_controller.transitioningOut = true;
-	obj_controller.transitionFunction = func;
-}
-
-//Level transition
-function nextLevel()
-{
-	audio_group_stop_all(ag_sfx);
+	global.transitioning = true;
 	
-	//See if next level has actually been unlocked
-	//If not, take player to level select screen
-	var level = findLevelFromArray(room);
-	var levelSetLength = array_length(levelArray[level[0]]) - 1;
-	if (level[1] == levelSetLength && level[0] + 1 > global.unlockedLevelSets)
+	with (instance_create_layer(0, 0, "Top", obj_transition))
 	{
-		room_goto(rm_level_select);
-	}
-	else if (level[1] != levelSetLength)
-	{
-		var levelSet = level[0];
-		var lvl = level[1] + 1;
-		room_goto(levelArray[levelSet][lvl]);
-	}
-	else if (level[0] < array_length(levelArray) - 1)
-	{
-		var levelSet = level[0] + 1;
-		var lvl = 0;
-		room_goto(levelArray[levelSet][lvl]);
-	}
-	else
-	{
-		room_goto(rm_level_select);
+		transitionTimer = time;
+		transitionTimerMax = time;
+		transitionType = type;
+		targX = x;
+		targY = y;
+		destination = room;
 	}
 }
 
-function restartLevel()
-{
-	audio_group_stop_all(ag_sfx);
-	room_restart();
-}
 
 //Progression things
 function markLevelAsCleared(room)

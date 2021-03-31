@@ -56,13 +56,13 @@ if (confirm)
 {
 	setMusic(music.gameplay);
 	audio_play_sound(snd_ui_confirm, 0, false);
-	room_goto(levelArray[selectedLevelSet][selectedLevel]);
+	startRoomTransition(30, transition.out, viewWidth/2, viewHeight/2, levelArray[selectedLevelSet][selectedLevel]);
 }
 
 if (back)
 {
 	audio_play_sound(snd_ui_back, 0, false);
-	room_goto(rm_main_menu);
+	startRoomTransition(30, transition.out, viewWidth/2, viewHeight/2, rm_main_menu);
 }
 
 #endregion

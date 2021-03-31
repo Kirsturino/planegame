@@ -5,7 +5,7 @@ function checkLevelCompletion()
 	if (global.objectiveCount == 0)
 	{
 		markLevelAsCleared(room);
-		startRoomTransition(nextLevel);
+		startRoomTransition(30, transition.level_next, obj_player.x, obj_player.y);
 	}
 }
 

@@ -616,13 +616,13 @@ function outOfEnergyParticles()
 //Reset level if player is out of bounds
 function checkifOutOfBounds()
 {
-	if (isOutsideRoom(x, y, 32, 32) && !obj_controller.transitioningOut)
+	if (isOutsideRoom(x, y, 32, 32) && !global.transitioning)
 	{
 		audio_group_stop_all(ag_sfx);
 		
 		shakeCamera(100, 0, 20);
 		audio_play_sound(snd_shoot_default, 0, false);
 		
-		startRoomTransition(restartLevel);
+		startRoomTransition(30, transition.level_restart, obj_player.x, obj_player.y);
 	}
 }

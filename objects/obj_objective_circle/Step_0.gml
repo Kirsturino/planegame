@@ -3,6 +3,13 @@ rot += rotSpd*sign(completionMax)*delta;
 radius = lerp(radius, radiusTo, 0.1*delta);
 drawRad = radius - radius*0.2*completion/completionMax;
 
+//Simple sine movement
+if (!completed)
+{
+	x = xstart + wave(-moveX, moveX, moveXDuration, moveXOffset, true);
+	y = ystart + wave(-moveY, moveY, moveYDuration, moveYOffset, true);
+}
+
 if (completed)
 {
 	radiusTo = approach(radiusTo, 0, 2);
@@ -13,7 +20,7 @@ if (completed)
 		surface_free(circleSurf);
 		instance_destroy(); 
 	}
-} else if (!completed) 
+} else
 	{ objective(); }
 	
 checkCompletion();

@@ -1,5 +1,5 @@
 setMusic(music.menu);
-
+startRoomTransition(30, transition.in, viewWidth/2, viewHeight/2);
 levelSetNames =
 [	
 	"A Humble Beginning",

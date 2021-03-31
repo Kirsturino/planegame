@@ -75,7 +75,7 @@ function hitFunction()
 			energy = approach_pure(energy, 0, max((abs(hsp) + abs(vsp))*20, 10));
 		} else
 		{
-			startRoomTransition(restartLevel);
+			startRoomTransition(30, transition.level_restart, obj_player.x, obj_player.y);
 		}
 		
 		if (!inDanger)

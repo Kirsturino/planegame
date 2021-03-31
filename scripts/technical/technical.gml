@@ -65,6 +65,10 @@ function saveJSON(fileName, struct)
 {
 	//JSONify data
 	var str = json_stringify(struct);
+	var hash = sha1_string_utf8_hmac(HMAC_KEY, str);
+	
+	//Append hash
+	str += "#" +  hash + "#";
 	
 	//Delete old file
 	if (file_exists(fileName)) { file_delete(fileName); }
@@ -80,11 +84,28 @@ function loadJSON(fileName)
 	{
 		var file = file_text_open_read(fileName)
 		var str = file_text_read_string(file);
-		var finalValue = json_parse(str);
-		file_text_close(file);	
+		file_text_close(file);
 		
-		//Returns saved struct
-		return finalValue;
+		//Find hash, it's always the same length
+		var expectedHash = string_copy(str, string_length(str)-40, 40);
+		
+		//Get rid of hash
+		var hashlessString = string_copy(str, 1, string_length(str)-42);
+		
+		//Make hash of trimmed text
+		var newHash = sha1_string_utf8_hmac(HMAC_KEY, hashlessString);
+		
+		//Compare hashes
+		//Check if the two hashes match
+		if (expectedHash == newHash)
+		{
+		    //Savefile is valid! Let's load the savedata
+		    return json_parse(hashlessString);
+		}
+		else
+		{
+		    show_message("Don't do that");
+		}
 	} else
 	{
 		return -1;

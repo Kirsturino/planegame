@@ -18,17 +18,9 @@ Features:
 	- Disables engines for a second just like rocks
 	- Which way do you bounce? Do you bounce at all? Maybe just remove all momentum
 	
-- Basic move mechanics to circles
-	- Just animate between two points with sine wave
-
-- Save file validation
-	
 ----------------------------------------------------------------------
 
 Tuning:
-
-- More granular control over engines
-	- Non-linear control curve for joysticks
 
 ----------------------------------------------------------------------
 
@@ -51,8 +43,6 @@ Polish:
 
 - Bullets hitting shoot circles particles
 - Stuff that happens when unlocking a new level set
-- Update level transitions at some point
-	- Separate level transitions to new objects that get spawned by controller
 
 ----------------------------------------------------------------------
 
