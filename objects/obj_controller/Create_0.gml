@@ -1,5 +1,5 @@
 //Transition in room
-startRoomTransition(30, transition.in, obj_player.x, obj_player.y);
+startRoomTransition(transition.in, obj_player.x, obj_player.y, room);
 
 //Spawn extra logic objects because room inheritance sucks
 instance_create_layer(0, 0, layer, obj_background);

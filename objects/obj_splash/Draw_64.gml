@@ -15,14 +15,14 @@ draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
 var c = col_white;
-var txt = "Super Placeholder Turbo";
+var txt = "Super Aerobatics Turbo";
 var _x = viewWidth/2;
-var _y = viewHeight/2;
+var _y = viewHeight/2 - 32;
 
 draw_text_color(_x, _y, txt, c, c, c, c, 1);
 
 txt = "by Kirstu";
-_y += 32;
+_y += 64 + wave(-6, 6, 2, 0, true);
 
 draw_text_color(_x, _y, txt, c, c, c, c, 1);
 

@@ -41,8 +41,11 @@ REMINDER TO SELF! ONLY OPTIMIZE IF NECESSARY!
 
 Polish:
 
-- Bullets hitting shoot circles particles
-- Stuff that happens when unlocking a new level set
+- Menu screen backgrounds
+	- Make separate menu drawer object
+	- Clouds NEED to have a master surface
+	- Copy shader values from drawer
+	- Add normal background elements like cloud and sun
 
 ----------------------------------------------------------------------
 

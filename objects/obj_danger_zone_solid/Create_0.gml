@@ -75,7 +75,7 @@ function hitFunction()
 			energy = approach_pure(energy, 0, max((abs(hsp) + abs(vsp))*20, 10));
 		} else
 		{
-			startRoomTransition(30, transition.level_restart, obj_player.x, obj_player.y);
+			startRoomTransition(transition.level_restart, obj_player.x, obj_player.y, room);
 		}
 		
 		if (!inDanger)
@@ -92,11 +92,11 @@ function hitFunction()
 		}
 		
 		//Bounceback
-		var margin = 16;
+		var margin = 8;
 		var bounceFactor = -0.2;
 		if (x+hsp < other.bbox_left + margin || x+hsp > other.bbox_right - margin)
 			{ hsp *= bounceFactor; }
-		else 
+		else if (y+vsp < other.bbox_top + margin || y+vsp > other.bbox_bottom - margin)
 			{ vsp *= bounceFactor; }
 				
 		blockPlayerInput(60);

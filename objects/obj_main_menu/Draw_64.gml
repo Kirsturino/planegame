@@ -40,6 +40,7 @@ for (var i = 0; i < pageLength; ++i)
 		draw_text_color(indicatorX, _y, ">", c, c, c, c, 1);
 		
 		_x += pushX;
+		_y += pushY;
 	}
 	
     draw_text_color(_x, _y, txt, c, c, c, c, 1);

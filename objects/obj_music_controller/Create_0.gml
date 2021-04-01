@@ -14,13 +14,19 @@ musicArray =
 	mus_gameplay_06,
 	mus_gameplay_07,
 	mus_gameplay_08,
-	mus_gameplay_09
+	mus_gameplay_09,
+	mus_gameplay_10,
+	mus_gameplay_11,
+	mus_gameplay_12
 ];
 					
 menuMusicArray = 
 [
-	mus_menu,
-	mus_menu
+	mus_menu_01,
+	mus_menu_02,
+	mus_menu_03,
+	mus_menu_04,
+	mus_menu_05
 ];
 
 musicIndex = 0;

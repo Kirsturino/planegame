@@ -213,13 +213,16 @@ switch (type)
 				completion = approach_pure(completion, completionMax, blt.dmg);
 				completionDecayDelay = completionDecayDelayMax;
 				radius *= 1.1;
-				instance_destroy(blt);
+				
 				
 				//SFX
 				progressAudio();
-				freeze(10);
+				freeze(20);
 				if (!audio_is_playing(shootHitSound)) audio_play_sound(shootHitSound, 0, false);
+				part_particles_create(global.ps, blt.x, blt.y, global.electricityPart, 4);
+				part_particles_create(global.psTop, blt.x, blt.y, global.bulletHitPart, 1);
 				
+				instance_destroy(blt);
 			} else
 			{
 				completionDecayLogic();

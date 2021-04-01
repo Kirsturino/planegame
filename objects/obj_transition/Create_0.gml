@@ -6,8 +6,8 @@ enum transition
 	out
 }
 
-transitionTimer = 0;
-transitionTimerMax = 0;
+transitionTimer = 30;
+transitionTimerMax = 30;
 transitionType = transition.out;
 transitionFunction = function() {};
 drawFunction = function() {};
@@ -16,6 +16,7 @@ transSurf = -1;
 
 targX = 0;
 targY = 0;
+transitionSound = -1;
 
 global.transitioning = true;
 

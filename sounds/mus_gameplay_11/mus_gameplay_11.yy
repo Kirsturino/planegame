@@ -10,14 +10,14 @@
     "name": "ag_music",
     "path": "audiogroups/ag_music",
   },
-  "soundFile": "mus_menu.mp3",
-  "duration": 77.429,
+  "soundFile": "mus_gameplay_11.mp3",
+  "duration": 130.8001,
   "parent": {
     "name": "Music",
     "path": "folders/Sounds/Music.yy",
   },
   "resourceVersion": "1.0",
-  "name": "mus_menu",
+  "name": "mus_gameplay_11",
   "tags": [
     "Music",
   ],

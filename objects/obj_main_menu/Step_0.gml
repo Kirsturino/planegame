@@ -11,6 +11,7 @@ if (up || down)
 	
 	//FX
 	pushX = 0;
+	pushY = (down - up) * maxPushY;
 	audio_play_sound(snd_ui_updown, 0, false);
 }
 
@@ -50,4 +51,5 @@ func(arg);
 
 //Graphics
 pushX = lerp(pushX, maxPushX, 0.2*delta);
+pushY = lerp(pushY, 0, 0.4*delta);
 settingPushX = lerp(settingPushX, 0, 0.2*delta);

@@ -52,17 +52,22 @@ if (up)
 	selectedLevel = min(selectedLevel, levels - 1);
 }
 
-if (confirm)
+if (confirm && !global.transitioning)
 {
 	setMusic(music.gameplay);
 	audio_play_sound(snd_ui_confirm, 0, false);
-	startRoomTransition(30, transition.out, viewWidth/2, viewHeight/2, levelArray[selectedLevelSet][selectedLevel]);
+	
+	var _x = originX + selectedLevel*spaceX;
+	var _y = originY + selectedLevelSet*spaceY;
+	startRoomTransition(transition.out, _x, _y, levelArray[selectedLevelSet][selectedLevel]);
 }
 
-if (back)
+if (back && !global.transitioning)
 {
 	audio_play_sound(snd_ui_back, 0, false);
-	startRoomTransition(30, transition.out, viewWidth/2, viewHeight/2, rm_main_menu);
+	var _x = viewWidth/2 + camera_get_view_x(view);
+	var _y = viewHeight/2 + camera_get_view_y(view);
+	startRoomTransition(transition.out, _x, _y, rm_main_menu);
 }
 
 #endregion

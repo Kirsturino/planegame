@@ -393,6 +393,12 @@ function outOfEnergy()
 	}
 }
 
+function toDummy()
+{
+	state = dummy;
+	resetInput();
+}
+
 state = dummy;
 
 //Misc functions
@@ -525,7 +531,7 @@ function inputTimer()
 		{ blockInput = false; }
 	else
 	{
-		if (global.updateParticles)
+		if (state != dummy && global.updateParticles)
 		{
 			electricityParticles();
 		}
@@ -623,6 +629,6 @@ function checkifOutOfBounds()
 		shakeCamera(100, 0, 20);
 		audio_play_sound(snd_shoot_default, 0, false);
 		
-		startRoomTransition(30, transition.level_restart, obj_player.x, obj_player.y);
+		startRoomTransition(transition.level_restart, obj_player.x, obj_player.y, room);
 	}
 }

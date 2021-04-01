@@ -8,10 +8,10 @@ if (!surface_exists(creditsSurf))
 	uPixelH = shader_get_uniform(shd_outline_drop_shadow, "pixelH");
 }
 
-var originX = viewWidth/2;
+var originX = viewWidth/3*1;
 var originY = viewHeight/2;
-var spaceY = 32;
-var spaceX = originX - 32;
+var spaceY = 20;
+var spaceX = viewWidth/2;
 var c = col_white;
 
 //Draw current menu
@@ -19,7 +19,7 @@ draw_set_valign(fa_middle);
 surface_set_target(creditsSurf);
 draw_clear_alpha(col_black, 0);
 
-draw_text_ext_color(originX, originY, "Everything made by Kirstu. No, wait, the music is from Chip-Con's REBOOT1 event", spaceY, spaceX, c, c, c, c, 1);
+draw_text_ext_color(originX, originY, "Game: Kirstu \n\nMusic: Chromix and I, Cactus\n\nUnder CC BY-NC-SA -license.", spaceY, spaceX, c, c, c, c, 1);
 
 draw_set_valign(fa_top);
 surface_reset_target();

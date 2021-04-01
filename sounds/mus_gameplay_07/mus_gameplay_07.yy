@@ -11,7 +11,7 @@
     "path": "audiogroups/ag_music",
   },
   "soundFile": "mus_gameplay_07.mp3",
-  "duration": 287.378052,
+  "duration": 162.120956,
   "parent": {
     "name": "Music",
     "path": "folders/Sounds/Music.yy",

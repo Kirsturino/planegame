@@ -86,19 +86,20 @@ global.lastLevel = rm_level_babby_controls_01;
 global.objectiveCount = 0;
 
 global.transitioning = false;
-function startRoomTransition(time, type, x, y, room)
+function startRoomTransition(type, x, y, room)
 {
-	global.transitioning = true;
-	
-	with (instance_create_layer(0, 0, "Top", obj_transition))
+	if (!global.transitioning)
 	{
-		transitionTimer = time;
-		transitionTimerMax = time;
-		transitionType = type;
-		targX = x;
-		targY = y;
-		destination = room;
+		with (instance_create_layer(0, 0, "Top", obj_transition))
+		{
+			transitionType = type;
+			targX = x;
+			targY = y;
+			destination = room;
+		}
 	}
+	
+	global.transitioning = true;
 }
 
 

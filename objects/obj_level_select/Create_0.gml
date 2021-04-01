@@ -1,5 +1,8 @@
+//Disable editor background and make this object go at bottom draw order
+layer_destroy(layer_get_id("Background"));
+
 setMusic(music.menu);
-startRoomTransition(30, transition.in, viewWidth/2, viewHeight/2);
+startRoomTransition(transition.in, viewWidth/2, viewHeight/2, room);
 levelSetNames =
 [	
 	"A Humble Beginning",
@@ -32,23 +35,6 @@ for (var i = 0; i < levelSetSize; i++)
 	{
 		if (global.levelProgressionArray[i][j])
 			{ beatenLevels++; }
-	}
-}
-
-//Check against unlock requirements and see if we have unlocked something new
-var length = array_length(global.unlockRequirementArray);
-for (var i = 0; i < length; i++)
-{
-	if (beatenLevels >= global.unlockRequirementArray[i])
-	{
-		if (i > global.unlockedLevelSets)
-		{
-			global.unlockedLevelSets = i;
-			saveProgression();
-			
-			//More unlock pizazz to come
-			
-		}
 	}
 }
 
@@ -96,6 +82,23 @@ for (var i = 0; i < levelSets; i++)
 			moveLevelCamera();
 				
 			break;
+		}
+	}
+}
+
+//Unlock stuff
+//Check against unlock requirements and see if we have unlocked something new
+var length = array_length(global.unlockRequirementArray);
+for (var i = 0; i < length; i++)
+{
+	if (beatenLevels >= global.unlockRequirementArray[i])
+	{
+		if (i > global.unlockedLevelSets)
+		{
+			global.unlockedLevelSets = i;
+			saveProgression();
+			
+			levelSetNames[i] += " / Unlocked!";
 		}
 	}
 }

@@ -7,5 +7,5 @@ if (gamepad_button_check_pressed(global.controller, gp_face4) && findLevelFromAr
 {
 	audio_group_stop_all(ag_sfx);
 	markLevelAsCleared(room);
-	startRoomTransition(30, transition.level_next, obj_player.x, obj_player.y);
+	startRoomTransition(transition.level_next, obj_player.x, obj_player.y, room);
 }
