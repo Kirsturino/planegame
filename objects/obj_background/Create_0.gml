@@ -35,7 +35,7 @@ buildingWidthVariance = 32;
 
 surfWidth = viewWidth*2;
 surfHeight = buildingHeight+buildingHeightVariance;
-cityParallaxMultiplier = 0.5;
+cityParallaxMultiplier = 0.7;
 cityColor = col_cityblue;
 citySideColor = make_color_rgb(37, 49, 94);
 

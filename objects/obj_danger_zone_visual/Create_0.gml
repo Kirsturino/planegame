@@ -55,13 +55,3 @@ function createCloudSurface(surf, freq, posVar, rad, radVar, marg, surfMarg, col
 	surface_copy(surf, 0, 0, tempSurf);
 	surface_free(tempSurf);
 }
-
-//Wave shader stuff
-uTimeOL = shader_get_uniform(shd_wave_outline,"time");
-uFrequencyOL = shader_get_uniform(shd_wave_outline,"frequency");
-uIntensityOL = shader_get_uniform(shd_wave_outline,"intensity");
-frequencyOL = 50.0;
-intensityOL = 400.0; //Lower value = more intense
-spdOL = 1;
-uWavePixelH = shader_get_uniform(shd_wave_outline, "pixelH");
-uWavePixelW = shader_get_uniform(shd_wave_outline, "pixelW");

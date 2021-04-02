@@ -40,6 +40,17 @@ function directionShakeCamera(amount, duration, direction, frequency)
 	}
 }
 
+function directionShakeCameraTest(amount, duration, direction, frequency)
+{
+	if (amount > obj_camera_menu.dirShakeAmount)
+	{
+		obj_camera_menu.dirShakeFrequency = frequency;
+		obj_camera_menu.dirShakeAmount = amount*global.cameraShakeScale;
+		obj_camera_menu.dirShakeDuration = duration;
+		obj_camera_menu.dirShakeDirection = direction;
+	}
+}
+
 function rotateCamera(amount, rng)
 {
 	if (rng)	{ obj_camera.rotTo = choose(amount, -amount)*global.cameraShakeScale; }

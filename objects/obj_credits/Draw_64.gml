@@ -19,7 +19,7 @@ draw_set_valign(fa_middle);
 surface_set_target(creditsSurf);
 draw_clear_alpha(col_black, 0);
 
-draw_text_ext_color(originX, originY, "Game: Kirstu \n\nMusic: Chromix and I, Cactus\n\nUnder CC BY-NC-SA -license.", spaceY, spaceX, c, c, c, c, 1);
+draw_text_ext_color(originX, originY, "Music: Chromix and I, Cactus\n\nUnder CC BY-NC-SA -license.\n\nEverything else: Kirstu ", spaceY, spaceX, c, c, c, c, 1);
 
 draw_set_valign(fa_top);
 surface_reset_target();

@@ -12,7 +12,8 @@ levelArray =
 	[rm_level_16, rm_level_17, rm_level_18, rm_level_19, rm_level_20, rm_level_small_02],
 	[rm_level_wall_tutorial, rm_level_26, rm_level_27, rm_level_28, rm_level_29, rm_level_30],
 	[rm_pockets_01, rm_pockets_02, rm_pockets_03, rm_pockets_04, rm_pockets_05],
-	[rm_level_static_01, rm_level_static_02, rm_level_static_03, rm_level_static_04, rm_level_static_05, rm_level_static_06]
+	[rm_level_static_01, rm_level_static_02, rm_level_static_03, rm_level_static_04, rm_level_static_05, rm_level_static_06],
+	[rm_level_moving_01, rm_level_moving_02, rm_level_moving_03, rm_level_moving_04, rm_level_moving_05, rm_level_moving_06]
 ];
 
 //Progression stuff
@@ -27,7 +28,6 @@ function saveProgression()
 {
 	var struct =
 	{
-		completedArray : global.levelProgressionArray,
 		unlockedLevelSets : global.unlockedLevelSets,
 		completedLevelsArray : global.completedLevels,
 		warning : "Please don't manually edit this save file, thanks!"
@@ -62,7 +62,6 @@ function loadSave()
 	{
 		//Load save file and copy it over to a global variable for later use
 		var save = loadJSON(SAVE_FILE);
-		global.levelProgressionArray = save.completedArray;
 		global.unlockedLevelSets = save.unlockedLevelSets;
 		global.completedLevels = save.completedLevelsArray;
 	}
@@ -106,9 +105,9 @@ function startRoomTransition(type, x, y, room)
 //Progression things
 function markLevelAsCleared(room)
 {
-	if (!arrayContains(global.completedLevels, room))
+	if (!arrayContains(global.completedLevels, room_get_name(room)))
 	{
-		array_push(global.completedLevels, room);
+		array_push(global.completedLevels, room_get_name(room));
 	}
 	
 	var levelSetSize = array_length(levelArray);

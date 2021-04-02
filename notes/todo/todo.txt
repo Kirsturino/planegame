@@ -41,12 +41,6 @@ REMINDER TO SELF! ONLY OPTIMIZE IF NECESSARY!
 
 Polish:
 
-- Menu screen backgrounds
-	- Make separate menu drawer object
-	- Clouds NEED to have a master surface
-	- Copy shader values from drawer
-	- Add normal background elements like cloud and sun
-
 ----------------------------------------------------------------------
 
 Wishlist:

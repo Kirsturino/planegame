@@ -6,9 +6,11 @@ if (!surface_exists(backgroundCloudSurface))
 	drawCloud();
 } else 
 {
-	var zoom = obj_camera.zoomMultiplier;
-	var camX = camera_get_view_x(view) + viewWidth*frac(zoom)/2;
-	var camY = camera_get_view_y(view) + viewHeight*frac(zoom)/2;
+	if (instance_exists(obj_camera)) { var zoom = obj_camera.zoomMultiplier; }
+	else { var zoom = 1; }
+
+	var camX = camera_get_view_x(view) - viewWidth*(1 - zoom)/2;
+	var camY = camera_get_view_y(view) - viewHeight*(1 - zoom)/2;
 	
 	var drawX = x - width/2 + camX*parallaxMultiplier;
 	var drawY = y - height/2 + camY*parallaxMultiplier;

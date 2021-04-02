@@ -95,7 +95,6 @@ var marginY = 24;
 var _x = viewWidth - marginX;
 var _y = marginY;
 var c = col_white;
-draw_set_font(fnt_small);
 
 draw_text_color(_x, _y, "Back", c, c, c, c, 1);
 var spriteOffset = string_width("Back");

@@ -5,7 +5,6 @@
 
 //Current game version
 #macro VERSION 0.1
-#macro SETTINGS_VERSION 0.1
 
 function updateSaveToCurrentVersion()
 {
@@ -14,6 +13,7 @@ function updateSaveToCurrentVersion()
 	if (file_exists(SAVE_FILE))
 	{
 		var save = loadJSON(SAVE_FILE);
+		var levelSetSize = array_length(levelArray);
 		
 		//Load this baby in to help with versioning
 		//Practically immune to version changes, it's so stupid simple
@@ -25,7 +25,6 @@ function updateSaveToCurrentVersion()
 		global.unlockedLevelSets = min(oldUnlockedLevelSets, levelSetSize - 1);
 		
 		//Init save file normally
-		var levelSetSize = array_length(levelArray);
 		for (var i = 0; i < levelSetSize; i++)
 		{
 			var length = array_length(levelArray[i]);
@@ -39,7 +38,8 @@ function updateSaveToCurrentVersion()
 		var length = array_length(global.completedLevels);
 		for (var i = 0; i < length; ++i)
 		{
-		    var coord = findLevelFromArray(global.completedLevels[i]);
+			var lvl = asset_get_index(global.completedLevels[i]);
+		    var coord = findLevelFromArray(lvl);
 			
 			global.levelProgressionArray[coord[0]][coord[1]] = true;
 		}

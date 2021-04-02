@@ -1,8 +1,11 @@
 //Load user stuff
-var ver = loadSettings();
+loadSettings();
+updateSaveToCurrentVersion();
 
-if (ver != VERSION) { updateSaveToCurrentVersion(); }
-else				{ loadSave(); }
+if (CONFIG != BUILD)
+{
+	global.unlockedLevelSets = array_length(global.levelArray) - 1;
+}
 
 //Center window, because gamemaker doesn't do this automatically for some reason when building???
 window_center();

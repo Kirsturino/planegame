@@ -27,9 +27,9 @@ function saveSettings()
 		framesPerSecond:	global.framesPerSecond,
 		
 		cameraShakeScale :	global.cameraShakeScale,
+		color : col_plane,
 		
 		version : VERSION,
-		settingsVersion : SETTINGS_VERSION,
 		warning : "Please don't manually edit this options file, thanks!"
 	};
 	
@@ -42,10 +42,11 @@ function loadSettings()
 	
 	if (settings != -1)
 	{
-		if (settings.settingsVersion != SETTINGS_VERSION)
+		if (settings.version != VERSION)
 		{
 			//If there are new settings that get saved, just reset to default
 			file_delete(SETTINGS_FILE);
+			saveSettings();
 		} else
 		{
 			global.masterVolume		= settings.masterVolume;
@@ -57,6 +58,8 @@ function loadSettings()
 			global.framesPerSecond  = settings.framesPerSecond;
 											
 			global.cameraShakeScale	= settings.cameraShakeScale;
+			
+			col_plane = settings.color;
 		
 			//Do stuff after values have been loaded
 			initCamera();
@@ -69,6 +72,5 @@ function loadSettings()
 	} else
 	{
 		saveSettings();
-		return VERSION;
 	}
 }

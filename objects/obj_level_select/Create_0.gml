@@ -1,6 +1,3 @@
-//Disable editor background and make this object go at bottom draw order
-layer_destroy(layer_get_id("Background"));
-
 setMusic(music.menu);
 startRoomTransition(transition.in, viewWidth/2, viewHeight/2, room);
 levelSetNames =
@@ -8,13 +5,14 @@ levelSetNames =
 	"A Humble Beginning",
 	"Learning To Fly",
 	"Boosting Through",
-	"Ro- Ro-, Rotate Your Plane",
+	"Rotate Your Plane",
 	"Putting Things Together",
 	"Shooting Gallery",
 	"Line It Up",
 	"Solid Obstacles",
 	"Pockets",
 	"Claustrophobia",
+	"They Move Against Us",
 	"Testland"
 ];
 
@@ -52,6 +50,9 @@ pushAmount = 4;
 
 //Change room size to reflect UI, this is for camera placing purposes
 room_height = levelSets*spaceY + size;
+
+var cloud = instance_create_layer(room_width - 16, -16, "Gameplay", obj_danger_zone_visual);
+cloud.image_yscale = room_height / sprite_get_height(cloud.sprite_index) + 32;
 
 function levelInput()
 {

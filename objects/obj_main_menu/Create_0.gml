@@ -28,6 +28,7 @@ function playGame()
 		}
 		
 		audio_play_sound(snd_ui_confirm, 0, false);
+		setMusic(music.gameplay);
 	}
 }
 
@@ -130,6 +131,14 @@ function changeVolume(arg)
 		{ applySoundVolume(); }
 }
 
+function changeCameraFX(arg)
+{
+	changeValue(arg);
+	
+	if (left || right)
+		{ directionShakeCameraTest(20, 10, 0, 0.1); }
+}
+
 function exitSettings(arg)
 {
 	changePage(arg);
@@ -188,7 +197,8 @@ menuGraphics = createMenu
 	["Display", changeDisplayMode, ["fullscreen", 0, 1, 1, display.shift_string, ["Window", "Fullscreen"]]],
 	["Resolution", changeResolution, ["windowScale", 1, 4, 3, display.shift_string, ["480x270", "960x540", "1440x720", "1920x1080"]]],
 	["FPS", changeFrameRate, ["framesPerSecond", 0, 3, 3, display.shift_string, ["30", "60", "144", "240"]]],
-	["Camera FX", changeValue, ["cameraShakeScale", 0, 2, 20, display.shift]],
+	["Camera FX", changeCameraFX, ["cameraShakeScale", 0, 2, 20, display.shift]],
+	["Plane Color", changeValue, ["col_plane", 0, 4, 4, display.shift_string, ["White", "Pink", "Yellow", "Green"]]],
 	["Back", exitSettings, [pages.settings]]
 );
 

@@ -15,9 +15,15 @@ globalvar col_orange;
 col_orange = make_color_rgb(248, 153, 58);
 globalvar col_yellow;
 col_yellow = make_color_rgb(244, 192, 71);
+globalvar col_pink;
+col_pink = make_color_rgb(243, 97, 148);
+globalvar col_green;
+col_green = make_color_rgb(98, 197, 59);
 
 globalvar col_plane;
-col_plane = col_white;
+col_plane = 0;
+
+global.planeColors = [col_white, col_pink, col_yellow, col_green];
 
 globalvar outlineThickness;
 outlineThickness = 3;

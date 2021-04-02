@@ -15,16 +15,29 @@ draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
 var c = col_white;
-var txt = "Super Aerobatics Turbo";
-var _x = viewWidth/2;
-var _y = viewHeight/2 - 32;
-
+var txt = "Super";
+var _x = viewWidth/2 - 64;
+var _y = viewHeight/2 - 40;
+draw_set_font(fnt_logo_1);
 draw_text_color(_x, _y, txt, c, c, c, c, 1);
 
-txt = "by Kirstu";
-_y += 64 + wave(-6, 6, 2, 0, true);
-
+var txt = "Aerobatics";
+_y += 40;
+_x += 64;
+draw_set_font(fnt_logo_2);
 draw_text_color(_x, _y, txt, c, c, c, c, 1);
+
+var txt = "Turbo";
+_y += 48;
+_x += 64;
+draw_set_font(fnt_logo_1);
+draw_text_color(_x, _y, txt, c, c, c, c, 1);
+
+//txt = "by Kirstu";
+//draw_set_font(fnt_default);
+//_y += 64 + wave(-6, 6, 2, 0, true);
+//_x -= 64;
+//draw_text_color(_x, _y, txt, c, c, c, c, 1);
 
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
