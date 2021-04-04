@@ -22,13 +22,13 @@ function playGame()
 		if (array_length(global.completedLevels) == 0)
 		{
 			startRoomTransition(transition.out, viewWidth/2, viewHeight/2, rm_level_babby_controls_01);
+			setMusic(music.gameplay);
 		} else
 		{
 			startRoomTransition(transition.out, viewWidth/2, viewHeight/2, rm_level_select);
 		}
 		
 		audio_play_sound(snd_ui_confirm, 0, false);
-		setMusic(music.gameplay);
 	}
 }
 

@@ -1,4 +1,7 @@
 {
+  "ConfigValues": {
+    "Build": {"option_linux_splash_screen":"splash/splash.png","option_linux_icon":"icons/64.png",},
+  },
   "option_linux_display_name": "Created with GameMaker Studio 2",
   "option_linux_version": "1.0.0.0",
   "option_linux_maintainer_email": "",

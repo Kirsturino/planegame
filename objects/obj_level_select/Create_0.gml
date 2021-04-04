@@ -13,6 +13,8 @@ levelSetNames =
 	"Pockets",
 	"Claustrophobia",
 	"They Move Against Us",
+	"But We Got The Moves",
+	"The Final Stretch",
 	"Testland"
 ];
 

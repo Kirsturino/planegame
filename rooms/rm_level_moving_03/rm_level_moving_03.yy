@@ -86,8 +86,8 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "Test",
-    "path": "folders/Rooms/Test.yy",
+    "name": "Movement",
+    "path": "folders/Rooms/Movement.yy",
   },
   "resourceVersion": "1.0",
   "name": "rm_level_moving_03",

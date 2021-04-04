@@ -13,7 +13,9 @@ levelArray =
 	[rm_level_wall_tutorial, rm_level_26, rm_level_27, rm_level_28, rm_level_29, rm_level_30],
 	[rm_pockets_01, rm_pockets_02, rm_pockets_03, rm_pockets_04, rm_pockets_05],
 	[rm_level_static_01, rm_level_static_02, rm_level_static_03, rm_level_static_04, rm_level_static_05, rm_level_static_06],
-	[rm_level_moving_01, rm_level_moving_02, rm_level_moving_03, rm_level_moving_04, rm_level_moving_05, rm_level_moving_06]
+	[rm_level_moving_01, rm_level_moving_02, rm_level_moving_03, rm_level_moving_04, rm_level_moving_05, rm_level_moving_06],
+	[rm_level_moving_07, rm_level_moving_08, rm_level_moving_09, rm_level_moving_10, rm_level_moving_11],
+	[rm_level_boss_01]
 ];
 
 //Progression stuff
