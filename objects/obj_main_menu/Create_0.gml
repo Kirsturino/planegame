@@ -198,7 +198,7 @@ menuGraphics = createMenu
 	["Resolution", changeResolution, ["windowScale", 1, 4, 3, display.shift_string, ["480x270", "960x540", "1440x720", "1920x1080"]]],
 	["FPS", changeFrameRate, ["framesPerSecond", 0, 3, 3, display.shift_string, ["30", "60", "144", "240"]]],
 	["Camera FX", changeCameraFX, ["cameraShakeScale", 0, 2, 20, display.shift]],
-	["Plane Color", changeValue, ["col_plane", 0, 4, 4, display.shift_string, ["White", "Pink", "Yellow", "Green"]]],
+	["Plane Color", changeValue, ["col_plane", 0, 3, 3, display.shift_string, ["White", "Pink", "Yellow", "Green"]]],
 	["Back", exitSettings, [pages.settings]]
 );
 

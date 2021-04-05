@@ -15,7 +15,7 @@ levelArray =
 	[rm_level_static_01, rm_level_static_02, rm_level_static_03, rm_level_static_04, rm_level_static_05, rm_level_static_06],
 	[rm_level_moving_01, rm_level_moving_02, rm_level_moving_03, rm_level_moving_04, rm_level_moving_05, rm_level_moving_06],
 	[rm_level_moving_07, rm_level_moving_08, rm_level_moving_09, rm_level_moving_10, rm_level_moving_11],
-	[rm_level_boss_01]
+	[rm_level_boss_01, rm_level_boss_02, rm_level_boss_03, rm_level_boss_04, rm_level_boss_05]
 ];
 
 //Progression stuff
