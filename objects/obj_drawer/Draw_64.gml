@@ -38,7 +38,7 @@ if (global.paused)
 	
 	
 	//Draw surface with transparent background
-	draw_sprite_ext(spr_pixel, 0, 0, 0, viewWidth, viewHeight, 0, col_black, 0.5);
+	draw_sprite_ext(spr_pixel, 0, 0, 0, viewWidth, viewHeight, 0, col_black, 0.8);
 
 	shader_set(shd_outline);
 	shader_set_uniform_f(upixelW, guiTexelW);

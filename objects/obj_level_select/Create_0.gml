@@ -15,6 +15,8 @@ levelSetNames =
 	"They Move Against Us",
 	"But We Got The Moves",
 	"The Final Stretch",
+	"Final Boss",
+	"Epilogue",
 	"Testland"
 ];
 

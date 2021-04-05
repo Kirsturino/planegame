@@ -14,7 +14,6 @@ function drawTriangle(x, y, size, rotation, color, outline)
 
 function radialParticle(part, seg, rad, x, y)
 {
-	//FX
 	var i = 0;
 	repeat (seg)
 	{

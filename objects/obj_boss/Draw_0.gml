@@ -1,0 +1,1 @@
+draw_cube_width(x, y, 32, wave(-1, 1, 8, 0, true), wave(-1, 1, 8, 0.2, true), col_white, 12);
