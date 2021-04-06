@@ -42,6 +42,8 @@ bulletCost = 4;
 bulletWeight = 0.3;
 bulletSpd = 10;
 bulletDmg = 1;
+bulletFunction = playerBulletBehaviour;
+bulletDrawing = playerBulletDrawing;
 
 //Controller stuff and inputs
 deadZoneMin = 0.3;
@@ -85,7 +87,7 @@ outOfEnergySound = snd_out_of_energy;
 energyFullSound = snd_energy_full;
 engineSound = audio_play_sound(snd_engine_persistent, 0, true);
 audio_sound_gain(engineSound, 0, 0);
-engineSoundVolumeMultiplier = 0.03*global.sfxVolume*global.masterVolume;
+engineSoundVolumeMultiplier = 0.04*global.sfxVolume*global.masterVolume;
 
 turboKickSound = snd_turbo_kick;
 turboSound = snd_turbo;
@@ -250,6 +252,9 @@ function shootingLogic()
 		bullet.hsp = xSpd;
 		bullet.vsp = ySpd;
 		bullet.dmg = bulletDmg;
+		bullet.target = obj_objective_circle;
+		bullet.behaviour = playerBulletBehaviour;
+		bullet.drawFunction = playerBulletDrawing;
 		
 		//Left particles
 		part_type_direction(global.shootPart,image_angle-30,image_angle+30,0,0);
@@ -266,6 +271,9 @@ function shootingLogic()
 		bullet.hsp = xSpd;
 		bullet.vsp = ySpd;
 		bullet.dmg = bulletDmg;
+		bullet.target = obj_objective_circle;
+		bullet.behaviour = playerBulletBehaviour;
+		bullet.drawFunction = playerBulletDrawing;
 		
 		//Right particles
 		part_particles_create(global.ps, spawnX, spawnY, global.shootPart, 4);

@@ -198,7 +198,7 @@ switch (type)
 		{
 			//Track bullets
 			var blt = collision_circle(x, y, radius, obj_bullet, false, false);
-			if (blt != noone)
+			if (blt != noone && blt.target == object_index)
 			{
 				if (!playerEnter)
 					{ playerEnter = true; }

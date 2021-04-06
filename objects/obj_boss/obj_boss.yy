@@ -28,8 +28,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Level Objects",
-    "path": "folders/Objects/Level Objects.yy",
+    "name": "Boss",
+    "path": "folders/Objects/Boss.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_boss",
