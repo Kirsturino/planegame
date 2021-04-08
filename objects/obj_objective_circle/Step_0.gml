@@ -4,10 +4,14 @@ radius = lerp(radius, radiusTo, 0.1*delta);
 drawRad = radius - radius*0.2*completion/completionMax;
 
 //Simple sine movement
-if (!completed)
+if (!completed && moveY != 0)
+{
+	y = ystart + wave(-moveY, moveY, moveYDuration, moveYOffset, true);
+}
+
+if (!completed && moveX != 0)
 {
 	x = xstart + wave(-moveX, moveX, moveXDuration, moveXOffset, true);
-	y = ystart + wave(-moveY, moveY, moveYDuration, moveYOffset, true);
 }
 
 if (completed)

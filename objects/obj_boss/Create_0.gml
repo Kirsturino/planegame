@@ -3,12 +3,12 @@ bulletStormBullets =
 {
 	delay : 2,
 	weight : 1,
-	spd : 5,
+	spd : 4,
 	dmg : 40,
 	amount : 12,
-	burstAmount : 4,
-	burstDelay : 16,
-	cooldown : 60
+	burstAmount : 3,
+	burstDelay : 64,
+	cooldown : 128
 }
 
 //Generic bullet tracking
@@ -41,6 +41,20 @@ function spawnBullet(x, y, dir, struct)
 	bulletAmount++;
 }
 
+function spawnCircle(x, y, dir, spd, radius)
+{
+	var circle = instance_create_layer(x, y, layer, obj_objective_circle_boss);
+	
+	var xSpd = lengthdir_x(spd, dir);
+	var ySpd = lengthdir_y(spd, dir);
+	circle.hsp = xSpd;
+	circle.vsp = ySpd;
+	circle.radiusTo = radius;
+	circle.segments = radius/2;
+	circle.surfSize = radius*4;
+	circle.surfCenter = radius*2;
+}
+
 //Attacks
 function bulletStorm()
 {
@@ -51,6 +65,7 @@ function bulletStorm()
 		
 		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
 		{
+			spawnCircle(x, y, dir, attack.spd*0.6, 32);
 			toCoolingDown(attack.cooldown);
 		} else if (bulletAmount == attack.amount)
 		{
@@ -59,6 +74,7 @@ function bulletStorm()
 			burstCooldown = attack.burstDelay;
 			
 			//Shoot an objective circle between bursts
+			spawnCircle(x, y, dir, attack.spd*0.6, 32);
 		}
 	} else
 	{

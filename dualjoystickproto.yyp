@@ -88,6 +88,7 @@
     {"id":{"name":"obj_danger_zone_visual","path":"objects/obj_danger_zone_visual/obj_danger_zone_visual.yy",},"order":0,},
     {"id":{"name":"rm_level_17","path":"rooms/rm_level_17/rm_level_17.yy",},"order":1,},
     {"id":{"name":"snd_cloud_damage","path":"sounds/snd_cloud_damage/snd_cloud_damage.yy",},"order":2,},
+    {"id":{"name":"obj_objective_circle_boss","path":"objects/obj_objective_circle_boss/obj_objective_circle_boss.yy",},"order":1,},
     {"id":{"name":"rm_level_30","path":"rooms/rm_level_30/rm_level_30.yy",},"order":3,},
     {"id":{"name":"rm_level_16","path":"rooms/rm_level_16/rm_level_16.yy",},"order":0,},
     {"id":{"name":"spr_pixel","path":"sprites/spr_pixel/spr_pixel.yy",},"order":3,},
