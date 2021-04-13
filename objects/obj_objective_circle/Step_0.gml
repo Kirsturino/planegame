@@ -22,6 +22,7 @@ if (completed)
 		audio_play_sound(snd_pop, 0, false);
 		radialParticle(global.linePart, 8, 16, x, y);
 		surface_free(circleSurf);
+		removeCameraFocus(id);
 		instance_destroy(); 
 	}
 } else
