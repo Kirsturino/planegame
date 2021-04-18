@@ -19,6 +19,21 @@ bulletStormBullets =
 	spread : 10
 }
 
+bulletRingStormBullets =
+{
+	delay : 2,
+	weight : 1,
+	spd : 4,
+	dmg : 40,
+	destroyTimer : 180,
+	amount : 12,
+	burstAmount : 3,
+	burstDelay : 128,
+	cooldown : 128,
+	circleSpd : 1.8,
+	spread : 10
+}
+
 bulletRingBullets =
 {
 	delay : 2,
@@ -44,7 +59,7 @@ bulletHoseBullets =
 	amount : 256,
 	burstAmount : 1,
 	burstDelay : 0,
-	cooldown : 128,
+	cooldown : 0,
 	circleSpd : 1,
 	spread : 20
 }
@@ -81,9 +96,9 @@ function spawnBullet(x, y, dir, struct)
 	bulletAmount++;
 }
 
-function spawnCircle(x, y, dir, spd, radius, amount)
+function spawnCircle(x, y, dir, spd, radius, amount, obj)
 {
-	var circle = instance_create_layer(x, y, layer, obj_objective_circle_boss);
+	var circle = instance_create_layer(x, y, layer, obj);
 	
 	var xSpd = lengthdir_x(spd, dir);
 	var ySpd = lengthdir_y(spd, dir);
@@ -108,7 +123,7 @@ function bulletStorm()
 		
 		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
 		{
-			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30, obj_objective_circle_boss);
 			toCoolingDown(attack.cooldown);
 		} else if (bulletAmount == attack.amount)
 		{
@@ -117,7 +132,7 @@ function bulletStorm()
 			burstCooldown = attack.burstDelay;
 			
 			//Shoot an objective circle between bursts
-			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30, obj_objective_circle_boss);
 		}
 	} else
 	{
@@ -141,9 +156,6 @@ function bulletHose()
 			bulletAmount = 0;
 			burstAmount++;
 			burstCooldown = attack.burstDelay;
-			
-			//Shoot an objective circle between bursts
-			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
 		}
 	} else
 	{
@@ -154,6 +166,7 @@ function bulletHose()
 	if (line.completed)
 	{
 		incrementPhase();
+		toCoolingDown(128);
 	}
 }
 
@@ -204,7 +217,7 @@ function bulletRingStorm()
 		
 		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
 		{
-			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 180, obj_objective_circle_boss_rotate);
 			toCoolingDown(attack.cooldown);
 		} else if (bulletAmount == attack.amount)
 		{
@@ -213,7 +226,7 @@ function bulletRingStorm()
 			burstCooldown = attack.burstDelay;
 			
 			//Shoot an objective circle between bursts
-			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 180, obj_objective_circle_boss_rotate);
 		}
 	} else
 	{
@@ -257,13 +270,13 @@ function coolingDown()
 				attack = bulletRingBullets;
 			
 				var dir = point_direction(x, y, obj_player.x, obj_player.y) + 180;
-				var circ = spawnCircle(x, y, dir, attack.circleSpd, 32, 30);
+				var circ = spawnCircle(x, y, dir, attack.circleSpd, 32, 20, obj_objective_circle_boss_shoot);
 				addCameraFocus(circ);
 			break;
 			
 			case 2:
 				state = bulletRingStorm;
-				attack = bulletStormBullets;
+				attack = bulletRingStormBullets;
 				
 				var blts = 18;
 				for (var i = 0; i < blts; i++)

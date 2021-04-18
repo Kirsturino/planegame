@@ -253,8 +253,8 @@ function shootingLogic()
 		bullet.vsp = ySpd;
 		bullet.dmg = bulletDmg;
 		bullet.target = obj_objective_circle;
-		bullet.behaviour = playerBulletBehaviour;
-		bullet.drawFunction = playerBulletDrawing;
+		bullet.behaviour = bulletFunction;
+		bullet.drawFunction = bulletDrawing;
 		
 		//Left particles
 		part_type_direction(global.shootPart,image_angle-30,image_angle+30,0,0);
