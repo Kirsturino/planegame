@@ -1,28 +1,52 @@
-//Storm
+global.objectiveCount = 9999;
+
+line = boss_line;
+instance_deactivate_object(boss_line);
+
+//Bullet styles
 bulletStormBullets =
 {
 	delay : 2,
 	weight : 1,
 	spd : 4,
-	dmg : 40,
+	dmg : 60,
 	destroyTimer : 180,
 	amount : 12,
 	burstAmount : 3,
 	burstDelay : 64,
-	cooldown : 128
+	cooldown : 128,
+	circleSpd : 1.8,
+	spread : 10
 }
 
 bulletRingBullets =
 {
-	delay : 1,
+	delay : 2,
 	weight : 1,
 	spd : 1.5,
 	dmg : 60,
 	destroyTimer : 320,
-	amount : 20,
+	amount : 16,
 	burstAmount : 5,
 	burstDelay : 0,
-	cooldown : 128
+	cooldown : 128,
+	circleSpd : 1,
+	spread : 0
+}
+
+bulletHoseBullets =
+{
+	delay : 1,
+	weight : 1,
+	spd : 4,
+	dmg : 20,
+	destroyTimer : 240,
+	amount : 256,
+	burstAmount : 1,
+	burstDelay : 0,
+	cooldown : 128,
+	circleSpd : 1,
+	spread : 20
 }
 
 //Generic bullet tracking
@@ -39,14 +63,14 @@ attack = bulletStormBullets;
 function spawnBullet(x, y, dir, struct)
 {
 	var bullet = instance_create_layer(x, y, layer, obj_bullet);
-	
-	var xSpd = lengthdir_x(struct.spd, dir);
-	var ySpd = lengthdir_y(struct.spd, dir);
+	var _dir = dir + random_range(-struct.spread, struct.spread);
+	var xSpd = lengthdir_x(struct.spd, _dir);
+	var ySpd = lengthdir_y(struct.spd, _dir);
 	bullet.hsp = xSpd;
 	bullet.vsp = ySpd;
 	bullet.dmg = struct.dmg;
 	bullet.target = obj_player;
-	bullet.dir = dir;
+	bullet.dir = _dir;
 	bullet.weight = struct.weight;
 	bullet.behaviour = bossBulletBehaviour;
 	bullet.drawFunction = bossBulletDrawing;
@@ -79,13 +103,12 @@ function bulletStorm()
 {
 	if (bulletDelay == 0 && burstCooldown == 0)
 	{
-		var spread = 10;
-		bulletDir = point_direction(x, y, obj_player.x, obj_player.y) + random_range(-spread, spread);
+		bulletDir = point_direction(x, y, obj_player.x, obj_player.y);
 		spawnBullet(x, y, bulletDir, attack);
 		
-		if (bulletAmount >= attack.amount - 1 && burstAmount >= attack.burstAmount - 1)
+		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
 		{
-			spawnCircle(x, y, bulletDir, attack.spd*0.6, 32, 30);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
 			toCoolingDown(attack.cooldown);
 		} else if (bulletAmount == attack.amount)
 		{
@@ -94,12 +117,43 @@ function bulletStorm()
 			burstCooldown = attack.burstDelay;
 			
 			//Shoot an objective circle between bursts
-			spawnCircle(x, y, bulletDir, attack.spd*0.6, 32, 30);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
 		}
 	} else
 	{
 		bulletDelay = approach(bulletDelay, 0, 1);
 		burstCooldown = approach(burstCooldown, 0, 1);
+	}
+}
+
+function bulletHose()
+{
+	if (bulletDelay == 0 && burstCooldown == 0)
+	{
+		bulletDir = point_direction(x, y, obj_player.x, obj_player.y);
+		spawnBullet(x, y, bulletDir, attack);
+		
+		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
+		{			
+			toCoolingDown(attack.cooldown);
+		} else if (bulletAmount == attack.amount)
+		{
+			bulletAmount = 0;
+			burstAmount++;
+			burstCooldown = attack.burstDelay;
+			
+			//Shoot an objective circle between bursts
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
+		}
+	} else
+	{
+		bulletDelay = approach(bulletDelay, 0, 1);
+		burstCooldown = approach(burstCooldown, 0, 1);
+	}
+	
+	if (line.completed)
+	{
+		incrementPhase();
 	}
 }
 
@@ -111,7 +165,7 @@ function bulletRings()
 		bulletDir = 360/attack.amount * bulletAmount + burstAmount*offset;
 		spawnBullet(x, y, bulletDir, attack);
 		
-		if (bulletAmount >= attack.amount - 1 && burstAmount >= attack.burstAmount - 1)
+		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
 		{
 			//spawnCircle(x, y, bulletDir, attack.spd*0.6, 32);
 			toCoolingDown(attack.cooldown);
@@ -132,13 +186,25 @@ function bulletRingStorm()
 {
 	if (bulletDelay == 0 && burstCooldown == 0)
 	{
+		if (bulletAmount == 0)
+		{
+			var blts = 18;
+			for (var i = 0; i < blts; i++)
+			{
+				var dir = 360/blts * i;
+				spawnBullet(x, y, dir, bulletRingBullets);
+			}
+			bulletAmount = 0;
+			bulletDelay = 0;
+		}
+		
 		var spread = 10;
 		bulletDir = point_direction(x, y, obj_player.x, obj_player.y) + random_range(-spread, spread);
 		spawnBullet(x, y, bulletDir, attack);
 		
-		if (bulletAmount >= attack.amount - 1 && burstAmount >= attack.burstAmount - 1)
+		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
 		{
-			spawnCircle(x, y, bulletDir, attack.spd*0.6, 32, 30);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
 			toCoolingDown(attack.cooldown);
 		} else if (bulletAmount == attack.amount)
 		{
@@ -147,13 +213,20 @@ function bulletRingStorm()
 			burstCooldown = attack.burstDelay;
 			
 			//Shoot an objective circle between bursts
-			spawnCircle(x, y, bulletDir, attack.spd*0.6, 32, 30);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 30);
 		}
 	} else
 	{
 		bulletDelay = approach(bulletDelay, 0, 1);
 		burstCooldown = approach(burstCooldown, 0, 1);
 	}
+}
+
+//This is dumb, but I just want to finish this game
+function spawnLine()
+{
+	instance_activate_object(line);
+	with (line) event_perform(ev_alarm, 0);
 }
 
 //States
@@ -184,7 +257,7 @@ function coolingDown()
 				attack = bulletRingBullets;
 			
 				var dir = point_direction(x, y, obj_player.x, obj_player.y) + 180;
-				var circ = spawnCircle(x, y, dir, attack.spd*0.6, 32, 30);
+				var circ = spawnCircle(x, y, dir, attack.circleSpd, 32, 30);
 				addCameraFocus(circ);
 			break;
 			
@@ -198,6 +271,17 @@ function coolingDown()
 					var dir = 360/blts * i;
 					spawnBullet(x, y, dir, bulletRingBullets);
 				}
+				bulletAmount = 0;
+				bulletDelay = 0;
+			break;
+			
+			case 3:
+				state = bulletHose;
+				attack = bulletHoseBullets;
+			break;
+			
+			case 4:
+			
 			break;
 		}
 	}	
@@ -244,7 +328,27 @@ function playerBulletChecking()
 	}
 }
 
+function incrementPhase()
+{
+	phase++;
+	circleCount = 0;
+	toCoolingDown(attack.cooldown);
+	
+	//FX
+	shakeCamera(80, 2, 60);
+	flash(1.1);
+}
+
 //Tracking stuff
 circleCount = 0;
 transitionAmount = 3;
-phase = 0;
+phase = 2;
+
+//Graphics
+drawSize = 32;
+surfMargin = 16;
+cubeSurf = -1;
+cubeTexelW = 0;
+cubeTexelH = 0;
+upixelH = 0;
+upixelW = 0;

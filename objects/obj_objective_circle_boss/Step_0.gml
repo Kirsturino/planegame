@@ -9,7 +9,6 @@ if (!completed)
 	
 	if (destroyTimer == 0) 
 	{
-		global.objectiveCount--;
 		removeCameraFocus(id);
 		instance_destroy();
 	}

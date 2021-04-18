@@ -27,12 +27,12 @@ var surfBottom = pointArray[0][1];
 for (var i = 0; i < pointArrayLength; ++i)
 {
 	var _x = pointArray[i][0];
-	if		(_x < surfLeft) { surfLeft =  _x; }
-	else if (_x > surfRight) { surfRight =  _x; }
+	if		(_x < surfLeft)		{ surfLeft =  _x; }
+	else if (_x > surfRight)	{ surfRight =  _x; }
 	
 	var _y = pointArray[i][1];
-	if		(_y < surfTop) { surfTop =  _y; }
-	else if (_y > surfBottom) { surfBottom =  _y; }
+	if		(_y < surfTop)		{ surfTop =  _y; }
+	else if (_y > surfBottom)	{ surfBottom =  _y; }
 }
 
 //Calculate surface size

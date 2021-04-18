@@ -11,6 +11,7 @@ global.shootPart = -1;
 global.linePart = -1;
 global.electricityPart = -1;
 global.bulletHitPart = -1;
+global.smokePartBlack = -1;
 
 function initParticles()
 {
@@ -122,4 +123,14 @@ function initParticles()
 	part_type_direction(p, 0, 359, 1*d, 0);
 	part_type_speed(p, 0, 1, 0, 0);
 	part_type_color1(p, col_white);
+	
+	if (part_type_exists(global.smokePartBlack)) { part_type_destroy(global.smokePartBlack); }
+	global.smokePartBlack = part_type_create();
+	var p = global.smokePartBlack;
+	part_type_color1(p,col_black);
+	part_type_life(p, 200/d, 240/d);
+	part_type_shape(p, pt_shape_disk);
+	part_type_size(p, 0.6, 0.8, -0.004*d, 0);
+	part_type_speed(p, 0.4*d, 0.6*d, 0, 0.2*d);
+	part_type_direction(p, 0, 359, 0, 10);
 }

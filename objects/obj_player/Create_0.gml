@@ -348,6 +348,10 @@ function toOutOfEnergy()
 	shakeCamera(100, 5, 20);
 	setControllerVibration(1, 1);
 	
+	part_type_size(global.smokePartBlack, 0.2, 0.4, -0.002*defaultFramesPerSecond / global.speeds[global.framesPerSecond], 0);
+	part_particles_create(global.ps, x, y, global.smokePartBlack, 10);
+	part_type_size(global.smokePartBlack, 0.6, 0.8, -0.004*defaultFramesPerSecond / global.speeds[global.framesPerSecond], 0);
+	
 	audio_stop_sound(turboSound);
 	audio_stop_sound(cloudSound);
 	audio_sound_gain(engineSound, 0, 100);

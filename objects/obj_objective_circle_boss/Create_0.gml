@@ -6,16 +6,28 @@ function checkLevelCompletion()
 	
 	if (obj_boss.circleCount == obj_boss.transitionAmount)
 	{
-		obj_boss.phase++;
-		obj_boss.circleCount = 0;
-	}
-	
-	if (global.objectiveCount == 0)
-	{
-		markLevelAsCleared(room);
-		startRoomTransition(transition.level_next, obj_player.x, obj_player.y, room);
+		obj_boss.incrementPhase();
 		
-		with (obj_player) { toDummy(); blockPlayerInput(60);}
+		switch (obj_boss.phase)
+		{
+			case 3:
+				obj_boss.spawnLine();
+			break;
+		}
+		
+		with (obj_objective_circle_boss)
+		{
+			if (!completed)
+			{
+				removeCameraFocus(id);
+				instance_destroy();
+			}
+		}
+		
+		with (obj_bullet)
+		{
+			instance_destroy();
+		}
 	}
 }
 
