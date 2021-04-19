@@ -29,11 +29,16 @@ function bossBulletBehaviour()
 	x += hsp*delta;
 	y += vsp*delta;
 
-	if (global.updateParticles) part_particles_create(global.ps, x, y, global.smokePartShort, 1);
+	if (global.updateParticles)
+	{
+		part_type_color1(global.smokePartShort, col_black);
+		part_particles_create(global.ps, x, y, global.smokePartShort, 1);
+		part_type_color1(global.smokePartShort, col_white);
+	}
 }
 
 function bossBulletDrawing()
 {
-	draw_circle_color(x, y, 8, col_black, col_black, false);
-	draw_circle_color(x, y, 6, col_red, col_red, false);
+	draw_circle_color(x, y, 8, col_white, col_white, false);
+	draw_circle_color(x, y, 6, col_black, col_black, false);
 }

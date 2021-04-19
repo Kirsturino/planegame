@@ -1,7 +1,12 @@
 global.objectiveCount = 9999;
 
 line = boss_line;
+circles = [circle_01, circle_02, circle_03, circle_04];
 instance_deactivate_object(boss_line);
+for (var i = 0; i < 4; i++)
+{
+	instance_deactivate_object(circles[i]);
+}
 
 //Bullet styles
 bulletStormBullets =
@@ -29,7 +34,7 @@ bulletRingStormBullets =
 	amount : 12,
 	burstAmount : 3,
 	burstDelay : 128,
-	cooldown : 128,
+	cooldown : 180,
 	circleSpd : 1.8,
 	spread : 10
 }
@@ -62,6 +67,21 @@ bulletHoseBullets =
 	cooldown : 0,
 	circleSpd : 1,
 	spread : 20
+}
+
+finalPhaseBullets =
+{
+	delay : 2,
+	weight : 1,
+	spd : 4,
+	dmg : 60,
+	destroyTimer : 240,
+	amount : 256,
+	burstAmount : 1,
+	burstDelay : 0,
+	cooldown : 0,
+	circleSpd : 1,
+	spread : 0
 }
 
 //Generic bullet tracking
@@ -166,8 +186,49 @@ function bulletHose()
 	if (line.completed)
 	{
 		incrementPhase();
-		toCoolingDown(128);
+		toCoolingDown(240);
 	}
+}
+
+function finalPhase()
+{
+	if (bulletDelay == 0 && burstCooldown == 0)
+	{
+		
+		var slices = 4;
+		var wiggle = 360;
+		var rot = 2;
+		
+		bulletDir += rot;
+		for (var i = 0; i < slices; i++)
+		{
+			var dir = i*360/slices + wave(0, wiggle, 24, 0, true);
+			spawnBullet(x, y, dir, attack);
+		}
+		
+		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
+		{			
+			toCoolingDown(attack.cooldown);
+		} else if (bulletAmount == attack.amount)
+		{
+			bulletAmount = 0;
+			burstAmount++;
+			burstCooldown = attack.burstDelay;
+		}
+	} else
+	{
+		bulletDelay = approach(bulletDelay, 0, 1);
+		burstCooldown = approach(burstCooldown, 0, 1);
+	}
+	
+	//Check completion
+	var allDone = true;
+	for (var i = 0; i < 4; i++)
+	{
+		if (instance_exists(circles[i])) { allDone = false; break; }
+	}
+	
+	if (allDone) incrementPhase();
 }
 
 function bulletRings()
@@ -201,7 +262,7 @@ function bulletRingStorm()
 	{
 		if (bulletAmount == 0)
 		{
-			var blts = 18;
+			var blts = 24;
 			for (var i = 0; i < blts; i++)
 			{
 				var dir = 360/blts * i;
@@ -235,6 +296,11 @@ function bulletRingStorm()
 	}
 }
 
+function destructionPhase()
+{
+	
+}
+
 //This is dumb, but I just want to finish this game
 function spawnLine()
 {
@@ -242,7 +308,6 @@ function spawnLine()
 	with (line) event_perform(ev_alarm, 0);
 }
 
-//States
 function dormant()
 {
 	if (!obj_player.neutral && obj_player.dummyReset)
@@ -294,7 +359,20 @@ function coolingDown()
 			break;
 			
 			case 4:
+				if (state != finalPhase)
+				{
+					for (var i = 0; i < 4; i++)
+					{
+						instance_activate_object(circles[i]);
+					}
+				}
+				
+				state = finalPhase;
+				attack = finalPhaseBullets;
+			break;
 			
+			case 5:
+				state = destructionPhase;
 			break;
 		}
 	}	
@@ -355,7 +433,8 @@ function incrementPhase()
 //Tracking stuff
 circleCount = 0;
 transitionAmount = 3;
-phase = 2;
+phase = 3;
+incrementPhase();
 
 //Graphics
 drawSize = 32;
