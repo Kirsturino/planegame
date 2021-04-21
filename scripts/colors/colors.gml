@@ -19,6 +19,8 @@ globalvar col_pink;
 col_pink = make_color_rgb(243, 97, 148);
 globalvar col_green;
 col_green = make_color_rgb(98, 197, 59);
+globalvar col_maroon;
+col_maroon = make_color_rgb(40, 12, 38);
 
 globalvar col_plane;
 col_plane = 0;

@@ -27,6 +27,7 @@ sizeVariance = 12;
 function drawCloud()
 {
 	surface_set_target(backgroundCloudSurface);
+	draw_clear_alpha(col_black, 0);
 	
 	//Draw bottom of cloud
 	draw_ellipse_color(0, height-baseHeight, width, height+baseHeight, col, col, false);

@@ -1,7 +1,9 @@
 enum music
 {
 	gameplay,
-	menu
+	menu,
+	boss,
+	credits
 }
 
 musicArray =
@@ -29,12 +31,24 @@ menuMusicArray =
 	mus_menu_05
 ];
 
+bossMusicArray =
+[
+	mus_boss,
+	mus_boss
+]
+
+creditsMusicArray =
+[
+
+]
+
 musicIndex = 0;
 menuMusicIndex = 0;
+bossMusicIndex = 0;
 curMusic = musicArray[musicIndex];
 
-masterArray = [musicArray, menuMusicArray];
-indexArray = [musicIndex, menuMusicIndex];
+masterArray = [musicArray, menuMusicArray, bossMusicArray];
+indexArray = [musicIndex, menuMusicIndex, bossMusicIndex];
 curMusicArray = music.menu;
 curIndex = menuMusicIndex;
 

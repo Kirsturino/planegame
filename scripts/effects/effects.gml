@@ -37,7 +37,7 @@ function freeze(amount)
 
 function flash(amount)
 {
-	obj_fx.alpha = amount;
+	obj_fx.alpha = max(amount, obj_fx.alpha);
 }
 
 function setControllerVibration(left, right)

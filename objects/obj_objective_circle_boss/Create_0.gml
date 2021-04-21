@@ -14,20 +14,6 @@ function checkLevelCompletion()
 				obj_boss.spawnLine();
 			break;
 		}
-		
-		with (obj_objective_circle_boss)
-		{
-			if (!completed)
-			{
-				removeCameraFocus(id);
-				instance_destroy();
-			}
-		}
-		
-		with (obj_bullet)
-		{
-			instance_destroy();
-		}
 	}
 }
 

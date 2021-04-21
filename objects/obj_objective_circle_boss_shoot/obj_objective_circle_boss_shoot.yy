@@ -38,7 +38,7 @@
       ],"multiselect":false,"filters":[
         "GMSprite",
       ],"resourceVersion":"1.0","name":"type","tags":[],"resourceType":"GMObjectProperty",},
-    {"varType":1,"value":"20","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"completionMax","tags":[],"resourceType":"GMObjectProperty",},
+    {"varType":1,"value":"15","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"completionMax","tags":[],"resourceType":"GMObjectProperty",},
     {"varType":0,"value":"0","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"completionDecay","tags":[],"resourceType":"GMObjectProperty",},
     {"varType":0,"value":"0","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"completionDecayDelay","tags":[],"resourceType":"GMObjectProperty",},
     {"varType":0,"value":"60","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"completionDecayDelayMax","tags":[],"resourceType":"GMObjectProperty",},
@@ -51,7 +51,7 @@
   ],
   "overriddenProperties": [
     {"propertyId":{"name":"type","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"\"shoot\"","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
-    {"propertyId":{"name":"completionMax","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"20","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
+    {"propertyId":{"name":"completionMax","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"15","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
     {"propertyId":{"name":"completionDecay","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"objectId":{"name":"obj_objective_circle","path":"objects/obj_objective_circle/obj_objective_circle.yy",},"value":"0","resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMOverriddenProperty",},
   ],
   "parent": {

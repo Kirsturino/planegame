@@ -1,12 +1,11 @@
 global.objectiveCount = 9999;
+setMusic(music.boss);
 
 line = boss_line;
 circles = [circle_01, circle_02, circle_03, circle_04];
 instance_deactivate_object(boss_line);
 for (var i = 0; i < 4; i++)
-{
-	instance_deactivate_object(circles[i]);
-}
+	{ instance_deactivate_object(circles[i]); }
 
 //Bullet styles
 bulletStormBullets =
@@ -35,7 +34,7 @@ bulletRingStormBullets =
 	burstAmount : 3,
 	burstDelay : 128,
 	cooldown : 180,
-	circleSpd : 1.8,
+	circleSpd : 1.5,
 	spread : 10
 }
 
@@ -44,7 +43,7 @@ bulletRingBullets =
 	delay : 2,
 	weight : 1,
 	spd : 1.5,
-	dmg : 60,
+	dmg : 40,
 	destroyTimer : 320,
 	amount : 16,
 	burstAmount : 5,
@@ -58,7 +57,7 @@ bulletHoseBullets =
 {
 	delay : 1,
 	weight : 1,
-	spd : 4,
+	spd : 3.5,
 	dmg : 20,
 	destroyTimer : 240,
 	amount : 256,
@@ -114,6 +113,10 @@ function spawnBullet(x, y, dir, struct)
 	//Reset timer
 	bulletDelay = struct.delay;
 	bulletAmount++;
+	
+	//FX
+	if (alarm[0] == -1) audio_play_sound(snd_boss_bullet, 0, false);
+	alarm[0] = 1;
 }
 
 function spawnCircle(x, y, dir, spd, radius, amount, obj)
@@ -196,13 +199,9 @@ function finalPhase()
 	{
 		
 		var slices = 4;
-		var wiggle = 360;
-		var rot = 2;
-		
-		bulletDir += rot;
 		for (var i = 0; i < slices; i++)
 		{
-			var dir = i*360/slices + wave(0, wiggle, 24, 0, true);
+			var dir = i*360/slices + wave(0, 360, 24, sineOffset, true);
 			spawnBullet(x, y, dir, attack);
 		}
 		
@@ -221,11 +220,19 @@ function finalPhase()
 		burstCooldown = approach(burstCooldown, 0, 1);
 	}
 	
+	
 	//Check completion
 	var allDone = true;
 	for (var i = 0; i < 4; i++)
 	{
-		if (instance_exists(circles[i])) { allDone = false; break; }
+		if (instance_exists(circles[i]))
+		{
+			if (!circles[i].completed)
+			{
+				allDone = false;
+				break;
+			}
+		}
 	}
 	
 	if (allDone) incrementPhase();
@@ -278,7 +285,7 @@ function bulletRingStorm()
 		
 		if (bulletAmount == attack.amount - 1 && burstAmount == attack.burstAmount - 1)
 		{
-			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 180, obj_objective_circle_boss_rotate);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 38, 180, obj_objective_circle_boss_rotate);
 			toCoolingDown(attack.cooldown);
 		} else if (bulletAmount == attack.amount)
 		{
@@ -287,7 +294,7 @@ function bulletRingStorm()
 			burstCooldown = attack.burstDelay;
 			
 			//Shoot an objective circle between bursts
-			spawnCircle(x, y, bulletDir, attack.circleSpd, 32, 180, obj_objective_circle_boss_rotate);
+			spawnCircle(x, y, bulletDir, attack.circleSpd, 38, 180, obj_objective_circle_boss_rotate);
 		}
 	} else
 	{
@@ -298,10 +305,30 @@ function bulletRingStorm()
 
 function destructionPhase()
 {
+	destructionTimer = approach(destructionTimer, 0, 1);
 	
+	if (destructionTimer > 60)
+	{
+		if (random(1) < 0.02*delta) damageFX();
+		if (random(1) < 0.02*delta) audio_play_sound(snd_boss_explosion, 0, false);
+	} else
+	{
+		drawSize = lerp(drawSize, 0, 0.1*delta);
+		flash(1);
+	}
+	
+	if (destructionTimer == 0)
+	{
+		markLevelAsCleared(room);
+		startRoomTransition(transition.level_next, obj_player.x, obj_player.y, rm_level_select);
+	}
+	
+	//FX
+	var shake = 32;
+	x = xstart + random_range(-shake, shake)*(1 - destructionTimer/destructionTimerMax);
+	y = ystart + random_range(-shake, shake)*(1 - destructionTimer/destructionTimerMax);
 }
 
-//This is dumb, but I just want to finish this game
 function spawnLine()
 {
 	instance_activate_object(line);
@@ -320,8 +347,13 @@ function coolingDown()
 {
 	attackCooldown = approach(attackCooldown, 0, 1);
 	
+	if (attackCooldown < 60 && !audio_is_playing(snd_boss_anticipation))
+		{ audio_play_sound(snd_boss_anticipation, 0, false); }
+	
 	if (attackCooldown == 0)
 	{
+		audio_stop_sound(snd_boss_anticipation);
+		
 		//Initiate attack
 		switch (phase)
 		{
@@ -335,7 +367,7 @@ function coolingDown()
 				attack = bulletRingBullets;
 			
 				var dir = point_direction(x, y, obj_player.x, obj_player.y) + 180;
-				var circ = spawnCircle(x, y, dir, attack.circleSpd, 32, 20, obj_objective_circle_boss_shoot);
+				var circ = spawnCircle(x, y, dir, attack.circleSpd, 42, 20, obj_objective_circle_boss_shoot);
 				addCameraFocus(circ);
 			break;
 			
@@ -343,7 +375,7 @@ function coolingDown()
 				state = bulletRingStorm;
 				attack = bulletRingStormBullets;
 				
-				var blts = 18;
+				var blts = 14;
 				for (var i = 0; i < blts; i++)
 				{
 					var dir = 360/blts * i;
@@ -364,6 +396,21 @@ function coolingDown()
 					for (var i = 0; i < 4; i++)
 					{
 						instance_activate_object(circles[i]);
+					}
+					
+					//This is so incredibly cursed I have no words
+					//I suck at math and can't figure this out, what on Earth
+					//Oh my God
+					//If I ever make this project public and someone sees this, I will be exiled from my country
+					var smallest = 360;
+					for (var i = 0; i < 24; i++)
+					{
+						var wav = wave(0, 360, 24, i, true);
+						if (wav < smallest)
+						{
+							smallest = wav;
+							sineOffset = i;
+						}
 					}
 				}
 				
@@ -386,9 +433,9 @@ function toCoolingDown(amount)
 	bulletDir = 0;
 	
 	state = coolingDown;
+	
+	audio_play_sound(snd_boss_cooldown, 0, false);
 }
-
-state = dormant;
 
 //Yeah, this is kinda weird, but I don't want the player having to do this shit anywhere else
 function playerBulletChecking()
@@ -402,7 +449,7 @@ function playerBulletChecking()
 			hsp += lengthdir_x(blt.weight, blt.dir);
 			vsp += lengthdir_y(blt.weight, blt.dir);
 			
-			if (energy != 0)
+			if (obj_player.state != obj_player.outOfEnergy)
 			{
 				energy = approach_pure(energy, 0, blt.dmg);
 				energyCooldown = energyCooldownMax;
@@ -410,13 +457,26 @@ function playerBulletChecking()
 			
 			//FX
 			freeze(50);
-			shakeCamera(50, 0, 20);
+			shakeCamera(50, 5, 40);
 			part_particles_create(global.ps, blt.x, blt.y, global.electricityPart, 4);
 			part_particles_create(global.psTop, blt.x, blt.y, global.bulletHitPart, 1);
+			
+			part_type_size(global.smokePartBlack, 0.2, 0.4, -0.002*defaultFramesPerSecond / global.speeds[global.framesPerSecond], 0);
+			part_particles_create(global.ps, blt.x, blt.y, global.smokePartBlack, 10);
+			part_type_size(global.smokePartBlack, 0.6, 0.8, -0.004*defaultFramesPerSecond / global.speeds[global.framesPerSecond], 0);
+			audio_play_sound(snd_player_hit, 0, false);
 			
 			instance_destroy(blt);
 		}
 	}
+}
+
+function damageFX()
+{
+	//FX
+	shakeCamera(80, 2, 60);
+	flash(1.1);
+	audio_play_sound(snd_boss_damage, 0, false);
 }
 
 function incrementPhase()
@@ -425,9 +485,21 @@ function incrementPhase()
 	circleCount = 0;
 	toCoolingDown(attack.cooldown);
 	
-	//FX
-	shakeCamera(80, 2, 60);
-	flash(1.1);
+	with (obj_objective_circle_boss)
+	{
+		if (!completed)
+		{
+			removeCameraFocus(id);
+			instance_destroy();
+		}
+	}
+		
+	with (obj_bullet)
+	{
+		instance_destroy();
+	}
+	
+	damageFX();
 }
 
 //Tracking stuff
@@ -435,6 +507,7 @@ circleCount = 0;
 transitionAmount = 3;
 phase = 3;
 incrementPhase();
+state = dormant;
 
 //Graphics
 drawSize = 32;
@@ -444,3 +517,12 @@ cubeTexelW = 0;
 cubeTexelH = 0;
 upixelH = 0;
 upixelW = 0;
+
+//Misc stuff
+destructionTimer = 720;
+destructionTimerMax = 720;
+
+obj_drawer.backgroundColor = col_maroon;
+obj_background_sun.clr = col_red;
+with (obj_background_cloud) { col = col_pink; }
+with (obj_background) { cityColor = col_orange; }

@@ -40,6 +40,28 @@ for (var i = 0; i < levelSetSize; i++)
 	}
 }
 
+//Unlock stuff
+//Check against unlock requirements and see if we have unlocked something new
+var unlockedSomething = false;
+var length = array_length(global.unlockRequirementArray);
+for (var i = 0; i < length; i++)
+{
+	if (beatenLevels >= global.unlockRequirementArray[i])
+	{
+		if (i > global.unlockedLevelSets)
+		{
+			global.unlockedLevelSets = i;
+			saveProgression();
+			
+			levelSetNames[i] += " / Unlocked!";
+			
+			unlockedSomething = true;
+		}
+	}
+}
+
+if (unlockedSomething) audio_play_sound(snd_unlock, 0, false);
+
 //Drawing
 originX = 32;
 originY = 64;
@@ -87,23 +109,6 @@ for (var i = 0; i < levelSets; i++)
 			moveLevelCamera();
 				
 			break;
-		}
-	}
-}
-
-//Unlock stuff
-//Check against unlock requirements and see if we have unlocked something new
-var length = array_length(global.unlockRequirementArray);
-for (var i = 0; i < length; i++)
-{
-	if (beatenLevels >= global.unlockRequirementArray[i])
-	{
-		if (i > global.unlockedLevelSets)
-		{
-			global.unlockedLevelSets = i;
-			saveProgression();
-			
-			levelSetNames[i] += " / Unlocked!";
 		}
 	}
 }

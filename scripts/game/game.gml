@@ -3,7 +3,7 @@
 globalvar levelArray;
 levelArray = 
 [	
-	[rm_level_babby_controls_01, rm_level_babby_controls_02, rm_level_babby_controls_03, rm_level_babby_01, rm_level_babby_02, rm_level_babby_03], 
+	[rm_level_babby_controls_01, rm_level_babby_controls_02, rm_level_babby_controls_03, rm_level_babby_01, rm_level_babby_02, rm_level_babby_03],
 	[rm_level_01, rm_level_02, rm_level_03, rm_level_04, rm_level_05],
 	[rm_level_21, rm_level_22, rm_level_23, rm_level_24, rm_level_25],
 	[rm_level_06, rm_level_07, rm_level_08, rm_level_09, rm_level_10],
@@ -25,7 +25,7 @@ levelArray =
 global.levelProgressionArray = []; //This is mainly used by the level select object to see how to draw things, as such it is formatted in the same way
 //Level progressionArray could be completely removed and moved over to the level select menu as an instance variable, however is not needed right now
 global.completedLevels = []; //This is used for versioning help
-global.unlockRequirementArray = []; //Used to see which levels player can access
+global.unlockRequirementArray = [0, 6, 11, 16, 21, 24, 31, 34, 41, 46, 51, 56, 64, 72, 73]; //Used to see which levels player can access
 global.unlockedLevelSets = 0; //Current amount of level sets player can access, used in level select menu
 
 function saveProgression()
@@ -72,17 +72,17 @@ function loadSave()
 }
 
 
-var iteration = 0;
-var levelSetSize = array_length(levelArray);
-for (var i = 0; i < levelSetSize; i++)
-{
-	//Procedurally generate unlock requirements. Becomes more strict as levels progress
-	//TODO: Manually design this so it's more linear at start and opens up later so people can skip hard levels
-	global.unlockRequirementArray[i] = max(0, iteration - (levelSetSize - i));
-	var length = array_length(levelArray[i]);
-	for (var j = 0; j < length; j++)
-		{ iteration++; }
-}
+//var iteration = 0;
+//var levelSetSize = array_length(levelArray);
+//for (var i = 0; i < levelSetSize; i++)
+//{
+//	//Procedurally generate unlock requirements. Becomes more strict as levels progress
+//	//TODO: Manually design this so it's more linear at start and opens up later so people can skip hard levels
+//	global.unlockRequirementArray[i] = max(0, iteration - (levelSetSize - i));
+//	var length = array_length(levelArray[i]);
+//	for (var j = 0; j < length; j++)
+//		{ iteration++; }
+//}
 
 
 global.lastLevel = rm_level_babby_controls_01;

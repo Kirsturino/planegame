@@ -41,9 +41,9 @@ surface_set_target(lineSurf);
 if (!completed)
 {
 	if (curProgressSpeed > 0)
-		{ draw_circle_color(drawX, drawY, lineThickness, col_black, col_black, false); }
+		{ draw_circle_color(drawX, drawY, lineThickness*1.05, col_black, col_black, false); }
 	else
-		{ draw_circle_color(drawX, drawY, lineThickness, col_white, col_white, false); }
+		{ draw_circle_color(drawX, drawY, lineThickness*1.05, col_white, col_white, false); }
 } else
 {
 	gpu_set_blendmode(bm_subtract);

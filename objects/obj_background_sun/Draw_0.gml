@@ -8,4 +8,4 @@ var drawX = x + camX*parallaxMultiplier;
 var drawY = y + camY*parallaxMultiplier;
 
 
-draw_circle_color(drawX, drawY, 32, col_yellow, col_yellow, false);
+draw_circle_color(drawX, drawY, 32, clr, clr, false);

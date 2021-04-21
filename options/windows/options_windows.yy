@@ -1,6 +1,6 @@
 {
   "ConfigValues": {
-    "Build": {"option_windows_save_location":"1","option_windows_description_info":"A sick game, yo","option_windows_product_info":"Super Aerobatics Turbo","option_windows_company_info":"Kirstu","option_windows_executable_name":"aerobatics.exe","option_windows_display_name":"Made with love and care","option_windows_splash_screen":"splash/splash.png","option_windows_icon":"icons/icon.ico","option_windows_installer_finished":"installer/finished.bmp","option_windows_installer_header":"installer/header.bmp",},
+    "Build": {"option_windows_save_location":"1","option_windows_description_info":"A game made with love and care","option_windows_product_info":"Super Aerobatics Turbo","option_windows_company_info":"Kirstu","option_windows_executable_name":"aerobatics.exe","option_windows_display_name":"Super Aerobatics Turbo","option_windows_splash_screen":"splash/splash.png","option_windows_icon":"icons/icon.ico","option_windows_installer_finished":"installer/finished.bmp","option_windows_installer_header":"installer/header.bmp",},
   },
   "option_windows_display_name": "Created with GameMaker Studio 2",
   "option_windows_executable_name": "${project_name}.exe",
@@ -11,7 +11,7 @@
   "option_windows_description_info": "A GameMaker Studio 2 Game",
   "option_windows_display_cursor": false,
   "option_windows_icon": "${base_options_dir}/windows/icons/icon.ico",
-  "option_windows_save_location": 0,
+  "option_windows_save_location": 1,
   "option_windows_splash_screen": "${base_options_dir}/windows/splash/splash.png",
   "option_windows_use_splash": false,
   "option_windows_start_fullscreen": false,
