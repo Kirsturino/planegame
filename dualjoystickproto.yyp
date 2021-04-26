@@ -19,6 +19,7 @@
     {"id":{"name":"obj_credits","path":"objects/obj_credits/obj_credits.yy",},"order":4,},
     {"id":{"name":"spr_bg","path":"sprites/spr_bg/spr_bg.yy",},"order":0,},
     {"id":{"name":"rm_level_final_boss","path":"rooms/rm_level_final_boss/rm_level_final_boss.yy",},"order":0,},
+    {"id":{"name":"rm_splash_controller","path":"rooms/rm_splash_controller/rm_splash_controller.yy",},"order":4,},
     {"id":{"name":"mus_gameplay_05","path":"sounds/mus_gameplay_05/mus_gameplay_05.yy",},"order":4,},
     {"id":{"name":"mus_menu_02","path":"sounds/mus_menu_02/mus_menu_02.yy",},"order":1,},
     {"id":{"name":"rm_level_25","path":"rooms/rm_level_25/rm_level_25.yy",},"order":4,},
@@ -80,6 +81,7 @@
     {"id":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},"order":1,},
     {"id":{"name":"rm_level_babby_controls_01","path":"rooms/rm_level_babby_controls_01/rm_level_babby_controls_01.yy",},"order":3,},
     {"id":{"name":"par_object_of_interest","path":"objects/par_object_of_interest/par_object_of_interest.yy",},"order":0,},
+    {"id":{"name":"obj_splash_controller","path":"objects/obj_splash_controller/obj_splash_controller.yy",},"order":6,},
     {"id":{"name":"snd_player_hit","path":"sounds/snd_player_hit/snd_player_hit.yy",},"order":21,},
     {"id":{"name":"obj_objective_circle_boss_shoot","path":"objects/obj_objective_circle_boss_shoot/obj_objective_circle_boss_shoot.yy",},"order":3,},
     {"id":{"name":"rm_level_moving_03","path":"rooms/rm_level_moving_03/rm_level_moving_03.yy",},"order":2,},
@@ -227,6 +229,7 @@
   },
   "RoomOrderNodes": [
     {"roomId":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
+    {"roomId":{"name":"rm_splash_controller","path":"rooms/rm_splash_controller/rm_splash_controller.yy",},},
     {"roomId":{"name":"rm_splash","path":"rooms/rm_splash/rm_splash.yy",},},
     {"roomId":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
     {"roomId":{"name":"rm_level_select","path":"rooms/rm_level_select/rm_level_select.yy",},},

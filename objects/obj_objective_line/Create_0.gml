@@ -1,6 +1,7 @@
 event_inherited();
 
 completed = false;
+inRadius = false;
 
 curProgressSpeed = 0;
 progressSpeed = 4;
@@ -46,6 +47,11 @@ function completionLogic()
 	var plr = collision_circle(progX, progY, radius, obj_player, false, false);
 	if (plr != noone)
 	{
+		if (!inRadius)
+		{
+			inRadius = true;
+		}
+		
 		//Move triangle depending on player speed and rotational speed
 		var speedModifier =		(abs(obj_player.hsp) + abs(obj_player.vsp) + 
 								(abs(obj_player.rotSpd[0] - obj_player.rotSpd[1])) / 2) * 0.2;
@@ -61,6 +67,7 @@ function completionLogic()
 	} else
 	{
 		curProgressSpeed = approach(curProgressSpeed, -progressDecay, progressFrc);
+		inRadius = false;
 	}
 	
 	//Actually increment completion value based on the triangle's current speed
@@ -149,8 +156,8 @@ function destroyLogic()
 		var _y2 = pointArray[progressPoint-1][1];
 		
 		pointLength = point_distance(_x, _y, _x2, _y2);
-		
-	} else if (progressPoint == 1 && progressLerp == 1 && !destroy)
+	}
+	else if (progressPoint == 1 && progressLerp == 1 && !destroy)
 	{
 		//If at end of the line, start destruction sequence
 		destroy = true;

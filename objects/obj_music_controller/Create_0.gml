@@ -39,16 +39,18 @@ bossMusicArray =
 
 creditsMusicArray =
 [
-
+	mus_menu_03,
+	mus_menu_03
 ]
 
 musicIndex = 0;
 menuMusicIndex = 0;
 bossMusicIndex = 0;
+creditsMusicIndex = 0;
 curMusic = musicArray[musicIndex];
 
-masterArray = [musicArray, menuMusicArray, bossMusicArray];
-indexArray = [musicIndex, menuMusicIndex, bossMusicIndex];
+masterArray = [musicArray, menuMusicArray, bossMusicArray, creditsMusicArray];
+indexArray = [musicIndex, menuMusicIndex, bossMusicIndex, creditsMusicIndex];
 curMusicArray = music.menu;
 curIndex = menuMusicIndex;
 

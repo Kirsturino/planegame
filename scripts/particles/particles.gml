@@ -12,6 +12,7 @@ global.linePart = -1;
 global.electricityPart = -1;
 global.bulletHitPart = -1;
 global.smokePartBlack = -1;
+global.lineTouchPart = -1;
 
 function initParticles()
 {

@@ -14,9 +14,9 @@ levelSetNames =
 	"Claustrophobia",
 	"They Move Against Us",
 	"But We Got The Moves",
-	"The Final Stretch",
+	"Final Stretch",
 	"Final Boss",
-	"Epilogue",
+	"Credits",
 	"Testland"
 ];
 

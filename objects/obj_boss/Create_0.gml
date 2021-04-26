@@ -139,8 +139,7 @@ function spawnCircle(x, y, dir, spd, radius, amount, obj)
 //Attacks
 function bulletStorm()
 {
-	if (bulletDelay == 0 && burstCooldown == 0)
-	{
+	if (bulletDelay == 0 && burstCooldown == 0)	{
 		bulletDir = point_direction(x, y, obj_player.x, obj_player.y);
 		spawnBullet(x, y, bulletDir, attack);
 		
@@ -236,6 +235,11 @@ function finalPhase()
 	}
 	
 	if (allDone) incrementPhase();
+}
+
+function finalFinalPhase_V2_final()
+{
+	if (circleCount >= 1) incrementPhase();
 }
 
 function bulletRings()
@@ -419,6 +423,13 @@ function coolingDown()
 			break;
 			
 			case 5:
+				if (state != finalFinalPhase_V2_final)
+					{ spawnCircle(x, y, 0, 0, 80, 30, obj_objective_circle_boss_shoot); }
+				
+				state = finalFinalPhase_V2_final;
+			break;
+			
+			case 6:
 				state = destructionPhase;
 			break;
 		}
@@ -505,8 +516,7 @@ function incrementPhase()
 //Tracking stuff
 circleCount = 0;
 transitionAmount = 3;
-phase = 3;
-incrementPhase();
+phase = 0;
 state = dormant;
 
 //Graphics
